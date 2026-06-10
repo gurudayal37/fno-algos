@@ -1,0 +1,6 @@
+dhanhq
+pandas
+duckdb
+python-dotenv
+requests
+tabulate

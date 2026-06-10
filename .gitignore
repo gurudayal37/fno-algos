@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data and Databases
+data/api-scrip-master*.csv
+data/*.db
+data/*.duckdb
+
+# IDEs and System
+.vscode/
+.idea/
+.DS_Store
+
+# Logs and Results
+data/*.log
+data/backtest_trades_*.csv
