@@ -68,7 +68,7 @@ class ExpiryBacktester:
         spot_candles = self.db.get_spot_candles(security_id, from_date, to_date)
         if spot_candles.empty:
             logger.error("No spot candles found in database. Please download data first.")
-            return None, pd.DataFrame()
+            return None, pd.DataFrame(), {}
             
         spot_candles['date'] = spot_candles['timestamp'].dt.date
         spot_candles['time'] = spot_candles['timestamp'].dt.strftime('%H:%M')
@@ -84,12 +84,13 @@ class ExpiryBacktester:
         
         if expiries.empty:
             logger.error("No option candles found in database. Please download options data first.")
-            return None, pd.DataFrame()
-            
+            return None, pd.DataFrame(), {}
+
         expiry_dates = sorted(pd.to_datetime(expiries['expiry_date']).dt.date.tolist())
         logger.info(f"Found {len(expiry_dates)} expiry dates in database.")
-        
+
         trade_logs = []
+        intraday_data = {}
         
         # 2. Iterate expiry day by expiry day
         for exp_date in expiry_dates:
@@ -273,7 +274,43 @@ class ExpiryBacktester:
             pe_net_pnl = pe_gross_pnl - pe_costs
             
             total_net_pnl = ce_net_pnl + pe_net_pnl
-            
+            total_costs = ce_costs + pe_costs
+
+            # 5b. Build intraday timeseries (spot, CE/PE premium, running PnL) for charting
+            day_spot_full = spot_candles[spot_candles['date'] == exp_date].set_index('time')
+            common_times_full = sorted(set(ce_lookup.index) & set(pe_lookup.index) & set(day_spot_full.index))
+
+            day_records = []
+            for t in common_times_full:
+                spot_val = day_spot_full.loc[t, 'close']
+                if isinstance(spot_val, pd.Series):
+                    spot_val = spot_val.iloc[0]
+
+                ce_close = ce_lookup.loc[t, 'close']
+                if isinstance(ce_close, pd.Series):
+                    ce_close = ce_close.iloc[0]
+
+                pe_close = pe_lookup.loc[t, 'close']
+                if isinstance(pe_close, pd.Series):
+                    pe_close = pe_close.iloc[0]
+
+                if t < entry_time_str:
+                    pnl = 0.0
+                else:
+                    ce_pnl_gross = (ce_entry_price - ce_close) * lot_size if t < ce_exit_time else (ce_entry_price - ce_exit_price) * lot_size
+                    pe_pnl_gross = (pe_entry_price - pe_close) * lot_size if t < pe_exit_time else (pe_entry_price - pe_exit_price) * lot_size
+                    pnl = ce_pnl_gross + pe_pnl_gross - total_costs
+
+                day_records.append({
+                    'time': t,
+                    'spot': spot_val,
+                    'ce': ce_close,
+                    'pe': pe_close,
+                    'pnl': pnl,
+                })
+
+            intraday_data[str(exp_date)] = day_records
+
             trade_logs.append({
                 'date': exp_date,
                 'underlying': underlying.upper(),
@@ -300,7 +337,7 @@ class ExpiryBacktester:
         # 6. Generate summary statistics
         df_trades = pd.DataFrame(trade_logs)
         if df_trades.empty:
-            return None, df_trades
+            return None, df_trades, {}
             
         total_pnl = df_trades['total_net_pnl'].sum()
         win_trades = df_trades[df_trades['total_net_pnl'] > 0]
@@ -328,4 +365,4 @@ class ExpiryBacktester:
             'avg_net_pnl_per_expiry': pnl_mean
         }
         
-        return summary, df_trades
+        return summary, df_trades, intraday_data

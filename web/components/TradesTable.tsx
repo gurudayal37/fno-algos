@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Trade } from "@/lib/data";
 
 function fmt(n: number) {
@@ -8,7 +9,15 @@ function pnlClass(n: number) {
   return n >= 0 ? "text-emerald-400" : "text-red-400";
 }
 
-export default function TradesTable({ trades }: { trades: Trade[] }) {
+interface TradesTableProps {
+  trades: Trade[];
+  strategyId: string;
+  intradayDates: string[];
+}
+
+export default function TradesTable({ trades, strategyId, intradayDates }: TradesTableProps) {
+  const intradaySet = new Set(intradayDates);
+
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-800">
       <table className="min-w-full divide-y divide-gray-800 text-sm">
@@ -29,7 +38,18 @@ export default function TradesTable({ trades }: { trades: Trade[] }) {
         <tbody className="divide-y divide-gray-800 bg-gray-950">
           {trades.map((t) => (
             <tr key={t.date}>
-              <td className="px-3 py-2 whitespace-nowrap text-gray-300">{t.date}</td>
+              <td className="px-3 py-2 whitespace-nowrap text-gray-300">
+                {intradaySet.has(t.date) ? (
+                  <Link
+                    href={`/strategy/${strategyId}/expiry/${t.date}`}
+                    className="text-blue-400 underline-offset-2 hover:underline"
+                  >
+                    {t.date}
+                  </Link>
+                ) : (
+                  t.date
+                )}
+              </td>
               <td className="px-3 py-2 text-right text-gray-300">{t.strike}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.spot_entry)}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_entry)}</td>

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAllStrategies, getStrategy } from "@/lib/data";
+import { getAllStrategies, getIntradayDates, getStrategy } from "@/lib/data";
 import SummaryCard from "@/components/SummaryCard";
 import EquityCurveChart from "@/components/EquityCurveChart";
 import TradesTable from "@/components/TradesTable";
@@ -19,6 +19,7 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
   }
 
   const { name, description, underlying, params: runParams, summary, trades } = strategy;
+  const intradayDates = getIntradayDates(params.id);
 
   return (
     <div>
@@ -74,7 +75,7 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
 
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Per-Expiry Trades</h2>
       <div className="mt-3">
-        <TradesTable trades={trades} />
+        <TradesTable trades={trades} strategyId={params.id} intradayDates={intradayDates} />
       </div>
     </div>
   );

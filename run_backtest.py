@@ -7,7 +7,7 @@ from datetime import datetime
 from config import logger, DATA_DIR, WEB_DATA_DIR
 from src.db import DBManager
 from src.backtester import ExpiryBacktester
-from src.web_export import export_strategy_result
+from src.web_export import export_strategy_result, export_intraday_data
 
 def main():
     parser = argparse.ArgumentParser(description="Dhan Option Backtester runner")
@@ -25,6 +25,7 @@ def main():
     parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
     parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")
     parser.add_argument("--description", type=str, default="Sells the ATM call and put at entry time on expiry day, with optional stop-losses.", help="Strategy description for web export")
+    parser.add_argument("--intraday-count", type=int, default=10, help="Number of most recent expiry days to export intraday charts for")
 
     args = parser.parse_args()
     
@@ -34,7 +35,7 @@ def main():
     db = DBManager()
     backtester = ExpiryBacktester(db)
     
-    summary, df_trades = backtester.run_backtest(
+    summary, df_trades, intraday_data = backtester.run_backtest(
         underlying=args.underlying,
         from_date=args.from_date,
         to_date=args.to_date,
@@ -114,6 +115,13 @@ def main():
             summary=summary,
             df_trades=df_trades,
             web_data_dir=WEB_DATA_DIR,
+        )
+        export_intraday_data(
+            strategy_id=strategy_id,
+            df_trades=df_trades,
+            intraday_data=intraday_data,
+            web_data_dir=WEB_DATA_DIR,
+            last_n=args.intraday_count,
         )
         logger.info(f"Web export complete for strategy '{strategy_id}'.")
 
