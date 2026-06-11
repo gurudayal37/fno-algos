@@ -3,6 +3,9 @@ import numpy as np
 from src.db import DBManager
 from config import logger
 
+# Candle timestamps are stored in UTC; the exchange (NSE/BSE) trades in IST (UTC+5:30)
+IST_OFFSET = pd.Timedelta(hours=5, minutes=30)
+
 class ExpiryBacktester:
     def __init__(self, db: DBManager):
         self.db = db
@@ -70,8 +73,8 @@ class ExpiryBacktester:
             logger.error("No spot candles found in database. Please download data first.")
             return None, pd.DataFrame(), {}
             
-        spot_candles['date'] = spot_candles['timestamp'].dt.date
-        spot_candles['time'] = spot_candles['timestamp'].dt.strftime('%H:%M')
+        spot_candles['date'] = (spot_candles['timestamp'] + IST_OFFSET).dt.date
+        spot_candles['time'] = (spot_candles['timestamp'] + IST_OFFSET).dt.strftime('%H:%M')
         
         # Find unique expiry dates in database from option_candles table
         conn = self.db.connect()
@@ -126,8 +129,8 @@ class ExpiryBacktester:
                 continue
                 
             # Set time as index for quick lookup
-            ce_candles['time'] = ce_candles['timestamp'].dt.strftime('%H:%M')
-            pe_candles['time'] = pe_candles['timestamp'].dt.strftime('%H:%M')
+            ce_candles['time'] = (ce_candles['timestamp'] + IST_OFFSET).dt.strftime('%H:%M')
+            pe_candles['time'] = (pe_candles['timestamp'] + IST_OFFSET).dt.strftime('%H:%M')
             
             ce_lookup = ce_candles.set_index('time')
             pe_lookup = pe_candles.set_index('time')
