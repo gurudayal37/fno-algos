@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 SRC_DIR = BASE_DIR / "src"
+WEB_DATA_DIR = BASE_DIR / "web" / "data" / "strategies"
 
 # Create directories if they do not exist
 DATA_DIR.mkdir(parents=True, exist_ok=True)

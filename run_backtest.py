@@ -4,9 +4,10 @@ from tabulate import tabulate
 import pandas as pd
 from datetime import datetime
 
-from config import logger, DATA_DIR
+from config import logger, DATA_DIR, WEB_DATA_DIR
 from src.db import DBManager
 from src.backtester import ExpiryBacktester
+from src.web_export import export_strategy_result
 
 def main():
     parser = argparse.ArgumentParser(description="Dhan Option Backtester runner")
@@ -20,7 +21,11 @@ def main():
     parser.add_argument("--c2c", action="store_true", help="Shift remaining leg SL to cost once one leg hits SL")
     parser.add_argument("--slippage-pct", type=float, default=0.005, help="Slippage percentage per execution (e.g. 0.005 for 0.5%)")
     parser.add_argument("--lot-size", type=int, default=None, help="Lot size (Nifty default=65, Sensex default=20)")
-    
+    parser.add_argument("--export-web", action="store_true", help="Export results as JSON for the web app (web/data/strategies)")
+    parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
+    parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")
+    parser.add_argument("--description", type=str, default="Sells the ATM call and put at entry time on expiry day, with optional stop-losses.", help="Strategy description for web export")
+
     args = parser.parse_args()
     
     # Setup leg stop-loss if it's set to 0
@@ -84,6 +89,33 @@ def main():
         df_preview[col] = df_preview[col].round(2)
         
     print(tabulate(df_preview.head(15), headers='keys', tablefmt='grid'))
+
+    # Export results for the web app
+    if args.export_web:
+        strategy_id = args.strategy_id or f"{args.underlying.lower()}_atm_short_straddle"
+        params = {
+            "underlying": args.underlying,
+            "from_date": args.from_date,
+            "to_date": args.to_date,
+            "entry_time": args.entry_time,
+            "exit_time": args.exit_time,
+            "sl_pct": sl_pct,
+            "combined_sl_pct": args.combined_sl_pct,
+            "c2c": args.c2c,
+            "slippage_pct": args.slippage_pct,
+            "lot_size": args.lot_size,
+        }
+        export_strategy_result(
+            strategy_id=strategy_id,
+            name=args.strategy_name,
+            description=args.description,
+            underlying=args.underlying,
+            params=params,
+            summary=summary,
+            df_trades=df_trades,
+            web_data_dir=WEB_DATA_DIR,
+        )
+        logger.info(f"Web export complete for strategy '{strategy_id}'.")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "nifty_atm_short_straddle",
+    "name": "ATM Short Straddle",
+    "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
+    "underlying": "NIFTY",
+    "params": {
+      "underlying": "NIFTY",
+      "from_date": "2026-01-01",
+      "to_date": "2026-06-10",
+      "entry_time": "09:20",
+      "exit_time": "15:15",
+      "sl_pct": 0.25,
+      "combined_sl_pct": null,
+      "c2c": false,
+      "slippage_pct": 0.005,
+      "lot_size": null
+    },
+    "summary": {
+      "underlying": "NIFTY",
+      "total_expiry_days": 24,
+      "winning_expiry_days": 7,
+      "win_rate_pct": 29.166666666666668,
+      "total_net_pnl": -16069.153583881016,
+      "max_drawdown": -16601.05904043567,
+      "sharpe_ratio": -6.084492512378094,
+      "avg_net_pnl_per_expiry": -669.5480659950423
+    }
+  },
+  {
+    "id": "sensex_atm_short_straddle",
+    "name": "ATM Short Straddle",
+    "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
+    "underlying": "SENSEX",
+    "params": {
+      "underlying": "SENSEX",
+      "from_date": "2026-01-01",
+      "to_date": "2026-06-10",
+      "entry_time": "09:20",
+      "exit_time": "15:15",
+      "sl_pct": 0.25,
+      "combined_sl_pct": null,
+      "c2c": false,
+      "slippage_pct": 0.005,
+      "lot_size": null
+    },
+    "summary": {
+      "underlying": "SENSEX",
+      "total_expiry_days": 24,
+      "winning_expiry_days": 12,
+      "win_rate_pct": 50.0,
+      "total_net_pnl": 6713.925486548376,
+      "max_drawdown": -2486.1342345197745,
+      "sharpe_ratio": 3.653862112639583,
+      "avg_net_pnl_per_expiry": 279.74689527284903
+    }
+  }
+]
