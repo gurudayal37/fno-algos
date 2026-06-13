@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import { getAllStrategies, getIntradayDates, getStrategy } from "@/lib/data";
-import { computeExtendedStats, computeYearlyStats } from "@/lib/stats";
+import { computeExtendedStats, computeYearlyStats, computeMonthlyTable } from "@/lib/stats";
 import SummaryCard from "@/components/SummaryCard";
 import EquityCurveChart from "@/components/EquityCurveChart";
 import DrawdownChart from "@/components/DrawdownChart";
 import YearlyReturnsTable from "@/components/YearlyReturnsTable";
+import MonthlyReturnsTable from "@/components/MonthlyReturnsTable";
 import TradesTable from "@/components/TradesTable";
 
 function fmtCurrency(n: number) {
@@ -25,6 +26,7 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
   const intradayDates = getIntradayDates(params.id);
   const stats = computeExtendedStats(trades);
   const yearlyStats = computeYearlyStats(trades);
+  const monthlyTable = computeMonthlyTable(trades);
 
   return (
     <div>
@@ -177,6 +179,11 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Returns by Year</h2>
       <div className="mt-3">
         <YearlyReturnsTable years={yearlyStats} />
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">Monthly Returns</h2>
+      <div className="mt-3">
+        <MonthlyReturnsTable rows={monthlyTable} />
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Per-Expiry Trades</h2>

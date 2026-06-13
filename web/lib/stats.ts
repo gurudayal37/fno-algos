@@ -156,3 +156,57 @@ export function computeYearlyStats(trades: Trade[]): YearlyStat[] {
   }
   return result.sort((a, b) => a.year.localeCompare(b.year));
 }
+
+export const MONTH_KEYS = [
+  "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
+] as const;
+
+export const MONTH_LABELS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+] as const;
+
+export interface MonthlyRow {
+  year: string;
+  months: Record<string, number | null>; // keyed by "01".."12", null if no trades that month
+  total: number;
+  maxDD: number;
+  returnOverMaxDD: number | null;
+}
+
+export function computeMonthlyTable(trades: Trade[]): MonthlyRow[] {
+  const byYear = new Map<string, Trade[]>();
+  for (const t of trades) {
+    const year = t.date.slice(0, 4);
+    if (!byYear.has(year)) byYear.set(year, []);
+    byYear.get(year)!.push(t);
+  }
+
+  const result: MonthlyRow[] = [];
+  for (const [year, yearTrades] of byYear) {
+    const months: Record<string, number | null> = {};
+    for (const m of MONTH_KEYS) months[m] = null;
+
+    for (const t of yearTrades) {
+      const m = t.date.slice(5, 7);
+      months[m] = (months[m] ?? 0) + t.total_net_pnl;
+    }
+
+    const total = yearTrades.reduce((s, t) => s + t.total_net_pnl, 0);
+
+    // Max drawdown within the year, based on cumulative PnL reset at year start
+    let cum = 0;
+    let peak = 0;
+    let maxDD = 0;
+    for (const t of yearTrades) {
+      cum += t.total_net_pnl;
+      peak = Math.max(peak, cum);
+      maxDD = Math.min(maxDD, cum - peak);
+    }
+
+    const returnOverMaxDD = maxDD < 0 ? total / Math.abs(maxDD) : null;
+
+    result.push({ year, months, total, maxDD, returnOverMaxDD });
+  }
+
+  return result.sort((a, b) => a.year.localeCompare(b.year));
+}
