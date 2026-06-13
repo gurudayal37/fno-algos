@@ -154,7 +154,7 @@ def main():
             security_id = "13"
             exchange_segment = "IDX_I"
             instrument_type = "INDEX"
-            day_of_week = 3 # Thursday
+            day_of_week = 1 # Tuesday (falls back to last trading day <= Tuesday on holidays)
         else: # SENSEX
             security_id = "51"
             exchange_segment = "IDX_I"

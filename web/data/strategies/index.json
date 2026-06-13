@@ -18,13 +18,13 @@
     },
     "summary": {
       "underlying": "NIFTY",
-      "total_expiry_days": 24,
-      "winning_expiry_days": 12,
-      "win_rate_pct": 50.0,
-      "total_net_pnl": -26342.205279191927,
-      "max_drawdown": -29189.1306954069,
-      "sharpe_ratio": -5.266808216170832,
-      "avg_net_pnl_per_expiry": -1097.5918866329969
+      "total_expiry_days": 23,
+      "winning_expiry_days": 14,
+      "win_rate_pct": 60.86956521739131,
+      "total_net_pnl": 25153.935768167965,
+      "max_drawdown": -13685.672099747098,
+      "sharpe_ratio": 5.119085038893637,
+      "avg_net_pnl_per_expiry": 1093.649381224694
     }
   },
   {
