@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 import { getAllStrategies, getIntradayDates, getStrategy } from "@/lib/data";
+import { computeExtendedStats, computeYearlyStats } from "@/lib/stats";
 import SummaryCard from "@/components/SummaryCard";
 import EquityCurveChart from "@/components/EquityCurveChart";
+import DrawdownChart from "@/components/DrawdownChart";
+import YearlyReturnsTable from "@/components/YearlyReturnsTable";
 import TradesTable from "@/components/TradesTable";
 
 function fmtCurrency(n: number) {
@@ -20,6 +23,8 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
 
   const { name, description, underlying, params: runParams, summary, trades } = strategy;
   const intradayDates = getIntradayDates(params.id);
+  const stats = computeExtendedStats(trades);
+  const yearlyStats = computeYearlyStats(trades);
 
   return (
     <div>
@@ -68,9 +73,80 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
         <SummaryCard label="Sharpe Ratio" value={summary.sharpe_ratio.toFixed(2)} />
       </div>
 
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">Risk &amp; Trade Stats</h2>
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <SummaryCard label="No. of Trades" value={`${stats.numTrades}`} />
+        <SummaryCard label="Wins" value={`${stats.numWins}`} positive />
+        <SummaryCard label="Losses" value={`${stats.numLosses}`} negative />
+        <SummaryCard
+          label="Profit Factor"
+          value={Number.isFinite(stats.profitFactor) ? stats.profitFactor.toFixed(2) : "∞"}
+        />
+        <SummaryCard
+          label="Best Trade"
+          value={fmtCurrency(stats.bestTrade)}
+          positive={stats.bestTrade >= 0}
+        />
+        <SummaryCard
+          label="Worst Trade"
+          value={fmtCurrency(stats.worstTrade)}
+          negative={stats.worstTrade < 0}
+        />
+        <SummaryCard
+          label="Avg Win"
+          value={fmtCurrency(stats.avgWin)}
+          positive
+        />
+        <SummaryCard
+          label="Avg Loss"
+          value={fmtCurrency(stats.avgLoss)}
+          negative
+        />
+        <SummaryCard
+          label="Expectancy / Trade"
+          value={fmtCurrency(stats.expectancy)}
+          positive={stats.expectancy >= 0}
+          negative={stats.expectancy < 0}
+        />
+        <SummaryCard
+          label="Max Drawdown %"
+          value={`${stats.maxDrawdownPct.toFixed(2)}%`}
+          negative
+        />
+        <SummaryCard
+          label="Max DD Duration"
+          value={`${stats.maxDDDurationTrades} expiries`}
+        />
+        <SummaryCard
+          label="Sortino Ratio"
+          value={stats.sortinoRatio.toFixed(2)}
+        />
+        <SummaryCard
+          label="Calmar Ratio"
+          value={stats.calmarRatio.toFixed(2)}
+        />
+        <SummaryCard
+          label="Annualized PnL"
+          value={fmtCurrency(stats.annualizedPnl)}
+          positive={stats.annualizedPnl >= 0}
+          negative={stats.annualizedPnl < 0}
+        />
+        <SummaryCard label="Backtest Span" value={`${stats.years.toFixed(1)} yrs`} />
+      </div>
+
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Equity Curve</h2>
       <div className="mt-3">
         <EquityCurveChart trades={trades} />
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">Drawdown</h2>
+      <div className="mt-3">
+        <DrawdownChart trades={trades} />
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">Returns by Year</h2>
+      <div className="mt-3">
+        <YearlyReturnsTable years={yearlyStats} />
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Per-Expiry Trades</h2>
