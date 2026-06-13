@@ -20,7 +20,7 @@ def main():
     parser.add_argument("--combined-sl-pct", type=float, default=None, help="Combined premium stop-loss percentage (e.g. 0.30 for 30%). Default None.")
     parser.add_argument("--c2c", action="store_true", help="Shift remaining leg SL to cost once one leg hits SL")
     parser.add_argument("--slippage-pct", type=float, default=0.005, help="Slippage percentage per execution (e.g. 0.005 for 0.5%)")
-    parser.add_argument("--lot-size", type=int, default=None, help="Lot size (Nifty default=65, Sensex default=20)")
+    parser.add_argument("--lot-size", type=int, default=None, help="Override lot size for all expiries. Default: use the historically correct lot size per expiry date (see LOT_SIZE_REGIMES in src/backtester.py)")
     parser.add_argument("--export-web", action="store_true", help="Export results as JSON for the web app (web/data/strategies)")
     parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
     parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")

@@ -21,10 +21,10 @@
       "total_expiry_days": 304,
       "winning_expiry_days": 164,
       "win_rate_pct": 53.94736842105263,
-      "total_net_pnl": 145151.3172712074,
-      "max_drawdown": -17676.710199292836,
-      "sharpe_ratio": 1.3729458509652555,
-      "avg_net_pnl_per_expiry": 477.4714383921296
+      "total_net_pnl": 134221.65310592548,
+      "max_drawdown": -14555.992460994472,
+      "sharpe_ratio": 1.3462520083465068,
+      "avg_net_pnl_per_expiry": 441.5185957431759
     }
   },
   {
@@ -49,10 +49,10 @@
       "total_expiry_days": 158,
       "winning_expiry_days": 82,
       "win_rate_pct": 51.89873417721519,
-      "total_net_pnl": 70832.21138659626,
-      "max_drawdown": -17985.419467498938,
-      "sharpe_ratio": 1.0410082158308642,
-      "avg_net_pnl_per_expiry": 448.30513535820415
+      "total_net_pnl": 51804.52451196193,
+      "max_drawdown": -12631.381366780237,
+      "sharpe_ratio": 0.8596977988547285,
+      "avg_net_pnl_per_expiry": 327.87673741748057
     }
   }
 ]

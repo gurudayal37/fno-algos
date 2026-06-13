@@ -24,6 +24,7 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
         <thead className="bg-gray-900 text-gray-400">
           <tr>
             <th className="px-3 py-2 text-left font-medium">Date</th>
+            <th className="px-3 py-2 text-right font-medium">Lot Size</th>
             <th className="px-3 py-2 text-right font-medium">Strike</th>
             <th className="px-3 py-2 text-right font-medium">Spot Entry</th>
             <th className="px-3 py-2 text-right font-medium">CE Entry</th>
@@ -50,6 +51,7 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
                   t.date
                 )}
               </td>
+              <td className="px-3 py-2 text-right text-gray-300">{t.lot_size}</td>
               <td className="px-3 py-2 text-right text-gray-300">{t.strike}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.spot_entry)}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_entry)}</td>

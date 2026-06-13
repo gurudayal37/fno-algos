@@ -31,6 +31,7 @@ export interface Trade {
   date: string;
   underlying: string;
   strike: number;
+  lot_size: number;
   spot_entry: number;
   ce_entry: number;
   ce_exit: number;

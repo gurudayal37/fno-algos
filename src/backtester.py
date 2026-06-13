@@ -6,6 +6,36 @@ from config import logger
 # Candle timestamps are stored in UTC; the exchange (NSE/BSE) trades in IST (UTC+5:30)
 IST_OFFSET = pd.Timedelta(hours=5, minutes=30)
 
+# Historical lot-size regimes (NSE/BSE periodically revise these to keep contract
+# notional value within SEBI's mandated range). Each entry is
+# (regime_start_date, lot_size); a regime applies to expiry dates from its start
+# date up to (but not including) the next regime's start date.
+LOT_SIZE_REGIMES = {
+    "NIFTY": [
+        ("2020-01-01", 75),   # Lot size 75 until the Jul-2021 revision
+        ("2021-07-01", 50),   # Reduced to 50 from Jul-2021 expiries
+        ("2024-08-05", 25),   # Halved to 25 from Aug-2024 weekly expiries
+        ("2024-11-20", 75),   # Raised to 75 from 20-Nov-2024
+        ("2025-12-31", 65),   # Reduced to 65 for contracts expiring after 30-Dec-2025
+    ],
+    "SENSEX": [
+        ("2023-05-15", 10),   # Lot size 10 from launch of weekly Sensex options
+        ("2024-11-20", 20),   # Increased to 20 from 20-Nov-2024
+    ],
+}
+
+def _lot_size_for_date(underlying, exp_date):
+    """Returns the historically correct lot size for a given expiry date."""
+    regimes = LOT_SIZE_REGIMES.get(underlying.upper())
+    if not regimes:
+        return 15
+    exp_date = pd.to_datetime(exp_date)
+    lot_size = regimes[0][1]
+    for start_date_str, size in regimes:
+        if exp_date >= pd.to_datetime(start_date_str):
+            lot_size = size
+    return lot_size
+
 class ExpiryBacktester:
     def __init__(self, db: DBManager):
         self.db = db
@@ -57,14 +87,10 @@ class ExpiryBacktester:
         logger.info(f"Running backtest for {underlying} from {from_date} to {to_date}...")
         logger.info(f"Parameters: Entry={entry_time_str}, Exit={exit_time_str}, Leg SL={sl_pct}, Combined SL={combined_sl_pct}, C2C={shift_c2c}, Slippage={slippage_pct}")
 
-        # Resolve lot sizes if not specified
-        if lot_size is None:
-            if underlying.upper() == "NIFTY":
-                lot_size = 65  # Nifty lot size is 65 in 2026
-            elif underlying.upper() == "SENSEX":
-                lot_size = 20  # Sensex lot size is 20 in 2026
-            else:
-                lot_size = 15
+        # If lot_size is not explicitly overridden, use the historically correct
+        # lot size for each expiry date (see LOT_SIZE_REGIMES) since NSE/BSE have
+        # revised lot sizes multiple times across 2020-2026.
+        fixed_lot_size = lot_size
 
         # 1. Fetch spot index data to identify trading days and calculate ATM strikes
         security_id = "13" if underlying.upper() == "NIFTY" else "51"
@@ -98,7 +124,9 @@ class ExpiryBacktester:
         # 2. Iterate expiry day by expiry day
         for exp_date in expiry_dates:
             logger.info(f"Simulating Expiry Day: {exp_date}")
-            
+
+            lot_size = fixed_lot_size if fixed_lot_size is not None else _lot_size_for_date(underlying, exp_date)
+
             # Find spot price at entry time on this day
             day_spot = spot_candles[(spot_candles['date'] == exp_date) & (spot_candles['time'] == entry_time_str)]
             if day_spot.empty:
@@ -318,6 +346,7 @@ class ExpiryBacktester:
                 'date': exp_date,
                 'underlying': underlying.upper(),
                 'strike': atm_strike,
+                'lot_size': lot_size,
                 'spot_entry': spot_entry_price,
                 
                 'ce_entry': ce_entry_price,
