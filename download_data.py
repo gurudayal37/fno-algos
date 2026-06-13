@@ -23,13 +23,45 @@ def chunk_date_range(start_date_str, end_date_str, chunk_size_days=30):
         yield current_start.strftime('%Y-%m-%d'), current_end.strftime('%Y-%m-%d')
         current_start = current_end
 
-def find_expiry_dates_from_db(db: DBManager, security_id, day_of_week):
+# Historical weekly-expiry-day regimes (SEBI has changed these multiple times).
+# Each entry is (regime_start_date, day_of_week) where day_of_week follows
+# pandas convention (Monday=0 ... Sunday=6). A regime applies from its
+# start date up to (but not including) the next regime's start date.
+# SENSEX weekly options only began trading on 2023-05-15; before that there
+# is no weekly-expiry regime (None), so no weekly expiry dates are produced.
+EXPIRY_DAY_REGIMES = {
+    "NIFTY": [
+        ("2020-01-01", 3),  # Thursday
+        ("2025-09-01", 1),  # Tuesday
+    ],
+    "SENSEX": [
+        ("2023-05-15", 4),  # Friday
+        ("2025-01-01", 1),  # Tuesday
+        ("2025-09-01", 3),  # Thursday
+    ],
+}
+
+def _regime_day_of_week(underlying, trade_dates):
     """
-    Finds unique dates in the spot_candles table for a given security_id 
-    and returns those that are candidate weekly expiries.
-    day_of_week: 3 for Thursday (Nifty, Sensex). The expiry date is the last
-    trading day in the ISO week with dayofweek <= day_of_week, so a holiday
-    on the expiry day correctly rolls back to the prior trading day.
+    Returns a Series of day-of-week thresholds (or NaN where no weekly-expiry
+    regime applies yet) for each date in trade_dates, based on
+    EXPIRY_DAY_REGIMES[underlying].
+    """
+    regimes = EXPIRY_DAY_REGIMES[underlying.upper()]
+    result = pd.Series(float('nan'), index=trade_dates.index)
+    for start_date_str, dow in regimes:
+        result[trade_dates >= pd.to_datetime(start_date_str)] = dow
+    return result
+
+def find_expiry_dates_from_db(db: DBManager, security_id, underlying):
+    """
+    Finds unique dates in the spot_candles table for a given security_id
+    and returns those that are candidate weekly expiries, accounting for
+    historical changes in the weekly-expiry day-of-week (see
+    EXPIRY_DAY_REGIMES). For each trading day, the applicable regime's
+    day-of-week is used as the cutoff; the expiry date is the last trading
+    day in the ISO week with dayofweek <= cutoff, so a holiday on the
+    expiry day correctly rolls back to the prior trading day.
     """
     conn = db.connect()
     # Check if table exists
@@ -40,23 +72,26 @@ def find_expiry_dates_from_db(db: DBManager, security_id, day_of_week):
         return []
 
     res = conn.execute("""
-        SELECT DISTINCT CAST(timestamp AS DATE) as trade_date 
-        FROM spot_candles 
+        SELECT DISTINCT CAST(timestamp AS DATE) as trade_date
+        FROM spot_candles
         WHERE security_id = ?
         ORDER BY trade_date
     """, [str(security_id)]).df()
-    
+
     if res.empty:
         return []
-        
+
     res['trade_date'] = pd.to_datetime(res['trade_date'])
     res['dayofweek'] = res['trade_date'].dt.dayofweek
     res['iso_year'] = res['trade_date'].dt.isocalendar().year
     res['iso_week'] = res['trade_date'].dt.isocalendar().week
-    
-    # Take the last trading day <= day_of_week in each ISO week (rolls back to
-    # the prior trading day if the expiry weekday itself is a holiday)
-    weeklies = res[res['dayofweek'] <= int(day_of_week)]
+    res['regime_dow'] = _regime_day_of_week(underlying, res['trade_date'])
+
+    # Take the last trading day <= the applicable regime's day_of_week in each
+    # ISO week (rolls back to the prior trading day if the expiry weekday
+    # itself is a holiday). Dates before any regime starts (regime_dow is NaN)
+    # are excluded entirely.
+    weeklies = res[res['dayofweek'] <= res['regime_dow']]
     expiry_idx = weeklies.groupby(['iso_year', 'iso_week'])['trade_date'].idxmax()
     adjusted_expiry_dates = res.loc[expiry_idx]['trade_date'].dt.strftime('%Y-%m-%d').tolist()
 
@@ -121,7 +156,7 @@ def main():
     parser.add_argument("--download-spot", action="store_true", help="Download spot index historical data (requires API keys)")
     parser.add_argument("--download-options", action="store_true", help="Download rolling option contracts for expiry days (requires spot data downloaded first)")
     parser.add_argument("--underlying", type=str, default="NIFTY", choices=["NIFTY", "SENSEX"], help="Underlying symbol to download (NIFTY or SENSEX)")
-    parser.add_argument("--from-date", type=str, default="2026-01-01", help="From date (YYYY-MM-DD)")
+    parser.add_argument("--from-date", type=str, default="2020-01-01", help="From date (YYYY-MM-DD)")
     parser.add_argument("--to-date", type=str, default="2026-06-10", help="To date (YYYY-MM-DD)")
     parser.add_argument("--interval", type=str, default="1", help="Candle interval (e.g. D or 1, 5, 15, 60)")
     
@@ -154,12 +189,10 @@ def main():
             security_id = "13"
             exchange_segment = "IDX_I"
             instrument_type = "INDEX"
-            day_of_week = 1 # Tuesday (falls back to last trading day <= Tuesday on holidays)
         else: # SENSEX
             security_id = "51"
             exchange_segment = "IDX_I"
             instrument_type = "INDEX"
-            day_of_week = 3 # Thursday (falls back to last trading day <= Thursday on holidays)
             
         if args.download_spot:
             logger.info(f"Downloading spot data for {args.underlying} (ID: {security_id}) from {args.from_date} to {args.to_date}...")
@@ -183,7 +216,7 @@ def main():
             
         if args.download_options:
             logger.info(f"Identifying weekly expiry dates for {args.underlying}...")
-            expiry_dates = find_expiry_dates_from_db(db, security_id, day_of_week)
+            expiry_dates = find_expiry_dates_from_db(db, security_id, args.underlying)
             logger.info(f"Found {len(expiry_dates)} expiry dates: {expiry_dates}")
             
             # Filter dates to be within user range

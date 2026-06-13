@@ -352,10 +352,11 @@ class ExpiryBacktester:
         df_trades['drawdown'] = df_trades['cum_pnl'] - df_trades['peak']
         max_drawdown = df_trades['drawdown'].min()
         
-        # Sharpe ratio (ignoring risk free rate)
+        # Sharpe ratio (ignoring risk free rate). Trades occur weekly (one per
+        # expiry), so annualize using sqrt(52) rather than the daily sqrt(252).
         pnl_std = df_trades['total_net_pnl'].std()
         pnl_mean = df_trades['total_net_pnl'].mean()
-        sharpe = (pnl_mean / pnl_std * np.sqrt(252)) if pnl_std > 0 else 0.0
+        sharpe = (pnl_mean / pnl_std * np.sqrt(52)) if pnl_std > 0 else 0.0
         
         summary = {
             'underlying': underlying.upper(),
