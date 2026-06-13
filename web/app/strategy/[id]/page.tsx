@@ -95,6 +95,14 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
         />
       </div>
 
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">Charges &amp; Taxes</h2>
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <SummaryCard label="Gross PnL (before charges)" value={fmtCurrency(stats.grossPnl)} />
+        <SummaryCard label="Total Charges (Fees + Taxes)" value={fmtCurrency(stats.totalCosts)} negative />
+        <SummaryCard label="Avg Charges / Trade" value={fmtCurrency(stats.avgCostPerTrade)} negative />
+        <SummaryCard label="Net PnL (after charges)" value={fmtCurrency(stats.totalNetPnl)} positive={stats.totalNetPnl >= 0} negative={stats.totalNetPnl < 0} />
+      </div>
+
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Risk &amp; Trade Stats</h2>
       <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         <SummaryCard label="No. of Trades" value={`${stats.numTrades}`} />

@@ -12,6 +12,9 @@ export interface ExtendedStats {
   profitFactor: number;
   expectancy: number;
   totalNetPnl: number;
+  totalCosts: number;
+  grossPnl: number;
+  avgCostPerTrade: number;
   maxDrawdown: number;
   maxDrawdownPct: number;
   maxDDDurationTrades: number;
@@ -53,6 +56,10 @@ export function computeExtendedStats(trades: Trade[], capitalBase = 100000): Ext
 
   const totalNetPnl = trades.length > 0 ? trades[trades.length - 1].cum_pnl : 0;
   const expectancy = numTrades > 0 ? totalNetPnl / numTrades : 0;
+
+  const totalCosts = trades.reduce((s, t) => s + (t.ce_costs ?? 0) + (t.pe_costs ?? 0), 0);
+  const grossPnl = totalNetPnl + totalCosts;
+  const avgCostPerTrade = numTrades > 0 ? totalCosts / numTrades : 0;
 
   // Max drawdown (absolute, already tracked per-trade) and as % of the peak it fell from
   let maxDrawdown = 0;
@@ -109,6 +116,9 @@ export function computeExtendedStats(trades: Trade[], capitalBase = 100000): Ext
     profitFactor,
     expectancy,
     totalNetPnl,
+    totalCosts,
+    grossPnl,
+    avgCostPerTrade,
     maxDrawdown,
     maxDrawdownPct,
     maxDDDurationTrades,
