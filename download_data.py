@@ -27,7 +27,9 @@ def find_expiry_dates_from_db(db: DBManager, security_id, day_of_week):
     """
     Finds unique dates in the spot_candles table for a given security_id 
     and returns those that are candidate weekly expiries.
-    day_of_week: 3 for Thursday (Nifty), 4 for Friday (Sensex)
+    day_of_week: 3 for Thursday (Nifty, Sensex). The expiry date is the last
+    trading day in the ISO week with dayofweek <= day_of_week, so a holiday
+    on the expiry day correctly rolls back to the prior trading day.
     """
     conn = db.connect()
     # Check if table exists
@@ -52,19 +54,12 @@ def find_expiry_dates_from_db(db: DBManager, security_id, day_of_week):
     res['iso_year'] = res['trade_date'].dt.isocalendar().year
     res['iso_week'] = res['trade_date'].dt.isocalendar().week
     
-    if int(day_of_week) == 3: # Nifty (Thursday)
-        # Filter trade dates <= Thursday
-        weeklies = res[res['dayofweek'] <= 3]
-        expiry_idx = weeklies.groupby(['iso_year', 'iso_week'])['trade_date'].idxmax()
-        adjusted_expiry_dates = res.loc[expiry_idx]['trade_date'].dt.strftime('%Y-%m-%d').tolist()
-    elif int(day_of_week) == 4: # Sensex (Friday)
-        # Filter trade dates <= Friday
-        weeklies = res[res['dayofweek'] <= 4]
-        expiry_idx = weeklies.groupby(['iso_year', 'iso_week'])['trade_date'].idxmax()
-        adjusted_expiry_dates = res.loc[expiry_idx]['trade_date'].dt.strftime('%Y-%m-%d').tolist()
-    else:
-        adjusted_expiry_dates = []
-        
+    # Take the last trading day <= day_of_week in each ISO week (rolls back to
+    # the prior trading day if the expiry weekday itself is a holiday)
+    weeklies = res[res['dayofweek'] <= int(day_of_week)]
+    expiry_idx = weeklies.groupby(['iso_year', 'iso_week'])['trade_date'].idxmax()
+    adjusted_expiry_dates = res.loc[expiry_idx]['trade_date'].dt.strftime('%Y-%m-%d').tolist()
+
     return sorted(adjusted_expiry_dates)
 
 def run_verify():
@@ -164,7 +159,7 @@ def main():
             security_id = "51"
             exchange_segment = "IDX_I"
             instrument_type = "INDEX"
-            day_of_week = 4 # Friday
+            day_of_week = 3 # Thursday (falls back to last trading day <= Thursday on holidays)
             
         if args.download_spot:
             logger.info(f"Downloading spot data for {args.underlying} (ID: {security_id}) from {args.from_date} to {args.to_date}...")

@@ -47,12 +47,12 @@
     "summary": {
       "underlying": "SENSEX",
       "total_expiry_days": 24,
-      "winning_expiry_days": 9,
-      "win_rate_pct": 37.5,
-      "total_net_pnl": -26385.0088067729,
-      "max_drawdown": -29310.987327194714,
-      "sharpe_ratio": -5.472756334698017,
-      "avg_net_pnl_per_expiry": -1099.3753669488708
+      "winning_expiry_days": 11,
+      "win_rate_pct": 45.83333333333333,
+      "total_net_pnl": -2469.9262540343952,
+      "max_drawdown": -6662.071326413898,
+      "sharpe_ratio": -0.5957074880234223,
+      "avg_net_pnl_per_expiry": -102.9135939180998
     }
   }
 ]
