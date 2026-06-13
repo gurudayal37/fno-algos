@@ -73,6 +73,28 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
         <SummaryCard label="Sharpe Ratio" value={summary.sharpe_ratio.toFixed(2)} />
       </div>
 
+      <h2 className="mt-8 text-lg font-semibold text-gray-100">
+        Returns (on Rs. {stats.capitalBase.toLocaleString("en-IN")} capital)
+      </h2>
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <SummaryCard
+          label="Total Return"
+          value={`${stats.totalReturnPct.toFixed(2)}%`}
+          positive={stats.totalReturnPct >= 0}
+          negative={stats.totalReturnPct < 0}
+        />
+        <SummaryCard
+          label="CAGR"
+          value={`${stats.cagrPct.toFixed(2)}%`}
+          positive={stats.cagrPct >= 0}
+          negative={stats.cagrPct < 0}
+        />
+        <SummaryCard
+          label="End Value"
+          value={fmtCurrency(stats.capitalBase + stats.totalNetPnl)}
+        />
+      </div>
+
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Risk &amp; Trade Stats</h2>
       <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         <SummaryCard label="No. of Trades" value={`${stats.numTrades}`} />

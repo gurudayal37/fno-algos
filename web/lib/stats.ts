@@ -19,6 +19,9 @@ export interface ExtendedStats {
   calmarRatio: number;
   annualizedPnl: number;
   years: number;
+  capitalBase: number;
+  totalReturnPct: number;
+  cagrPct: number;
 }
 
 export interface YearlyStat {
@@ -30,7 +33,7 @@ export interface YearlyStat {
   winRate: number;
 }
 
-export function computeExtendedStats(trades: Trade[]): ExtendedStats {
+export function computeExtendedStats(trades: Trade[], capitalBase = 100000): ExtendedStats {
   const numTrades = trades.length;
   const wins = trades.filter((t) => t.total_net_pnl > 0);
   const losses = trades.filter((t) => t.total_net_pnl <= 0);
@@ -89,6 +92,11 @@ export function computeExtendedStats(trades: Trade[]): ExtendedStats {
   const annualizedPnl = years > 0 ? totalNetPnl / years : totalNetPnl;
   const calmarRatio = maxDrawdown < 0 ? annualizedPnl / Math.abs(maxDrawdown) : 0;
 
+  // CAGR / total return relative to an assumed starting capital base
+  const endValue = capitalBase + totalNetPnl;
+  const totalReturnPct = (totalNetPnl / capitalBase) * 100;
+  const cagrPct = years > 0 && endValue > 0 ? (Math.pow(endValue / capitalBase, 1 / years) - 1) * 100 : 0;
+
   return {
     numTrades,
     numWins,
@@ -108,6 +116,9 @@ export function computeExtendedStats(trades: Trade[]): ExtendedStats {
     calmarRatio,
     annualizedPnl,
     years,
+    capitalBase,
+    totalReturnPct,
+    cagrPct,
   };
 }
 
