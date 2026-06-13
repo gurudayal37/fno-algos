@@ -166,7 +166,7 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
 
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Equity Curve</h2>
       <div className="mt-3">
-        <EquityCurveChart trades={trades} />
+        <EquityCurveChart trades={trades} capitalBase={stats.capitalBase} />
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-gray-100">Drawdown</h2>

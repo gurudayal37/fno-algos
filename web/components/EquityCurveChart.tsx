@@ -11,11 +11,10 @@ import {
 } from "recharts";
 import type { Trade } from "@/lib/data";
 
-export default function EquityCurveChart({ trades }: { trades: Trade[] }) {
+export default function EquityCurveChart({ trades, capitalBase = 100000 }: { trades: Trade[]; capitalBase?: number }) {
   const data = trades.map((t) => ({
     date: t.date,
-    cum_pnl: Math.round(t.cum_pnl * 100) / 100,
-    drawdown: Math.round(t.drawdown * 100) / 100,
+    equity: Math.round((capitalBase + t.cum_pnl) * 100) / 100,
   }));
 
   return (
@@ -24,15 +23,15 @@ export default function EquityCurveChart({ trades }: { trades: Trade[] }) {
         <LineChart data={data} margin={{ top: 8, right: 16, bottom: 8, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
           <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9ca3af" }} minTickGap={24} />
-          <YAxis tick={{ fontSize: 11, fill: "#9ca3af" }} />
+          <YAxis tick={{ fontSize: 11, fill: "#9ca3af" }} domain={["auto", "auto"]} />
           <Tooltip
             contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151" }}
             labelStyle={{ color: "#e5e7eb" }}
           />
           <Line
             type="monotone"
-            dataKey="cum_pnl"
-            name="Cumulative PnL"
+            dataKey="equity"
+            name="Equity"
             stroke="#34d399"
             dot={false}
             strokeWidth={2}
