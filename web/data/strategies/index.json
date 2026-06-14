@@ -78,13 +78,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 160,
-      "winning_expiry_days": 95,
-      "win_rate_pct": 59.375,
-      "total_net_pnl": 56146.205709577895,
+      "total_expiry_days": 159,
+      "winning_expiry_days": 94,
+      "win_rate_pct": 59.11949685534591,
+      "total_net_pnl": 53884.11854496499,
       "max_drawdown": -5665.6573456941,
-      "sharpe_ratio": 1.7021853464923775,
-      "avg_net_pnl_per_expiry": 350.91378568486186
+      "sharpe_ratio": 1.6473405922661815,
+      "avg_net_pnl_per_expiry": 338.89382732682384
     }
   },
   {
@@ -107,13 +107,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 159,
+      "total_expiry_days": 158,
       "winning_expiry_days": 82,
-      "win_rate_pct": 51.57232704402516,
-      "total_net_pnl": 49691.6053084336,
+      "win_rate_pct": 51.89873417721519,
+      "total_net_pnl": 53622.712968122585,
       "max_drawdown": -12631.381366780237,
-      "sharpe_ratio": 0.8200115651748615,
-      "avg_net_pnl_per_expiry": 312.5258195498969
+      "sharpe_ratio": 0.8944782668628102,
+      "avg_net_pnl_per_expiry": 339.3842592919151
     }
   }
 ]
