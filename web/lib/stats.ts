@@ -36,7 +36,7 @@ export interface YearlyStat {
   winRate: number;
 }
 
-export function computeExtendedStats(trades: Trade[], capitalBase = 100000): ExtendedStats {
+export function computeExtendedStats(trades: Trade[], capitalBase = 200000): ExtendedStats {
   const numTrades = trades.length;
   const wins = trades.filter((t) => t.total_net_pnl > 0);
   const losses = trades.filter((t) => t.total_net_pnl <= 0);
