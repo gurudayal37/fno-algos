@@ -31,6 +31,8 @@ export interface Trade {
   date: string;
   underlying: string;
   strike: number;
+  ce_strike?: number;
+  pe_strike?: number;
   lot_size: number;
   spot_entry: number;
   ce_entry: number;
@@ -67,6 +69,8 @@ export interface IntradayCandle {
 export interface ExpiryDetail {
   date: string;
   strike: number;
+  ce_strike?: number;
+  pe_strike?: number;
   ce_entry: number;
   ce_exit: number;
   ce_exit_time: string;

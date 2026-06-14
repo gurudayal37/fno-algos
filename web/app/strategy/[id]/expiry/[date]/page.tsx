@@ -26,7 +26,10 @@ export default function ExpiryDetailPage({ params }: { params: { id: string; dat
       </Link>
 
       <h1 className="mt-1 text-2xl font-semibold text-gray-100">
-        {expiry.date} &mdash; Strike {expiry.strike}
+        {expiry.date}
+        {expiry.ce_strike !== undefined && expiry.pe_strike !== undefined
+          ? ` — CE ${expiry.ce_strike} / PE ${expiry.pe_strike}`
+          : ` — Strike ${expiry.strike}`}
       </h1>
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400">
@@ -45,7 +48,11 @@ export default function ExpiryDetailPage({ params }: { params: { id: string; dat
           positive={expiry.total_net_pnl >= 0}
           negative={expiry.total_net_pnl < 0}
         />
-        <SummaryCard label="ATM Strike" value={`${expiry.strike}`} />
+        {expiry.ce_strike !== undefined && expiry.pe_strike !== undefined ? (
+          <SummaryCard label="CE / PE Strike" value={`${expiry.ce_strike} / ${expiry.pe_strike}`} />
+        ) : (
+          <SummaryCard label="ATM Strike" value={`${expiry.strike}`} />
+        )}
         <SummaryCard label="Candles" value={`${expiry.candles.length}`} />
       </div>
 

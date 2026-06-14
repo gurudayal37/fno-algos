@@ -1,10 +1,19 @@
 import pandas as pd
 import numpy as np
 from src.db import DBManager
+from src.options_math import delta_for_premium
 from config import logger
 
 # Candle timestamps are stored in UTC; the exchange (NSE/BSE) trades in IST (UTC+5:30)
 IST_OFFSET = pd.Timedelta(hours=5, minutes=30)
+
+# Used only to estimate option delta from observed premiums (0DTE deltas are
+# very insensitive to this assumption).
+RISK_FREE_RATE = 0.06
+
+# NSE/BSE cash market close time, used as the expiry "time zero" for the
+# Black-Scholes time-to-expiry of 0DTE options.
+MARKET_CLOSE_HOUR, MARKET_CLOSE_MIN = 15, 30
 
 # Historical lot-size regimes (NSE/BSE periodically revise these to keep contract
 # notional value within SEBI's mandated range). Each entry is
@@ -79,10 +88,66 @@ class ExpiryBacktester:
         total_costs = brokerage + stt + exch_charges + sebi_fees + gst + stamp_duty
         return total_costs
 
-    def run_backtest(self, underlying, from_date, to_date, entry_time_str="09:20", exit_time_str="15:15",
-                     sl_pct=0.25, combined_sl_pct=None, shift_c2c=False, slippage_pct=0.005, lot_size=None):
+    def _time_to_expiry_years(self, entry_time_str):
+        """Years remaining from entry_time_str to market close (15:30 IST) on the same (0DTE) day."""
+        eh, em = map(int, entry_time_str.split(":"))
+        minutes_remaining = (MARKET_CLOSE_HOUR * 60 + MARKET_CLOSE_MIN) - (eh * 60 + em)
+        return max(minutes_remaining, 1) / (365 * 24 * 60)
+
+    def _premium_at_time(self, underlying, exp_date, strike, option_type, time_str):
+        """Returns the close premium for a given strike/option_type at time_str on exp_date, or None."""
+        df = self.db.get_option_candles(underlying, expiry_date=exp_date, strike=strike, option_type=option_type)
+        if df.empty:
+            return None
+        df = df[df['timestamp'].dt.date == exp_date]
+        if df.empty:
+            return None
+        time_col = (df['timestamp'] + IST_OFFSET).dt.strftime('%H:%M')
+        row = df[time_col == time_str]
+        if row.empty:
+            return None
+        return float(row.iloc[0]['close'])
+
+    def _select_strangle_strike(self, underlying, exp_date, option_type, spot, atm_strike, strike_step,
+                                 T, target_delta, entry_time_str, max_offsets=8):
         """
-        Simulates short straddle on expiry days.
+        Picks the OTM strike (CE above spot, PE below spot) whose Black-Scholes
+        delta implied by its entry-time premium is closest to +/- target_delta.
+        """
+        target = target_delta if option_type == "CE" else -target_delta
+        best_strike, best_delta, best_diff = None, None, None
+
+        for i in range(0, max_offsets + 1):
+            strike = atm_strike + i * strike_step if option_type == "CE" else atm_strike - i * strike_step
+            if option_type == "CE" and strike < spot:
+                continue
+            if option_type == "PE" and strike > spot:
+                continue
+
+            premium = self._premium_at_time(underlying, exp_date, strike, option_type, entry_time_str)
+            if premium is None or premium <= 0:
+                continue
+
+            delta = delta_for_premium(premium, spot, strike, T, RISK_FREE_RATE, option_type)
+            if delta is None:
+                continue
+
+            diff = abs(delta - target)
+            if best_diff is None or diff < best_diff:
+                best_diff = diff
+                best_strike = strike
+                best_delta = delta
+
+        return best_strike, best_delta
+
+    def run_backtest(self, underlying, from_date, to_date, entry_time_str="09:20", exit_time_str="15:15",
+                     sl_pct=0.25, combined_sl_pct=None, shift_c2c=False, slippage_pct=0.005, lot_size=None,
+                     strategy_type="straddle", target_delta=0.20):
+        """
+        Simulates a short straddle (strategy_type="straddle") or a short strangle
+        (strategy_type="strangle") on expiry days. For strangles, the CE and PE
+        legs are each the OTM strike whose entry-time premium implies a
+        Black-Scholes delta closest to +/- target_delta.
         """
         logger.info(f"Running backtest for {underlying} from {from_date} to {to_date}...")
         logger.info(f"Parameters: Entry={entry_time_str}, Exit={exit_time_str}, Leg SL={sl_pct}, Combined SL={combined_sl_pct}, C2C={shift_c2c}, Slippage={slippage_pct}")
@@ -136,24 +201,42 @@ class ExpiryBacktester:
             spot_entry_price = day_spot.iloc[0]['close']
             
             # Calculate ATM Strike
+            strike_step = 50 if underlying.upper() == "NIFTY" else 100
             if underlying.upper() == "NIFTY":
                 atm_strike = round(spot_entry_price / 50.0) * 50
             else: # SENSEX
                 atm_strike = round(spot_entry_price / 100.0) * 100
-                
+
             logger.info(f"Spot at {entry_time_str}: {spot_entry_price:.2f} -> ATM Strike: {atm_strike}")
-            
-            # Fetch option candles for ATM CE and PE on this expiry day
-            ce_candles = self.db.get_option_candles(underlying, expiry_date=exp_date, strike=atm_strike, option_type="CE")
-            pe_candles = self.db.get_option_candles(underlying, expiry_date=exp_date, strike=atm_strike, option_type="PE")
-            
+
+            # Determine which CE/PE strikes to trade
+            if strategy_type == "strangle":
+                T = self._time_to_expiry_years(entry_time_str)
+                ce_strike, ce_sel_delta = self._select_strangle_strike(
+                    underlying, exp_date, "CE", spot_entry_price, atm_strike, strike_step, T, target_delta, entry_time_str)
+                pe_strike, pe_sel_delta = self._select_strangle_strike(
+                    underlying, exp_date, "PE", spot_entry_price, atm_strike, strike_step, T, target_delta, entry_time_str)
+
+                if ce_strike is None or pe_strike is None:
+                    logger.warning(f"Could not find {target_delta}-delta CE/PE strikes on {exp_date}. Skipping.")
+                    continue
+
+                logger.info(f"Selected strangle strikes: CE {ce_strike} (delta {ce_sel_delta:.2f}), PE {pe_strike} (delta {pe_sel_delta:.2f})")
+            else:
+                ce_strike = atm_strike
+                pe_strike = atm_strike
+
+            # Fetch option candles for the chosen CE and PE strikes on this expiry day
+            ce_candles = self.db.get_option_candles(underlying, expiry_date=exp_date, strike=ce_strike, option_type="CE")
+            pe_candles = self.db.get_option_candles(underlying, expiry_date=exp_date, strike=pe_strike, option_type="PE")
+
             if not ce_candles.empty:
                 ce_candles = ce_candles[ce_candles['timestamp'].dt.date == exp_date]
             if not pe_candles.empty:
                 pe_candles = pe_candles[pe_candles['timestamp'].dt.date == exp_date]
-                
+
             if ce_candles.empty or pe_candles.empty:
-                logger.warning(f"Option data missing for ATM Straddle CE/PE on {exp_date}. Skipping.")
+                logger.warning(f"Option data missing for CE {ce_strike}/PE {pe_strike} on {exp_date}. Skipping.")
                 continue
                 
             # Set time as index for quick lookup
@@ -274,24 +357,29 @@ class ExpiryBacktester:
                     break
                     
             # 4. Square off remaining open positions at Exit Time
+            # Some deep-OTM strikes (used for strangles) have no candles left
+            # near the exit time (trading dries up), so fall back to each leg's
+            # own last available candle if the common exit time isn't present.
             final_time = common_times[-1] if common_times else exit_time_str
-            
+
             if ce_status == "OPEN":
                 ce_status = "CLOSED"
-                ce_close_val = ce_lookup.loc[final_time, 'close']
+                ce_final_time = final_time if final_time in ce_lookup.index else ce_lookup.index[-1]
+                ce_close_val = ce_lookup.loc[ce_final_time, 'close']
                 if isinstance(ce_close_val, pd.Series):
                     ce_close_val = ce_close_val.iloc[0]
                 ce_exit_price = ce_close_val * (1.0 + slippage_pct)
-                ce_exit_time = final_time
+                ce_exit_time = ce_final_time
                 ce_exit_reason = "SQUARE_OFF"
-                
+
             if pe_status == "OPEN":
                 pe_status = "CLOSED"
-                pe_close_val = pe_lookup.loc[final_time, 'close']
+                pe_final_time = final_time if final_time in pe_lookup.index else pe_lookup.index[-1]
+                pe_close_val = pe_lookup.loc[pe_final_time, 'close']
                 if isinstance(pe_close_val, pd.Series):
                     pe_close_val = pe_close_val.iloc[0]
                 pe_exit_price = pe_close_val * (1.0 + slippage_pct)
-                pe_exit_time = final_time
+                pe_exit_time = pe_final_time
                 pe_exit_reason = "SQUARE_OFF"
                 
             # 5. Calculate trade details and costs
@@ -342,13 +430,13 @@ class ExpiryBacktester:
 
             intraday_data[str(exp_date)] = day_records
 
-            trade_logs.append({
+            trade_log = {
                 'date': exp_date,
                 'underlying': underlying.upper(),
                 'strike': atm_strike,
                 'lot_size': lot_size,
                 'spot_entry': spot_entry_price,
-                
+
                 'ce_entry': ce_entry_price,
                 'ce_exit': ce_exit_price,
                 'ce_exit_time': ce_exit_time,
@@ -362,10 +450,17 @@ class ExpiryBacktester:
                 'pe_exit_reason': pe_exit_reason,
                 'pe_net_pnl': pe_net_pnl,
                 'pe_costs': pe_costs,
-                
+
                 'total_net_pnl': total_net_pnl
-            })
-            
+            }
+
+            if strategy_type == "strangle":
+                trade_log['ce_strike'] = ce_strike
+                trade_log['pe_strike'] = pe_strike
+
+            trade_logs.append(trade_log)
+
+
         # 6. Generate summary statistics
         df_trades = pd.DataFrame(trade_logs)
         if df_trades.empty:

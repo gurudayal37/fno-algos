@@ -1,5 +1,35 @@
 [
   {
+    "id": "nifty_20delta_strangle",
+    "name": "20-Delta Short Strangle",
+    "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+    "underlying": "NIFTY",
+    "params": {
+      "underlying": "NIFTY",
+      "from_date": "2020-01-01",
+      "to_date": "2026-06-10",
+      "entry_time": "09:20",
+      "exit_time": "15:15",
+      "sl_pct": 0.25,
+      "combined_sl_pct": null,
+      "c2c": false,
+      "slippage_pct": 0.005,
+      "lot_size": null,
+      "strategy_type": "strangle",
+      "target_delta": 0.2
+    },
+    "summary": {
+      "underlying": "NIFTY",
+      "total_expiry_days": 304,
+      "winning_expiry_days": 184,
+      "win_rate_pct": 60.526315789473685,
+      "total_net_pnl": 66749.59233650725,
+      "max_drawdown": -5357.370545831902,
+      "sharpe_ratio": 1.6943774535816305,
+      "avg_net_pnl_per_expiry": 219.57102742272122
+    }
+  },
+  {
     "id": "nifty_atm_short_straddle",
     "name": "ATM Short Straddle",
     "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
@@ -25,6 +55,36 @@
       "max_drawdown": -14555.992460994472,
       "sharpe_ratio": 1.3462520083465068,
       "avg_net_pnl_per_expiry": 441.5185957431759
+    }
+  },
+  {
+    "id": "sensex_20delta_strangle",
+    "name": "20-Delta Short Strangle",
+    "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+    "underlying": "SENSEX",
+    "params": {
+      "underlying": "SENSEX",
+      "from_date": "2023-05-15",
+      "to_date": "2026-06-10",
+      "entry_time": "09:20",
+      "exit_time": "15:15",
+      "sl_pct": 0.25,
+      "combined_sl_pct": null,
+      "c2c": false,
+      "slippage_pct": 0.005,
+      "lot_size": null,
+      "strategy_type": "strangle",
+      "target_delta": 0.2
+    },
+    "summary": {
+      "underlying": "SENSEX",
+      "total_expiry_days": 159,
+      "winning_expiry_days": 95,
+      "win_rate_pct": 59.74842767295597,
+      "total_net_pnl": 56356.59204097378,
+      "max_drawdown": -5665.6573456941,
+      "sharpe_ratio": 1.7146678559245374,
+      "avg_net_pnl_per_expiry": 354.44397510046406
     }
   },
   {

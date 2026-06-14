@@ -21,6 +21,8 @@ def main():
     parser.add_argument("--c2c", action="store_true", help="Shift remaining leg SL to cost once one leg hits SL")
     parser.add_argument("--slippage-pct", type=float, default=0.005, help="Slippage percentage per execution (e.g. 0.005 for 0.5%)")
     parser.add_argument("--lot-size", type=int, default=None, help="Override lot size for all expiries. Default: use the historically correct lot size per expiry date (see LOT_SIZE_REGIMES in src/backtester.py)")
+    parser.add_argument("--strategy-type", type=str, default="straddle", choices=["straddle", "strangle"], help="straddle: sell ATM CE+PE. strangle: sell OTM CE/PE near target-delta")
+    parser.add_argument("--target-delta", type=float, default=0.20, help="Target absolute delta for strangle strikes (e.g. 0.20 for a 20-delta strangle)")
     parser.add_argument("--export-web", action="store_true", help="Export results as JSON for the web app (web/data/strategies)")
     parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
     parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")
@@ -45,7 +47,9 @@ def main():
         combined_sl_pct=args.combined_sl_pct,
         shift_c2c=args.c2c,
         slippage_pct=args.slippage_pct,
-        lot_size=args.lot_size
+        lot_size=args.lot_size,
+        strategy_type=args.strategy_type,
+        target_delta=args.target_delta
     )
     
     if summary is None or df_trades.empty:
@@ -78,12 +82,20 @@ def main():
     
     # Display preview of trades
     logger.info("--- Trade Book Preview ---")
-    preview_cols = [
-        'date', 'strike', 'spot_entry', 
-        'ce_entry', 'ce_exit', 'ce_exit_reason',
-        'pe_entry', 'pe_exit', 'pe_exit_reason', 
-        'total_net_pnl'
-    ]
+    if args.strategy_type == "strangle":
+        preview_cols = [
+            'date', 'ce_strike', 'pe_strike', 'spot_entry',
+            'ce_entry', 'ce_exit', 'ce_exit_reason',
+            'pe_entry', 'pe_exit', 'pe_exit_reason',
+            'total_net_pnl'
+        ]
+    else:
+        preview_cols = [
+            'date', 'strike', 'spot_entry',
+            'ce_entry', 'ce_exit', 'ce_exit_reason',
+            'pe_entry', 'pe_exit', 'pe_exit_reason',
+            'total_net_pnl'
+        ]
     # format float columns for clean printing
     df_preview = df_trades[preview_cols].copy()
     for col in ['spot_entry', 'ce_entry', 'ce_exit', 'pe_entry', 'pe_exit', 'total_net_pnl']:
@@ -93,7 +105,8 @@ def main():
 
     # Export results for the web app
     if args.export_web:
-        strategy_id = args.strategy_id or f"{args.underlying.lower()}_atm_short_straddle"
+        default_id_suffix = "20delta_strangle" if args.strategy_type == "strangle" else "atm_short_straddle"
+        strategy_id = args.strategy_id or f"{args.underlying.lower()}_{default_id_suffix}"
         params = {
             "underlying": args.underlying,
             "from_date": args.from_date,
@@ -105,7 +118,10 @@ def main():
             "c2c": args.c2c,
             "slippage_pct": args.slippage_pct,
             "lot_size": args.lot_size,
+            "strategy_type": args.strategy_type,
         }
+        if args.strategy_type == "strangle":
+            params["target_delta"] = args.target_delta
         export_strategy_result(
             strategy_id=strategy_id,
             name=args.strategy_name,

@@ -95,6 +95,7 @@ def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, la
             "date": date_str,
             "strike": trade["strike"],
             "ce_entry": trade["ce_entry"],
+            **({"ce_strike": trade["ce_strike"], "pe_strike": trade["pe_strike"]} if "ce_strike" in trade else {}),
             "ce_exit": trade["ce_exit"],
             "ce_exit_time": trade["ce_exit_time"],
             "ce_exit_reason": trade["ce_exit_reason"],

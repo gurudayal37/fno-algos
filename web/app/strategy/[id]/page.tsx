@@ -43,6 +43,9 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
         {runParams.combined_sl_pct != null && <span>Combined SL: {String(runParams.combined_sl_pct)}</span>}
         {runParams.c2c ? <span>C2C: on</span> : null}
         <span>Slippage: {String(runParams.slippage_pct)}</span>
+        {runParams.strategy_type === "strangle" && (
+          <span>Target Delta: {String(runParams.target_delta)}</span>
+        )}
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

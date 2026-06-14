@@ -17,6 +17,7 @@ interface TradesTableProps {
 
 export default function TradesTable({ trades, strategyId, intradayDates }: TradesTableProps) {
   const intradaySet = new Set(intradayDates);
+  const isStrangle = trades.length > 0 && trades[0].ce_strike !== undefined;
 
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-800">
@@ -25,7 +26,14 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
           <tr>
             <th className="px-3 py-2 text-left font-medium">Date</th>
             <th className="px-3 py-2 text-right font-medium">Lot Size</th>
-            <th className="px-3 py-2 text-right font-medium">Strike</th>
+            {isStrangle ? (
+              <>
+                <th className="px-3 py-2 text-right font-medium">CE Strike</th>
+                <th className="px-3 py-2 text-right font-medium">PE Strike</th>
+              </>
+            ) : (
+              <th className="px-3 py-2 text-right font-medium">Strike</th>
+            )}
             <th className="px-3 py-2 text-right font-medium">Spot Entry</th>
             <th className="px-3 py-2 text-right font-medium">CE Entry</th>
             <th className="px-3 py-2 text-right font-medium">CE Exit</th>
@@ -52,7 +60,14 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
                 )}
               </td>
               <td className="px-3 py-2 text-right text-gray-300">{t.lot_size}</td>
-              <td className="px-3 py-2 text-right text-gray-300">{t.strike}</td>
+              {isStrangle ? (
+                <>
+                  <td className="px-3 py-2 text-right text-gray-300">{t.ce_strike}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{t.pe_strike}</td>
+                </>
+              ) : (
+                <td className="px-3 py-2 text-right text-gray-300">{t.strike}</td>
+              )}
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.spot_entry)}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_entry)}</td>
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_exit)}</td>
