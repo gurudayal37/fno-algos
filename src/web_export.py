@@ -116,4 +116,11 @@ def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, la
     with open(expiries_dir / "index.json", "w") as f:
         json.dump(available_dates, f, indent=2)
 
+    # Remove stale expiry files left over from previous runs (e.g. a date that
+    # has aged out of the most recent `last_n` window).
+    keep = {f"{d}.json" for d in available_dates} | {"index.json"}
+    for f in expiries_dir.glob("*.json"):
+        if f.name not in keep:
+            f.unlink()
+
     logger.info(f"Exported intraday data for {len(available_dates)} expiry days to {expiries_dir}")

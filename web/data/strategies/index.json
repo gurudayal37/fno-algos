@@ -7,7 +7,7 @@
     "params": {
       "underlying": "NIFTY",
       "from_date": "2020-01-01",
-      "to_date": "2026-06-10",
+      "to_date": "2026-06-20",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -20,13 +20,13 @@
     },
     "summary": {
       "underlying": "NIFTY",
-      "total_expiry_days": 304,
-      "winning_expiry_days": 184,
-      "win_rate_pct": 60.526315789473685,
-      "total_net_pnl": 66749.59233650725,
+      "total_expiry_days": 305,
+      "winning_expiry_days": 185,
+      "win_rate_pct": 60.65573770491803,
+      "total_net_pnl": 67358.65548248365,
       "max_drawdown": -5357.370545831902,
-      "sharpe_ratio": 1.6943774535816305,
-      "avg_net_pnl_per_expiry": 219.57102742272122
+      "sharpe_ratio": 1.7065543318609917,
+      "avg_net_pnl_per_expiry": 220.84805076224148
     }
   },
   {
@@ -37,24 +37,25 @@
     "params": {
       "underlying": "NIFTY",
       "from_date": "2020-01-01",
-      "to_date": "2026-06-10",
+      "to_date": "2026-06-20",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
       "combined_sl_pct": null,
       "c2c": false,
       "slippage_pct": 0.005,
-      "lot_size": null
+      "lot_size": null,
+      "strategy_type": "straddle"
     },
     "summary": {
       "underlying": "NIFTY",
-      "total_expiry_days": 304,
-      "winning_expiry_days": 164,
-      "win_rate_pct": 53.94736842105263,
-      "total_net_pnl": 134221.65310592548,
+      "total_expiry_days": 305,
+      "winning_expiry_days": 165,
+      "win_rate_pct": 54.09836065573771,
+      "total_net_pnl": 135884.72411327437,
       "max_drawdown": -14555.992460994472,
-      "sharpe_ratio": 1.3462520083465068,
-      "avg_net_pnl_per_expiry": 441.5185957431759
+      "sharpe_ratio": 1.360107233401857,
+      "avg_net_pnl_per_expiry": 445.523685617293
     }
   },
   {
@@ -65,7 +66,7 @@
     "params": {
       "underlying": "SENSEX",
       "from_date": "2023-05-15",
-      "to_date": "2026-06-14",
+      "to_date": "2026-06-20",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -78,13 +79,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 159,
+      "total_expiry_days": 160,
       "winning_expiry_days": 94,
-      "win_rate_pct": 59.11949685534591,
-      "total_net_pnl": 53884.11854496499,
+      "win_rate_pct": 58.75,
+      "total_net_pnl": 53283.34841905752,
       "max_drawdown": -5665.6573456941,
-      "sharpe_ratio": 1.6473405922661815,
-      "avg_net_pnl_per_expiry": 338.89382732682384
+      "sharpe_ratio": 1.62186240907387,
+      "avg_net_pnl_per_expiry": 333.0209276191095
     }
   },
   {
@@ -95,7 +96,7 @@
     "params": {
       "underlying": "SENSEX",
       "from_date": "2023-05-15",
-      "to_date": "2026-06-14",
+      "to_date": "2026-06-20",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -107,13 +108,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 158,
+      "total_expiry_days": 159,
       "winning_expiry_days": 82,
-      "win_rate_pct": 51.89873417721519,
-      "total_net_pnl": 53622.712968122585,
+      "win_rate_pct": 51.57232704402516,
+      "total_net_pnl": 51830.529221126286,
       "max_drawdown": -12631.381366780237,
-      "sharpe_ratio": 0.8944782668628102,
-      "avg_net_pnl_per_expiry": 339.3842592919151
+      "sharpe_ratio": 0.8602263469109717,
+      "avg_net_pnl_per_expiry": 325.9781712020521
     }
   }
 ]
