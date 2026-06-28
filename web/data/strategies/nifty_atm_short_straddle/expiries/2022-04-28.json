@@ -1,15 +1,22 @@
 {
   "date": "2022-04-28",
   "strike": 17100,
+  "lot_size": 50,
+  "spot_entry": 17118.4004,
   "ce_entry": 61.988499999999995,
   "ce_exit": 77.87305312499998,
   "ce_exit_time": "11:49",
   "ce_exit_reason": "STOP_LOSS",
+  "ce_costs": 56.10011472850937,
   "pe_entry": 40.94425,
   "pe_exit": 51.43621406249999,
   "pe_exit_time": "09:26",
   "pe_exit_reason": "STOP_LOSS",
+  "pe_costs": 53.078647208317186,
   "total_net_pnl": -1428.0046213118258,
+  "ce_iv": 0.28814992356300345,
+  "pe_iv": 0.27682968974113464,
+  "realized_vol_10d": 0.1940904938052034,
   "candles": [
     {
       "time": "09:15",

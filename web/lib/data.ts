@@ -71,15 +71,22 @@ export interface ExpiryDetail {
   strike: number;
   ce_strike?: number;
   pe_strike?: number;
+  lot_size: number;
+  spot_entry: number;
   ce_entry: number;
   ce_exit: number;
   ce_exit_time: string;
   ce_exit_reason: string;
+  ce_costs: number;
   pe_entry: number;
   pe_exit: number;
   pe_exit_time: string;
   pe_exit_reason: string;
+  pe_costs: number;
   total_net_pnl: number;
+  ce_iv?: number;
+  pe_iv?: number;
+  realized_vol_10d?: number;
   candles: IntradayCandle[];
 }
 

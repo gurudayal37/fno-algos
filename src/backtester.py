@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from src.db import DBManager
-from src.options_math import delta_for_premium
+from src.options_math import delta_for_premium, implied_vol
 from config import logger
 
 # Candle timestamps are stored in UTC; the exchange (NSE/BSE) trades in IST (UTC+5:30)
@@ -88,6 +88,18 @@ class ExpiryBacktester:
         total_costs = brokerage + stt + exch_charges + sebi_fees + gst + stamp_duty
         return total_costs
 
+    def _trailing_realized_vol(self, daily_closes, exp_date, window=10):
+        """
+        Annualized close-to-close realized volatility of the underlying over
+        the `window` trading days strictly before exp_date (i.e. the
+        historical volatility known going into the trade, comparable against
+        that day's entry-time implied volatility).
+        """
+        prior = daily_closes[daily_closes['date'] < exp_date].tail(window)
+        if len(prior) < 5:
+            return None
+        return float(prior['log_ret'].std() * np.sqrt(252))
+
     def _time_to_expiry_years(self, entry_time_str):
         """Years remaining from entry_time_str to market close (15:30 IST) on the same (0DTE) day."""
         eh, em = map(int, entry_time_str.split(":"))
@@ -166,7 +178,13 @@ class ExpiryBacktester:
             
         spot_candles['date'] = (spot_candles['timestamp'] + IST_OFFSET).dt.date
         spot_candles['time'] = (spot_candles['timestamp'] + IST_OFFSET).dt.strftime('%H:%M')
-        
+
+        # Daily closes (used to compute trailing realized volatility going into
+        # each expiry day, for comparison against that day's entry-time IV).
+        daily_closes = spot_candles.sort_values('timestamp').groupby('date')['close'].last().reset_index()
+        daily_closes = daily_closes.sort_values('date').reset_index(drop=True)
+        daily_closes['log_ret'] = np.log(daily_closes['close'] / daily_closes['close'].shift(1))
+
         # Find unique expiry dates in database from option_candles table
         conn = self.db.connect()
         expiries = conn.execute("""
@@ -209,9 +227,11 @@ class ExpiryBacktester:
 
             logger.info(f"Spot at {entry_time_str}: {spot_entry_price:.2f} -> ATM Strike: {atm_strike}")
 
+            T = self._time_to_expiry_years(entry_time_str)
+            realized_vol_10d = self._trailing_realized_vol(daily_closes, exp_date)
+
             # Determine which CE/PE strikes to trade
             if strategy_type == "strangle":
-                T = self._time_to_expiry_years(entry_time_str)
                 ce_strike, ce_sel_delta = self._select_strangle_strike(
                     underlying, exp_date, "CE", spot_entry_price, atm_strike, strike_step, T, target_delta, entry_time_str)
                 pe_strike, pe_sel_delta = self._select_strangle_strike(
@@ -264,7 +284,12 @@ class ExpiryBacktester:
                 
             ce_entry_price = ce_entry_close * (1.0 - slippage_pct)
             pe_entry_price = pe_entry_close * (1.0 - slippage_pct)
-            
+
+            # Implied volatility from the entry-time market premium (pre-slippage),
+            # for comparison against the trailing realized volatility.
+            ce_iv = implied_vol(ce_entry_close, spot_entry_price, ce_strike, T, RISK_FREE_RATE, "CE")
+            pe_iv = implied_vol(pe_entry_close, spot_entry_price, pe_strike, T, RISK_FREE_RATE, "PE")
+
             # Initialize positions
             ce_sl = ce_entry_price * (1.0 + sl_pct) if sl_pct else None
             pe_sl = pe_entry_price * (1.0 + sl_pct) if sl_pct else None
@@ -451,7 +476,11 @@ class ExpiryBacktester:
                 'pe_net_pnl': pe_net_pnl,
                 'pe_costs': pe_costs,
 
-                'total_net_pnl': total_net_pnl
+                'total_net_pnl': total_net_pnl,
+
+                'ce_iv': ce_iv,
+                'pe_iv': pe_iv,
+                'realized_vol_10d': realized_vol_10d,
             }
 
             if strategy_type == "strangle":

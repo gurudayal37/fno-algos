@@ -1,15 +1,22 @@
 {
   "date": "2026-06-25",
   "strike": 77400,
+  "lot_size": 20,
+  "spot_entry": 77365.41,
   "ce_entry": 127.161,
   "ce_exit": 159.74600625,
   "ce_exit_time": "09:22",
   "ce_exit_reason": "STOP_LOSS",
+  "ce_costs": 54.5029512828475,
   "pe_entry": 172.83149999999998,
   "pe_exit": 217.11957187499996,
   "pe_exit_time": "14:23",
   "pe_exit_reason": "STOP_LOSS",
+  "pe_costs": 57.12584223654625,
   "total_net_pnl": -1649.0903560193933,
+  "ce_iv": 0.17448529478907582,
+  "pe_iv": 0.19234687292575833,
+  "realized_vol_10d": 0.15237592191840163,
   "candles": [
     {
       "time": "09:15",

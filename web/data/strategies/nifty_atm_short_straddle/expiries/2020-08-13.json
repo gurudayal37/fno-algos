@@ -1,15 +1,22 @@
 {
   "date": "2020-08-13",
   "strike": 11350,
+  "lot_size": 75,
+  "spot_entry": 11347.3999,
   "ce_entry": 32.536500000000004,
   "ce_exit": 0.10049999999999999,
   "ce_exit_time": "15:15",
   "ce_exit_reason": "SQUARE_OFF",
+  "ce_costs": 52.307657999499995,
   "pe_entry": 33.3325,
   "pe_exit": 49.29524999999999,
   "pe_exit_time": "11:40",
   "pe_exit_reason": "STOP_LOSS",
+  "pe_costs": 54.724411055875,
   "total_net_pnl": 1128.461680944627,
+  "ce_iv": 0.28096423292160033,
+  "pe_iv": 0.2699657998085021,
+  "realized_vol_10d": 0.15242032367540392,
   "candles": [
     {
       "time": "09:15",

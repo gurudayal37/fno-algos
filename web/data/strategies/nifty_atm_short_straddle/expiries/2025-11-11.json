@@ -1,15 +1,22 @@
 {
   "date": "2025-11-11",
   "strike": 25550,
+  "lot_size": 75,
+  "spot_entry": 25526.6,
   "ce_entry": 52.138,
   "ce_exit": 65.4983625,
   "ce_exit_time": "12:33",
   "ce_exit_reason": "STOP_LOSS",
+  "ce_costs": 58.42871617433125,
   "pe_entry": 65.869,
   "pe_exit": 82.74793125,
   "pe_exit_time": "09:36",
   "pe_exit_reason": "STOP_LOSS",
+  "pe_costs": 61.38589715154063,
   "total_net_pnl": -2387.7616445758713,
+  "ce_iv": 0.23281033241748808,
+  "pe_iv": 0.200920478105545,
+  "realized_vol_10d": 0.07639193918791795,
   "candles": [
     {
       "time": "09:15",

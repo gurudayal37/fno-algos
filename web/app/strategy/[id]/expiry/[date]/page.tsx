@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllIntradayParams, getExpiryDetail, getStrategy } from "@/lib/data";
 import SummaryCard from "@/components/SummaryCard";
 import TimeSeriesChart from "@/components/TimeSeriesChart";
+import PayoffChart from "@/components/PayoffChart";
+import VolatilityChart from "@/components/VolatilityChart";
 
 function fmtCurrency(n: number) {
   return `Rs. ${n.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
@@ -57,6 +59,21 @@ export default function ExpiryDetailPage({ params }: { params: { id: string; dat
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4">
+        <PayoffChart
+          ceStrike={expiry.ce_strike ?? expiry.strike}
+          peStrike={expiry.pe_strike ?? expiry.strike}
+          ceEntry={expiry.ce_entry}
+          peEntry={expiry.pe_entry}
+          lotSize={expiry.lot_size}
+          totalCosts={expiry.ce_costs + expiry.pe_costs}
+          spotEntry={expiry.spot_entry}
+          spotExit={expiry.candles[expiry.candles.length - 1]?.spot}
+        />
+
+        {(expiry.ce_iv !== undefined || expiry.pe_iv !== undefined || expiry.realized_vol_10d !== undefined) && (
+          <VolatilityChart ceIv={expiry.ce_iv} peIv={expiry.pe_iv} realizedVol10d={expiry.realized_vol_10d} />
+        )}
+
         <TimeSeriesChart
           title={`${strategy.underlying} Spot`}
           data={expiry.candles}
