@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
     parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")
     parser.add_argument("--description", type=str, default="Sells the ATM call and put at entry time on expiry day, with optional stop-losses.", help="Strategy description for web export")
-    parser.add_argument("--intraday-count", type=int, default=10, help="Number of most recent expiry days to export intraday charts for")
+    parser.add_argument("--intraday-count", type=int, default=None, help="Number of most recent expiry days to export intraday detail pages for. Default: all expiry days (grows every time new expiries are added).")
 
     args = parser.parse_args()
     

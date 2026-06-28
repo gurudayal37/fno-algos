@@ -70,11 +70,14 @@ def export_strategy_result(strategy_id, name, description, underlying, params, s
     logger.info(f"Updated strategy index at {index_path}")
 
 
-def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, last_n=10):
+def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, last_n=None):
     """
-    Writes per-expiry intraday timeseries (spot/CE/PE/PnL) for the most recent
-    `last_n` expiry dates into <web_data_dir>/<strategy_id>/expiries/<date>.json,
-    plus an expiries/index.json listing the available dates.
+    Writes per-expiry intraday timeseries (spot/CE/PE/PnL) into
+    <web_data_dir>/<strategy_id>/expiries/<date>.json, plus an
+    expiries/index.json listing the available dates. By default exports
+    every expiry day (last_n=None), so the set of detail pages grows each
+    time a new expiry is added. Pass last_n to cap it to the most recent N
+    expiry days instead.
     """
     if df_trades.empty:
         return
@@ -82,7 +85,8 @@ def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, la
     expiries_dir = Path(web_data_dir) / strategy_id / "expiries"
     expiries_dir.mkdir(parents=True, exist_ok=True)
 
-    recent_trades = df_trades.sort_values("date").tail(last_n)
+    sorted_trades = df_trades.sort_values("date")
+    recent_trades = sorted_trades if last_n is None else sorted_trades.tail(last_n)
 
     available_dates = []
     for _, trade in recent_trades.iterrows():

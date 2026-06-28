@@ -1,0 +1,24 @@
+{
+  "date": "2024-06-07",
+  "strike": 75100,
+  "ce_entry": 161.23975000000002,
+  "ce_strike": 75600,
+  "pe_strike": 74600,
+  "ce_exit": 715.5097499999999,
+  "ce_exit_time": "11:42",
+  "ce_exit_reason": "SQUARE_OFF",
+  "pe_entry": 162.43375,
+  "pe_exit": 164.06625,
+  "pe_exit_time": "09:20",
+  "pe_exit_reason": "SQUARE_OFF",
+  "total_net_pnl": -5665.6573456941,
+  "candles": [
+    {
+      "time": "09:20",
+      "spot": 75135.68,
+      "ce": 162.05,
+      "pe": 163.25,
+      "pnl": -131.0598456940999
+    }
+  ]
+}

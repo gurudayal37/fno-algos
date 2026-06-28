@@ -1,0 +1,31 @@
+{
+  "date": "2025-04-22",
+  "strike": 79300,
+  "ce_entry": 75.819,
+  "ce_strike": 79800,
+  "pe_strike": 78800,
+  "ce_exit": 0.25125,
+  "ce_exit_time": "15:15",
+  "ce_exit_reason": "SQUARE_OFF",
+  "pe_entry": 97.85825,
+  "pe_exit": 98.84174999999999,
+  "pe_exit_time": "09:20",
+  "pe_exit_reason": "SQUARE_OFF",
+  "total_net_pnl": 1388.7901003721001,
+  "candles": [
+    {
+      "time": "09:19",
+      "spot": 79305.65,
+      "ce": 72.1,
+      "pe": 102.05,
+      "pnl": 0.0
+    },
+    {
+      "time": "09:20",
+      "spot": 79302.49,
+      "ce": 76.2,
+      "pe": 98.35,
+      "pnl": -130.18489962789985
+    }
+  ]
+}
