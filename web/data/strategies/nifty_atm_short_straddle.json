@@ -6,7 +6,7 @@
   "params": {
     "underlying": "NIFTY",
     "from_date": "2020-01-01",
-    "to_date": "2026-06-20",
+    "to_date": "2026-06-28",
     "entry_time": "09:20",
     "exit_time": "15:15",
     "sl_pct": 0.25,
@@ -18,13 +18,13 @@
   },
   "summary": {
     "underlying": "NIFTY",
-    "total_expiry_days": 305,
+    "total_expiry_days": 306,
     "winning_expiry_days": 165,
-    "win_rate_pct": 54.09836065573771,
-    "total_net_pnl": 135884.72411327437,
+    "win_rate_pct": 53.92156862745098,
+    "total_net_pnl": 134266.14824052033,
     "max_drawdown": -14555.992460994472,
-    "sharpe_ratio": 1.360107233401857,
-    "avg_net_pnl_per_expiry": 445.523685617293
+    "sharpe_ratio": 1.3400395327939665,
+    "avg_net_pnl_per_expiry": 438.77826222392264
   },
   "trades": [
     {
@@ -7041,6 +7041,29 @@
       "cum_pnl": 135884.72411327445,
       "peak": 135884.72411327445,
       "drawdown": 0.0
+    },
+    {
+      "date": "2026-06-23",
+      "underlying": "NIFTY",
+      "strike": 24100,
+      "lot_size": 65,
+      "spot_entry": 24090.6,
+      "ce_entry": 35.620999999999995,
+      "ce_exit": 46.732499999999995,
+      "ce_exit_time": "09:36",
+      "ce_exit_reason": "STOP_LOSS",
+      "ce_net_pnl": -776.1762491134499,
+      "ce_costs": 53.928749113449996,
+      "pe_entry": 47.21275,
+      "pe_exit": 59.31101718749999,
+      "pe_exit_time": "11:45",
+      "pe_exit_reason": "STOP_LOSS",
+      "pe_net_pnl": -842.3996236405991,
+      "pe_costs": 56.01225645309953,
+      "total_net_pnl": -1618.575872754049,
+      "cum_pnl": 134266.14824052042,
+      "peak": 135884.72411327445,
+      "drawdown": -1618.5758727540378
     }
   ]
 }
