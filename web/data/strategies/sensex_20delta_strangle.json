@@ -1,7 +1,7 @@
 {
   "id": "sensex_20delta_strangle",
-  "name": "ATM Short Straddle",
-  "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
+  "name": "20-Delta Short Strangle",
+  "description": "Sells OTM call and put with ~20-delta at entry time on expiry day, with optional stop-losses.",
   "underlying": "SENSEX",
   "params": {
     "underlying": "SENSEX",

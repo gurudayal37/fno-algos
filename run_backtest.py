@@ -25,8 +25,8 @@ def main():
     parser.add_argument("--target-delta", type=float, default=0.20, help="Target absolute delta for strangle strikes (e.g. 0.20 for a 20-delta strangle)")
     parser.add_argument("--export-web", action="store_true", help="Export results as JSON for the web app (web/data/strategies)")
     parser.add_argument("--strategy-id", type=str, default=None, help="Strategy id used for web export (default: <underlying>_atm_short_straddle)")
-    parser.add_argument("--strategy-name", type=str, default="ATM Short Straddle", help="Strategy display name for web export")
-    parser.add_argument("--description", type=str, default="Sells the ATM call and put at entry time on expiry day, with optional stop-losses.", help="Strategy description for web export")
+    parser.add_argument("--strategy-name", type=str, default=None, help="Strategy display name for web export (default: auto-set from strategy type)")
+    parser.add_argument("--description", type=str, default=None, help="Strategy description for web export (default: auto-set from strategy type)")
     parser.add_argument("--intraday-count", type=int, default=None, help="Number of most recent expiry days to export intraday detail pages for. Default: all expiry days (grows every time new expiries are added).")
 
     args = parser.parse_args()
@@ -107,6 +107,14 @@ def main():
     if args.export_web:
         default_id_suffix = "20delta_strangle" if args.strategy_type == "strangle" else "atm_short_straddle"
         strategy_id = args.strategy_id or f"{args.underlying.lower()}_{default_id_suffix}"
+        if args.strategy_type == "strangle":
+            default_name = f"20-Delta Short Strangle"
+            default_desc = "Sells OTM call and put with ~20-delta at entry time on expiry day, with optional stop-losses."
+        else:
+            default_name = "ATM Short Straddle"
+            default_desc = "Sells the ATM call and put at entry time on expiry day, with optional stop-losses."
+        strategy_name = args.strategy_name or default_name
+        strategy_desc = args.description or default_desc
         params = {
             "underlying": args.underlying,
             "from_date": args.from_date,
@@ -124,8 +132,8 @@ def main():
             params["target_delta"] = args.target_delta
         export_strategy_result(
             strategy_id=strategy_id,
-            name=args.strategy_name,
-            description=args.description,
+            name=strategy_name,
+            description=strategy_desc,
             underlying=args.underlying,
             params=params,
             summary=summary,
