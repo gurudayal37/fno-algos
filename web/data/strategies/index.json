@@ -1,13 +1,13 @@
 [
   {
     "id": "nifty_20delta_strangle",
-    "name": "20-Delta Short Strangle",
-    "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+    "name": "ATM Short Straddle",
+    "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
     "underlying": "NIFTY",
     "params": {
       "underlying": "NIFTY",
       "from_date": "2020-01-01",
-      "to_date": "2026-06-28",
+      "to_date": "2026-07-03",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -20,13 +20,13 @@
     },
     "summary": {
       "underlying": "NIFTY",
-      "total_expiry_days": 306,
+      "total_expiry_days": 307,
       "winning_expiry_days": 185,
-      "win_rate_pct": 60.45751633986928,
-      "total_net_pnl": 66907.29548283044,
+      "win_rate_pct": 60.26058631921825,
+      "total_net_pnl": 66277.45548335061,
       "max_drawdown": -5357.370545831902,
-      "sharpe_ratio": 1.6909182950822377,
-      "avg_net_pnl_per_expiry": 218.65129242755043
+      "sharpe_ratio": 1.6700213695946728,
+      "avg_net_pnl_per_expiry": 215.88747714446453
     }
   },
   {
@@ -37,7 +37,7 @@
     "params": {
       "underlying": "NIFTY",
       "from_date": "2020-01-01",
-      "to_date": "2026-06-28",
+      "to_date": "2026-07-03",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -49,24 +49,24 @@
     },
     "summary": {
       "underlying": "NIFTY",
-      "total_expiry_days": 306,
+      "total_expiry_days": 307,
       "winning_expiry_days": 165,
-      "win_rate_pct": 53.92156862745098,
-      "total_net_pnl": 134266.14824052033,
+      "win_rate_pct": 53.74592833876222,
+      "total_net_pnl": 132075.2366932613,
       "max_drawdown": -14555.992460994472,
-      "sharpe_ratio": 1.3400395327939665,
-      "avg_net_pnl_per_expiry": 438.77826222392264
+      "sharpe_ratio": 1.3133724073954287,
+      "avg_net_pnl_per_expiry": 430.21249737218665
     }
   },
   {
     "id": "sensex_20delta_strangle",
-    "name": "20-Delta Short Strangle",
-    "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+    "name": "ATM Short Straddle",
+    "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
     "underlying": "SENSEX",
     "params": {
       "underlying": "SENSEX",
-      "from_date": "2023-05-15",
-      "to_date": "2026-06-28",
+      "from_date": "2020-01-01",
+      "to_date": "2026-07-03",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -79,13 +79,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 161,
+      "total_expiry_days": 162,
       "winning_expiry_days": 94,
-      "win_rate_pct": 58.38509316770186,
-      "total_net_pnl": 52764.82476472055,
+      "win_rate_pct": 58.0246913580247,
+      "total_net_pnl": 52118.419449258276,
       "max_drawdown": -5665.6573456941,
-      "sharpe_ratio": 1.5994626402888303,
-      "avg_net_pnl_per_expiry": 327.7318308367736
+      "sharpe_ratio": 1.5728929704436332,
+      "avg_net_pnl_per_expiry": 321.71863857566836
     }
   },
   {
@@ -95,8 +95,8 @@
     "underlying": "SENSEX",
     "params": {
       "underlying": "SENSEX",
-      "from_date": "2023-05-15",
-      "to_date": "2026-06-28",
+      "from_date": "2020-01-01",
+      "to_date": "2026-07-03",
       "entry_time": "09:20",
       "exit_time": "15:15",
       "sl_pct": 0.25,
@@ -108,13 +108,13 @@
     },
     "summary": {
       "underlying": "SENSEX",
-      "total_expiry_days": 160,
+      "total_expiry_days": 161,
       "winning_expiry_days": 82,
-      "win_rate_pct": 51.24999999999999,
-      "total_net_pnl": 50181.438865106895,
+      "win_rate_pct": 50.931677018633536,
+      "total_net_pnl": 48337.43210624328,
       "max_drawdown": -12631.381366780237,
-      "sharpe_ratio": 0.8289055607118047,
-      "avg_net_pnl_per_expiry": 313.6339929069181
+      "sharpe_ratio": 0.7944269661728529,
+      "avg_net_pnl_per_expiry": 300.23249755430606
     }
   }
 ]

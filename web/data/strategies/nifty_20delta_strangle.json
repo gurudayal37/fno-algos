@@ -1,12 +1,12 @@
 {
   "id": "nifty_20delta_strangle",
-  "name": "20-Delta Short Strangle",
-  "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+  "name": "ATM Short Straddle",
+  "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
   "underlying": "NIFTY",
   "params": {
     "underlying": "NIFTY",
     "from_date": "2020-01-01",
-    "to_date": "2026-06-28",
+    "to_date": "2026-07-03",
     "entry_time": "09:20",
     "exit_time": "15:15",
     "sl_pct": 0.25,
@@ -19,13 +19,13 @@
   },
   "summary": {
     "underlying": "NIFTY",
-    "total_expiry_days": 306,
+    "total_expiry_days": 307,
     "winning_expiry_days": 185,
-    "win_rate_pct": 60.45751633986928,
-    "total_net_pnl": 66907.29548283044,
+    "win_rate_pct": 60.26058631921825,
+    "total_net_pnl": 66277.45548335061,
     "max_drawdown": -5357.370545831902,
-    "sharpe_ratio": 1.6909182950822377,
-    "avg_net_pnl_per_expiry": 218.65129242755043
+    "sharpe_ratio": 1.6700213695946728,
+    "avg_net_pnl_per_expiry": 215.88747714446453
   },
   "trades": [
     {
@@ -8595,6 +8595,34 @@
       "cum_pnl": 66907.29548283042,
       "peak": 67358.65548248363,
       "drawdown": -451.3599996532139
+    },
+    {
+      "date": "2026-06-30",
+      "underlying": "NIFTY",
+      "strike": 23950,
+      "lot_size": 65,
+      "spot_entry": 23928.8,
+      "ce_entry": 14.97475,
+      "ce_exit": 18.812029687499997,
+      "ce_exit_time": "11:24",
+      "ce_exit_reason": "STOP_LOSS",
+      "ce_net_pnl": -299.4182157174081,
+      "ce_costs": 49.99503602990828,
+      "pe_entry": 16.8155,
+      "pe_exit": 21.124471874999998,
+      "pe_exit_time": "09:22",
+      "pe_exit_reason": "STOP_LOSS",
+      "pe_net_pnl": -330.42178376240514,
+      "pe_costs": 50.338611887405314,
+      "total_net_pnl": -629.8399994798133,
+      "ce_iv": 0.27269753026962273,
+      "pe_iv": 0.2417927436828613,
+      "realized_vol_10d": 0.10722421490812206,
+      "ce_strike": 24100,
+      "pe_strike": 23800,
+      "cum_pnl": 66277.45548335061,
+      "peak": 67358.65548248363,
+      "drawdown": -1081.199999133023
     }
   ]
 }

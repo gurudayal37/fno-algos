@@ -12,8 +12,8 @@ from src.web_export import export_strategy_result, export_intraday_data
 def main():
     parser = argparse.ArgumentParser(description="Dhan Option Backtester runner")
     parser.add_argument("--underlying", type=str, default="NIFTY", choices=["NIFTY", "SENSEX"], help="Underlying index (NIFTY or SENSEX)")
-    parser.add_argument("--from-date", type=str, default="2026-01-01", help="From date (YYYY-MM-DD)")
-    parser.add_argument("--to-date", type=str, default="2026-06-10", help="To date (YYYY-MM-DD)")
+    parser.add_argument("--from-date", type=str, default="2020-01-01", help="From date (YYYY-MM-DD)")
+    parser.add_argument("--to-date", type=str, default="2026-07-03", help="To date (YYYY-MM-DD)")
     parser.add_argument("--entry-time", type=str, default="09:20", help="Entry time (HH:MM)")
     parser.add_argument("--exit-time", type=str, default="15:15", help="Exit time (HH:MM)")
     parser.add_argument("--sl-pct", type=float, default=0.25, help="Individual leg stop-loss percentage (e.g. 0.25 for 25%). Set to 0 to disable.")

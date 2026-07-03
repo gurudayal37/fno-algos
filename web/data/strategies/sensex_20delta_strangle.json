@@ -1,12 +1,12 @@
 {
   "id": "sensex_20delta_strangle",
-  "name": "20-Delta Short Strangle",
-  "description": "Sells the ~20-delta OTM call and put at entry time on expiry day, with optional stop-losses.",
+  "name": "ATM Short Straddle",
+  "description": "Sells the ATM call and put at entry time on expiry day, with optional stop-losses.",
   "underlying": "SENSEX",
   "params": {
     "underlying": "SENSEX",
-    "from_date": "2023-05-15",
-    "to_date": "2026-06-28",
+    "from_date": "2020-01-01",
+    "to_date": "2026-07-03",
     "entry_time": "09:20",
     "exit_time": "15:15",
     "sl_pct": 0.25,
@@ -19,13 +19,13 @@
   },
   "summary": {
     "underlying": "SENSEX",
-    "total_expiry_days": 161,
+    "total_expiry_days": 162,
     "winning_expiry_days": 94,
-    "win_rate_pct": 58.38509316770186,
-    "total_net_pnl": 52764.82476472055,
+    "win_rate_pct": 58.0246913580247,
+    "total_net_pnl": 52118.419449258276,
     "max_drawdown": -5665.6573456941,
-    "sharpe_ratio": 1.5994626402888303,
-    "avg_net_pnl_per_expiry": 327.7318308367736
+    "sharpe_ratio": 1.5728929704436332,
+    "avg_net_pnl_per_expiry": 321.71863857566836
   },
   "trades": [
     {
@@ -4535,6 +4535,34 @@
       "cum_pnl": 52764.824764720535,
       "peak": 54094.504876360865,
       "drawdown": -1329.6801116403294
+    },
+    {
+      "date": "2026-07-02",
+      "underlying": "SENSEX",
+      "strike": 77300,
+      "lot_size": 20,
+      "spot_entry": 77274.63,
+      "ce_entry": 52.934000000000005,
+      "ce_exit": 66.49833749999999,
+      "ce_exit_time": "09:24",
+      "ce_exit_reason": "STOP_LOSS",
+      "ce_net_pnl": -321.52678918816474,
+      "ce_costs": 50.24003918816501,
+      "pe_entry": 53.58075,
+      "pe_exit": 67.31081718749999,
+      "pe_exit_time": "10:14",
+      "pe_exit_reason": "STOP_LOSS",
+      "pe_net_pnl": -324.87852627411047,
+      "pe_costs": 50.27718252411062,
+      "total_net_pnl": -646.4053154622752,
+      "ce_iv": 0.20393348622322077,
+      "pe_iv": 0.22596968364715575,
+      "realized_vol_10d": 0.10554986933429313,
+      "ce_strike": 77600,
+      "pe_strike": 76900,
+      "cum_pnl": 52118.41944925826,
+      "peak": 54094.504876360865,
+      "drawdown": -1976.0854271026037
     }
   ]
 }

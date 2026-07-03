@@ -5,8 +5,8 @@
   "underlying": "SENSEX",
   "params": {
     "underlying": "SENSEX",
-    "from_date": "2023-05-15",
-    "to_date": "2026-06-28",
+    "from_date": "2020-01-01",
+    "to_date": "2026-07-03",
     "entry_time": "09:20",
     "exit_time": "15:15",
     "sl_pct": 0.25,
@@ -18,13 +18,13 @@
   },
   "summary": {
     "underlying": "SENSEX",
-    "total_expiry_days": 160,
+    "total_expiry_days": 161,
     "winning_expiry_days": 82,
-    "win_rate_pct": 51.24999999999999,
-    "total_net_pnl": 50181.438865106895,
+    "win_rate_pct": 50.931677018633536,
+    "total_net_pnl": 48337.43210624328,
     "max_drawdown": -12631.381366780237,
-    "sharpe_ratio": 0.8289055607118047,
-    "avg_net_pnl_per_expiry": 313.6339929069181
+    "sharpe_ratio": 0.7944269661728529,
+    "avg_net_pnl_per_expiry": 300.23249755430606
   },
   "trades": [
     {
@@ -4186,6 +4186,32 @@
       "cum_pnl": 50181.43886510692,
       "peak": 58363.17193083676,
       "drawdown": -8181.733065729844
+    },
+    {
+      "date": "2026-07-02",
+      "underlying": "SENSEX",
+      "strike": 77300,
+      "lot_size": 20,
+      "spot_entry": 77274.63,
+      "ce_entry": 150.79225000000002,
+      "ce_exit": 189.43276406249998,
+      "ce_exit_time": "09:25",
+      "ce_exit_reason": "STOP_LOSS",
+      "ce_net_pnl": -828.6703928847061,
+      "ce_costs": 55.86011163470687,
+      "pe_entry": 186.81125,
+      "pe_exit": 234.68163281249997,
+      "pe_exit_time": "10:14",
+      "pe_exit_reason": "STOP_LOSS",
+      "pe_net_pnl": -1015.3363659789087,
+      "pe_costs": 57.928709728909375,
+      "total_net_pnl": -1844.0067588636148,
+      "ce_iv": 0.19847479271888735,
+      "pe_iv": 0.2157280781269073,
+      "realized_vol_10d": 0.10554986933429313,
+      "cum_pnl": 48337.4321062433,
+      "peak": 58363.17193083676,
+      "drawdown": -10025.73982459346
     }
   ]
 }
