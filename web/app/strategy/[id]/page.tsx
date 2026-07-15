@@ -46,6 +46,13 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
         {runParams.strategy_type === "strangle" && (
           <span>Target Delta: {String(runParams.target_delta)}</span>
         )}
+        {runParams.strategy_type === "iron_condor" && (
+          <>
+            <span>Short strikes: ±{String(runParams.short_pct)}% OTM</span>
+            <span>Wing: {String(runParams.wing_points)} pts</span>
+            <span>SL: {String(runParams.sl_type)}</span>
+          </>
+        )}
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

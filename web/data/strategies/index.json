@@ -59,6 +59,35 @@
     }
   },
   {
+    "id": "nifty_iron_condor",
+    "name": "NIFTY Iron Condor",
+    "description": "Sells a \u00b11.0% OTM call spread and put spread on expiry day. Wing width: 100 pts. Stop: premium.",
+    "underlying": "NIFTY",
+    "params": {
+      "underlying": "NIFTY",
+      "from_date": "2020-08-01",
+      "to_date": "2026-07-11",
+      "entry_time": "09:20",
+      "exit_time": "15:15",
+      "strategy_type": "iron_condor",
+      "short_pct": 1.0,
+      "wing_points": 100,
+      "sl_type": "premium",
+      "sl_pct": 1.0,
+      "slippage_pct": 0.005
+    },
+    "summary": {
+      "underlying": "NIFTY",
+      "total_expiry_days": 301,
+      "winning_expiry_days": 213,
+      "win_rate_pct": 70.8,
+      "total_net_pnl": 91564.71,
+      "max_drawdown": -10290.54,
+      "sharpe_ratio": 1.38,
+      "avg_net_pnl_per_expiry": 304.2
+    }
+  },
+  {
     "id": "sensex_20delta_strangle",
     "name": "20-Delta Short Strangle",
     "description": "Sells OTM call and put with ~20-delta at entry time on expiry day, with optional stop-losses.",

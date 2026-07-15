@@ -33,6 +33,10 @@ export interface Trade {
   strike: number;
   ce_strike?: number;
   pe_strike?: number;
+  /** Iron Condor only: long (wing) CE strike */
+  long_ce?: number;
+  /** Iron Condor only: long (wing) PE strike */
+  long_pe?: number;
   lot_size: number;
   spot_entry: number;
   ce_entry: number;
@@ -47,6 +51,10 @@ export interface Trade {
   pe_exit_reason: string;
   pe_net_pnl: number;
   pe_costs: number;
+  /** Iron Condor only: net credit collected per share */
+  net_credit?: number;
+  /** Iron Condor only: wing width in points */
+  wing_pts?: number;
   total_net_pnl: number;
   cum_pnl: number;
   peak: number;

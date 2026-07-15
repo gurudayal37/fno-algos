@@ -17,7 +17,8 @@ interface TradesTableProps {
 
 export default function TradesTable({ trades, strategyId, intradayDates }: TradesTableProps) {
   const intradaySet = new Set(intradayDates);
-  const isStrangle = trades.length > 0 && trades[0].ce_strike !== undefined;
+  const isIC       = trades.length > 0 && trades[0].long_ce !== undefined;
+  const isStrangle = !isIC && trades.length > 0 && trades[0].ce_strike !== undefined;
 
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-800">
@@ -25,8 +26,16 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
         <thead className="bg-gray-900 text-gray-400">
           <tr>
             <th className="px-3 py-2 text-left font-medium">Date</th>
-            <th className="px-3 py-2 text-right font-medium">Lot Size</th>
-            {isStrangle ? (
+            <th className="px-3 py-2 text-right font-medium">Lot</th>
+            {isIC ? (
+              <>
+                <th className="px-3 py-2 text-right font-medium">PE Long</th>
+                <th className="px-3 py-2 text-right font-medium">PE Short</th>
+                <th className="px-3 py-2 text-right font-medium">CE Short</th>
+                <th className="px-3 py-2 text-right font-medium">CE Long</th>
+                <th className="px-3 py-2 text-right font-medium">Net Credit</th>
+              </>
+            ) : isStrangle ? (
               <>
                 <th className="px-3 py-2 text-right font-medium">CE Strike</th>
                 <th className="px-3 py-2 text-right font-medium">PE Strike</th>
@@ -34,13 +43,20 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
             ) : (
               <th className="px-3 py-2 text-right font-medium">Strike</th>
             )}
-            <th className="px-3 py-2 text-right font-medium">Spot Entry</th>
-            <th className="px-3 py-2 text-right font-medium">CE Entry</th>
-            <th className="px-3 py-2 text-right font-medium">CE Exit</th>
-            <th className="px-3 py-2 text-left font-medium">CE Reason</th>
-            <th className="px-3 py-2 text-right font-medium">PE Entry</th>
-            <th className="px-3 py-2 text-right font-medium">PE Exit</th>
-            <th className="px-3 py-2 text-left font-medium">PE Reason</th>
+            <th className="px-3 py-2 text-right font-medium">Spot</th>
+            {!isIC && (
+              <>
+                <th className="px-3 py-2 text-right font-medium">CE Entry</th>
+                <th className="px-3 py-2 text-right font-medium">CE Exit</th>
+                <th className="px-3 py-2 text-left font-medium">CE Reason</th>
+                <th className="px-3 py-2 text-right font-medium">PE Entry</th>
+                <th className="px-3 py-2 text-right font-medium">PE Exit</th>
+                <th className="px-3 py-2 text-left font-medium">PE Reason</th>
+              </>
+            )}
+            {isIC && (
+              <th className="px-3 py-2 text-left font-medium">Exit Reason</th>
+            )}
             <th className="px-3 py-2 text-right font-medium">Net PnL</th>
           </tr>
         </thead>
@@ -60,7 +76,18 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
                 )}
               </td>
               <td className="px-3 py-2 text-right text-gray-300">{t.lot_size}</td>
-              {isStrangle ? (
+
+              {isIC ? (
+                <>
+                  <td className="px-3 py-2 text-right text-gray-500">{t.long_pe}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{t.pe_strike}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{t.ce_strike}</td>
+                  <td className="px-3 py-2 text-right text-gray-500">{t.long_ce}</td>
+                  <td className="px-3 py-2 text-right text-blue-300 font-medium">
+                    {t.net_credit != null ? fmt(t.net_credit) : "—"}
+                  </td>
+                </>
+              ) : isStrangle ? (
                 <>
                   <td className="px-3 py-2 text-right text-gray-300">{t.ce_strike}</td>
                   <td className="px-3 py-2 text-right text-gray-300">{t.pe_strike}</td>
@@ -68,13 +95,24 @@ export default function TradesTable({ trades, strategyId, intradayDates }: Trade
               ) : (
                 <td className="px-3 py-2 text-right text-gray-300">{t.strike}</td>
               )}
+
               <td className="px-3 py-2 text-right text-gray-300">{fmt(t.spot_entry)}</td>
-              <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_entry)}</td>
-              <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_exit)}</td>
-              <td className="px-3 py-2 whitespace-nowrap text-gray-400">{t.ce_exit_reason}</td>
-              <td className="px-3 py-2 text-right text-gray-300">{fmt(t.pe_entry)}</td>
-              <td className="px-3 py-2 text-right text-gray-300">{fmt(t.pe_exit)}</td>
-              <td className="px-3 py-2 whitespace-nowrap text-gray-400">{t.pe_exit_reason}</td>
+
+              {!isIC && (
+                <>
+                  <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_entry)}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{fmt(t.ce_exit)}</td>
+                  <td className="px-3 py-2 whitespace-nowrap text-gray-400">{t.ce_exit_reason}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{fmt(t.pe_entry)}</td>
+                  <td className="px-3 py-2 text-right text-gray-300">{fmt(t.pe_exit)}</td>
+                  <td className="px-3 py-2 whitespace-nowrap text-gray-400">{t.pe_exit_reason}</td>
+                </>
+              )}
+
+              {isIC && (
+                <td className="px-3 py-2 whitespace-nowrap text-gray-400">{t.ce_exit_reason}</td>
+              )}
+
               <td className={`px-3 py-2 text-right font-medium ${pnlClass(t.total_net_pnl)}`}>
                 {fmt(t.total_net_pnl)}
               </td>
