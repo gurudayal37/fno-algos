@@ -16,10 +16,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header className="border-b border-gray-800 bg-gray-950">
-          <div className="mx-auto max-w-6xl px-4 py-4">
+          <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
             <Link href="/" className="text-lg font-semibold text-gray-100">
               Option Strategy Backtests
             </Link>
+            <nav className="flex gap-6 text-sm">
+              <Link href="/" className="text-gray-400 hover:text-gray-100 transition-colors">Strategies</Link>
+              <Link href="/stats" className="text-gray-400 hover:text-gray-100 transition-colors">Market Stats</Link>
+            </nav>
           </div>
         </header>
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
