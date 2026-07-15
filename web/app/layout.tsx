@@ -23,6 +23,8 @@ export default function RootLayout({
             <nav className="flex gap-6 text-sm">
               <Link href="/" className="text-gray-400 hover:text-gray-100 transition-colors">Strategies</Link>
               <Link href="/stats" className="text-gray-400 hover:text-gray-100 transition-colors">Market Stats</Link>
+              <Link href="/nifty-stats" className="text-gray-400 hover:text-gray-100 transition-colors">NIFTY</Link>
+              <Link href="/sensex-stats" className="text-gray-400 hover:text-gray-100 transition-colors">SENSEX</Link>
             </nav>
           </div>
         </header>

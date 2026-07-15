@@ -1,0 +1,40 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model indices {
+  id                 Int                  @id @default(autoincrement())
+  symbol             String               @unique @db.VarChar(50)
+  name               String?              @db.VarChar(255)
+  is_active          Int?                 @default(1)
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @db.Timestamp(6)
+  index_daily_prices index_daily_prices[]
+
+  @@index([id], map: "ix_indices_id")
+  @@index([symbol], map: "ix_indices_symbol")
+}
+
+model index_daily_prices {
+  id          Int       @id @default(autoincrement())
+  index_id    Int
+  date        DateTime  @db.Timestamp(6)
+  open_price  Float?
+  high_price  Float?
+  low_price   Float?
+  close_price Float?
+  volume      BigInt?
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  indices     indices   @relation(fields: [index_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([index_id, date], map: "ix_index_daily_prices_index_date")
+  @@index([date], map: "ix_index_daily_prices_date")
+  @@index([id], map: "ix_index_daily_prices_id")
+  @@index([index_id, date(sort: Desc)], map: "ix_index_daily_prices_index_date_idx")
+}
