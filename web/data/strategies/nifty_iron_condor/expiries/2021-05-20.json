@@ -1,0 +1,81 @@
+{
+  "date": "2021-05-20",
+  "strike": 15200,
+  "ce_strike": 15200,
+  "pe_strike": 14900,
+  "long_ce": 15300,
+  "long_pe": 14800,
+  "lot_size": 75,
+  "spot_entry": 15062.1,
+  "ce_entry": 2.02,
+  "ce_exit": 0.97,
+  "ce_exit_time": "09:28",
+  "ce_exit_reason": "PREMIUM_SL",
+  "ce_costs": 95.83,
+  "pe_entry": 3.46,
+  "pe_exit": 8.88,
+  "pe_exit_time": "09:28",
+  "pe_exit_reason": "PREMIUM_SL",
+  "pe_costs": 95.83,
+  "total_net_pnl": -518.53,
+  "net_credit": 5.49,
+  "wing_pts": 100,
+  "candles": [
+    {
+      "time": "09:20",
+      "spot": 15062.1,
+      "ce": 2.03,
+      "pe": 3.46,
+      "pnl": 0.0
+    },
+    {
+      "time": "09:21",
+      "spot": 15050.9,
+      "ce": 1.65,
+      "pe": 3.85,
+      "pnl": -0.92
+    },
+    {
+      "time": "09:22",
+      "spot": 15041.4,
+      "ce": 1.45,
+      "pe": 5.0,
+      "pnl": -72.17
+    },
+    {
+      "time": "09:23",
+      "spot": 15043.2,
+      "ce": 1.5,
+      "pe": 4.25,
+      "pnl": -19.67
+    },
+    {
+      "time": "09:24",
+      "spot": 15046.2,
+      "ce": 1.6,
+      "pe": 3.85,
+      "pnl": 2.83
+    },
+    {
+      "time": "09:25",
+      "spot": 15029.7,
+      "ce": 1.35,
+      "pe": 4.9,
+      "pnl": -57.17
+    },
+    {
+      "time": "09:26",
+      "spot": 15011.9,
+      "ce": 0.94,
+      "pe": 7.05,
+      "pnl": -187.99
+    },
+    {
+      "time": "09:27",
+      "spot": 15003.6,
+      "ce": 1.14,
+      "pe": 7.45,
+      "pnl": -232.99
+    }
+  ]
+}

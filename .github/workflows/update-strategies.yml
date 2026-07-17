@@ -1,0 +1,54 @@
+name: Update Strategy Backtests
+
+# NIFTY expires Tuesdays (from Sep 2025). Run at 4:30pm IST = 11:00 UTC.
+# SENSEX expires Thursdays (from Sep 2025). Run at 4:30pm IST Thursdays too.
+# workflow_dispatch lets you trigger manually anytime.
+on:
+  schedule:
+    - cron: '0 11 * * 2'   # Tuesdays  16:30 IST — NIFTY expiry
+    - cron: '0 11 * * 4'   # Thursdays 16:30 IST — SENSEX expiry
+  workflow_dispatch:
+    inputs:
+      to_date:
+        description: 'Backtest end date (YYYY-MM-DD). Defaults to today.'
+        required: false
+        default: ''
+
+# ── IMPORTANT: This workflow must run on a self-hosted runner on your Mac.
+# The DuckDB options database (588MB) lives locally; cloud runners cannot
+# access it. See README for self-hosted runner setup instructions.
+jobs:
+  update-backtests:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # Full depth so we can push back with full history
+          fetch-depth: 0
+
+      - name: Run strategy update script
+        env:
+          DHAN_CLIENT_ID:   ${{ secrets.DHAN_CLIENT_ID }}
+          DHAN_ACCESS_TOKEN: ${{ secrets.DHAN_ACCESS_TOKEN }}
+          DATABASE_URL:     ${{ secrets.DATABASE_URL }}
+        run: bash scripts/update_strategies.sh
+
+      - name: Commit and push updated web data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage only the generated strategy JSON files (never .env or DuckDB)
+          git add web/data/strategies/
+
+          # Nothing to commit if all strategies had no new expiries
+          if git diff --cached --quiet; then
+            echo "No strategy data changed — nothing to commit."
+            exit 0
+          fi
+
+          EXPIRY_DATE=$(date +%Y-%m-%d)
+          git commit -m "chore: update strategy backtests for expiry $EXPIRY_DATE [skip ci]"
+          git push origin main

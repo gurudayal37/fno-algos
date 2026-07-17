@@ -79,6 +79,10 @@ export interface ExpiryDetail {
   strike: number;
   ce_strike?: number;
   pe_strike?: number;
+  /** Iron Condor: long (wing) CE strike */
+  long_ce?: number;
+  /** Iron Condor: long (wing) PE strike */
+  long_pe?: number;
   lot_size: number;
   spot_entry: number;
   ce_entry: number;
@@ -95,6 +99,10 @@ export interface ExpiryDetail {
   ce_iv?: number;
   pe_iv?: number;
   realized_vol_10d?: number;
+  /** Iron Condor: total net credit per share collected at entry */
+  net_credit?: number;
+  /** Iron Condor: wing width in points */
+  wing_pts?: number;
   candles: IntradayCandle[];
 }
 

@@ -99,6 +99,7 @@ def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, la
             "date": date_str,
             "strike": trade["strike"],
             **({"ce_strike": trade["ce_strike"], "pe_strike": trade["pe_strike"]} if "ce_strike" in trade else {}),
+            **({"long_ce": trade["long_ce"], "long_pe": trade["long_pe"]} if "long_ce" in trade and pd.notna(trade.get("long_ce")) else {}),
             "lot_size": trade["lot_size"],
             "spot_entry": trade["spot_entry"],
             "ce_entry": trade["ce_entry"],
@@ -115,6 +116,8 @@ def export_intraday_data(strategy_id, df_trades, intraday_data, web_data_dir, la
             **({"ce_iv": trade["ce_iv"]} if pd.notna(trade.get("ce_iv")) else {}),
             **({"pe_iv": trade["pe_iv"]} if pd.notna(trade.get("pe_iv")) else {}),
             **({"realized_vol_10d": trade["realized_vol_10d"]} if pd.notna(trade.get("realized_vol_10d")) else {}),
+            **({"net_credit": trade["net_credit"]} if pd.notna(trade.get("net_credit")) else {}),
+            **({"wing_pts": trade["wing_pts"]} if pd.notna(trade.get("wing_pts")) else {}),
             "candles": candles,
         }
 

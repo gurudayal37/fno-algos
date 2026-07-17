@@ -27,7 +27,7 @@ from datetime import datetime
 from config import logger, DATA_DIR, WEB_DATA_DIR
 from src.db import DBManager
 from src.backtester import LOT_SIZE_REGIMES, _lot_size_for_date
-from src.web_export import export_strategy_result
+from src.web_export import export_strategy_result, export_intraday_data
 
 IST_OFFSET = pd.Timedelta(hours=5, minutes=30)
 STRIKE_STEP = 50  # NIFTY
@@ -95,7 +95,7 @@ def run_ic_backtest(
     spot_candles = db.get_spot_candles(security_id, from_date, to_date)
     if spot_candles.empty:
         logger.error("No spot candles found.")
-        return None, pd.DataFrame()
+        return None, pd.DataFrame(), {}
 
     spot_candles["date"] = (spot_candles["timestamp"] + IST_OFFSET).dt.date
     spot_candles["time"] = (spot_candles["timestamp"] + IST_OFFSET).dt.strftime("%H:%M")
@@ -106,7 +106,7 @@ def run_ic_backtest(
     ).df()
     if expiries_df.empty:
         logger.error("No option candles found.")
-        return None, pd.DataFrame()
+        return None, pd.DataFrame(), {}
 
     expiry_dates = sorted(pd.to_datetime(expiries_df["expiry_date"]).dt.date.tolist())
 
@@ -116,6 +116,7 @@ def run_ic_backtest(
     logger.info(f"Iron Condor backtest: {len(expiry_dates)} expiries | short={short_pct}% | wing={wing_points}pts | SL={sl_type}")
 
     trade_logs = []
+    intraday_data = {}   # date_str → list of candle dicts
 
     for exp_date in expiry_dates:
         lot_size = _lot_size_for_date("NIFTY", exp_date)
@@ -181,6 +182,15 @@ def run_ic_backtest(
         all_times = sorted(set(lk_s_ce.index) | set(lk_s_pe.index))
         sim_times = [t for t in all_times if t > entry_time and t <= exit_time]
 
+        # Entry candle (pnl=0 at open)
+        candles = [{
+            "time": entry_time,
+            "spot": round(spot_entry, 2),
+            "ce":   round(s_ce_entry - l_ce_entry, 2),  # net call spread value
+            "pe":   round(s_pe_entry - l_pe_entry, 2),  # net put spread value
+            "pnl":  0.0,
+        }]
+
         exit_reason = "SQUARE_OFF"
         exit_time_actual = exit_time
         stopped = False
@@ -211,6 +221,27 @@ def run_ic_backtest(
                     exit_time_actual = t
                     stopped = True
                     break
+
+            # Record intraday candle
+            s_ce_now = get_premium(lk_s_ce, t) or s_ce_entry
+            s_pe_now = get_premium(lk_s_pe, t) or s_pe_entry
+            l_ce_now = get_premium(lk_l_ce, t) or l_ce_entry
+            l_pe_now = get_premium(lk_l_pe, t) or l_pe_entry
+            ce_net_now = round(s_ce_now - l_ce_now, 2)
+            pe_net_now = round(s_pe_now - l_pe_now, 2)
+            unrealized_pnl = round(
+                (s_ce_entry + s_pe_entry - l_ce_entry - l_pe_entry - s_ce_now - s_pe_now + l_ce_now + l_pe_now) * lot_size, 2
+            )
+            spot_now_val = day_spot_idx.loc[t, "close"] if t in day_spot_idx.index else spot_entry
+            if isinstance(spot_now_val, pd.Series):
+                spot_now_val = spot_now_val.iloc[0]
+            candles.append({
+                "time": t,
+                "spot": round(float(spot_now_val), 2),
+                "ce":   ce_net_now,
+                "pe":   pe_net_now,
+                "pnl":  unrealized_pnl,
+            })
 
         # Get exit prices
         def exit_price(lk, t_exit, is_short):
@@ -248,6 +279,9 @@ def run_ic_backtest(
         )
         net_pnl = gross_pnl - costs
 
+        # Store final realized candle at exit and save intraday data
+        intraday_data[str(exp_date)] = candles
+
         trade_logs.append({
             "date":          exp_date,
             "spot_entry":    round(spot_entry, 2),
@@ -276,7 +310,7 @@ def run_ic_backtest(
 
     if not trade_logs:
         logger.error("No trades generated.")
-        return None, pd.DataFrame()
+        return None, pd.DataFrame(), {}
 
     df = pd.DataFrame(trade_logs)
 
@@ -304,7 +338,7 @@ def run_ic_backtest(
         "avg_credit":        round(df["net_credit"].mean(), 2),
         "exit_counts":       exit_counts,
     }
-    return summary, df
+    return summary, df, intraday_data
 
 
 def main():
@@ -342,7 +376,7 @@ def main():
         ]
         rows = []
         for sp, wp in configs:
-            s, df = run_ic_backtest(
+            s, df, _ = run_ic_backtest(
                 db, args.from_date, args.to_date,
                 short_pct=sp, wing_points=wp,
                 sl_type=args.sl_type, sl_pct=args.sl_pct,
@@ -368,7 +402,7 @@ def main():
             tablefmt="fancy_grid"))
         return
 
-    summary, df_trades = run_ic_backtest(
+    summary, df_trades, intraday_data = run_ic_backtest(
         db,
         from_date=args.from_date,
         to_date=args.to_date,
@@ -414,10 +448,10 @@ def main():
 
     # Web export
     if args.export_web:
-        _export_ic_web(args, summary, df_trades)
+        _export_ic_web(args, summary, df_trades, intraday_data)
 
 
-def _export_ic_web(args, summary, df_raw):
+def _export_ic_web(args, summary, df_raw, intraday_data):
     """Convert IC trade log to the schema expected by the Next.js web app and export."""
     import numpy as np
 
@@ -510,6 +544,12 @@ def _export_ic_web(args, summary, df_raw):
         params=params,
         summary=web_summary,
         df_trades=df_web,
+        web_data_dir=WEB_DATA_DIR,
+    )
+    export_intraday_data(
+        strategy_id=args.strategy_id,
+        df_trades=df_web,
+        intraday_data=intraday_data,
         web_data_dir=WEB_DATA_DIR,
     )
     logger.info(f"Web export complete for strategy '{args.strategy_id}'.")
