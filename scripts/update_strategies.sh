@@ -26,8 +26,10 @@ FROM=$(python3 -c "from datetime import date, timedelta; print(date.today() - ti
 
 echo "[update_strategies] $TODAY — downloading last 10 days of options data..."
 
-python3 download_data.py --underlying NIFTY  --from-date "$FROM" --to-date "$TODAY"
-python3 download_data.py --underlying SENSEX --from-date "$FROM" --to-date "$TODAY"
+python3 download_data.py --underlying NIFTY  --from-date "$FROM" --to-date "$TODAY" --download-spot
+python3 download_data.py --underlying NIFTY  --from-date "$FROM" --to-date "$TODAY" --download-options
+python3 download_data.py --underlying SENSEX --from-date "$FROM" --to-date "$TODAY" --download-spot
+python3 download_data.py --underlying SENSEX --from-date "$FROM" --to-date "$TODAY" --download-options
 
 # ── Check whether a new expiry actually landed for each underlying ────────────
 check_new_expiry() {
