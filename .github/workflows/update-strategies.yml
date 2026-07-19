@@ -1,22 +1,26 @@
 name: Update Strategy Backtests
 
-# NIFTY expires Tuesdays (from Sep 2025). Run at 4:30pm IST = 11:00 UTC.
-# SENSEX expires Thursdays (from Sep 2025). Run at 4:30pm IST Thursdays too.
-# workflow_dispatch lets you trigger manually anytime.
+# Runs daily Mon-Fri after market close (4:30pm IST = 11:00 UTC).
+#
+# We do NOT hard-code Tue/Thu as expiry days — that breaks on NSE holidays
+# when expiry shifts to the prior trading day (e.g. Monday on Holi week).
+# Instead, the shell script compares the latest expiry in DuckDB against
+# what is already exported in the web JSON; it only re-runs backtests when
+# a genuinely new expiry date has been downloaded.
+#
+# IMPORTANT: runs-on: self-hosted  ← must be your Mac.
+# The DuckDB options file is 588MB and lives locally; cloud runners cannot
+# access it. See the self-hosted runner setup section below.
 on:
   schedule:
-    - cron: '0 11 * * 2'   # Tuesdays  16:30 IST — NIFTY expiry
-    - cron: '0 11 * * 4'   # Thursdays 16:30 IST — SENSEX expiry
+    - cron: '0 11 * * 1-5'   # Mon-Fri 16:30 IST (11:00 UTC)
   workflow_dispatch:
     inputs:
-      to_date:
-        description: 'Backtest end date (YYYY-MM-DD). Defaults to today.'
+      force:
+        description: 'Set to "true" to skip the new-expiry check and force a full re-run'
         required: false
-        default: ''
+        default: 'false'
 
-# ── IMPORTANT: This workflow must run on a self-hosted runner on your Mac.
-# The DuckDB options database (588MB) lives locally; cloud runners cannot
-# access it. See README for self-hosted runner setup instructions.
 jobs:
   update-backtests:
     runs-on: self-hosted
@@ -25,14 +29,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          # Full depth so we can push back with full history
           fetch-depth: 0
 
       - name: Run strategy update script
         env:
-          DHAN_CLIENT_ID:   ${{ secrets.DHAN_CLIENT_ID }}
+          DHAN_CLIENT_ID:    ${{ secrets.DHAN_CLIENT_ID }}
           DHAN_ACCESS_TOKEN: ${{ secrets.DHAN_ACCESS_TOKEN }}
-          DATABASE_URL:     ${{ secrets.DATABASE_URL }}
+          DATABASE_URL:      ${{ secrets.DATABASE_URL }}
+          FORCE_UPDATE:      ${{ github.event.inputs.force || 'false' }}
         run: bash scripts/update_strategies.sh
 
       - name: Commit and push updated web data
@@ -40,10 +44,8 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Stage only the generated strategy JSON files (never .env or DuckDB)
           git add web/data/strategies/
 
-          # Nothing to commit if all strategies had no new expiries
           if git diff --cached --quiet; then
             echo "No strategy data changed — nothing to commit."
             exit 0
@@ -52,3 +54,24 @@ jobs:
           EXPIRY_DATE=$(date +%Y-%m-%d)
           git commit -m "chore: update strategy backtests for expiry $EXPIRY_DATE [skip ci]"
           git push origin main
+
+# ── Self-hosted runner setup (one-time, on your Mac) ─────────────────────────
+#
+# 1. Go to: github.com/<your-repo>/settings/actions/runners
+#    → "New self-hosted runner" → macOS
+#
+# 2. Follow the download + configure steps shown there. When asked for labels,
+#    add: self-hosted,macOS
+#
+# 3. Install as a background service so it survives reboots:
+#      cd ~/actions-runner
+#      ./svc.sh install
+#      ./svc.sh start
+#
+# 4. Add these repository secrets (Settings → Secrets → Actions):
+#      DHAN_CLIENT_ID      ← from your .env
+#      DHAN_ACCESS_TOKEN   ← from your .env
+#      DATABASE_URL        ← from your .env  (Postgres RDS, for web app)
+#
+# 5. The runner needs Python + dependencies available in PATH.
+#    If you use a virtualenv, place it at <repo>/.venv — the script activates it.
