@@ -4,3 +4,4 @@ duckdb
 python-dotenv
 requests
 tabulate
+pyotp

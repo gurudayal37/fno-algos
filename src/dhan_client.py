@@ -1,7 +1,7 @@
 import time
 import requests
 import json
-from config import DHAN_CLIENT_ID, DHAN_ACCESS_TOKEN, logger, check_config
+from config import DHAN_CLIENT_ID, logger, check_config, get_access_token
 
 class DhanClientWrapper:
     """
@@ -14,8 +14,8 @@ class DhanClientWrapper:
             for err in errors:
                 logger.error(err)
             raise ValueError("Invalid configuration. Please check your .env file.")
-        
-        self.access_token = DHAN_ACCESS_TOKEN
+
+        self.access_token = get_access_token()   # TOTP-minted or static fallback
         self.client_id = DHAN_CLIENT_ID
         self.base_url = "https://api.dhan.co/v2"
         self.headers = {

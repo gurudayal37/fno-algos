@@ -33,10 +33,11 @@ jobs:
 
       - name: Run strategy update script
         env:
-          DHAN_CLIENT_ID:    ${{ secrets.DHAN_CLIENT_ID }}
-          DHAN_ACCESS_TOKEN: ${{ secrets.DHAN_ACCESS_TOKEN }}
-          DATABASE_URL:      ${{ secrets.DATABASE_URL }}
-          FORCE_UPDATE:      ${{ github.event.inputs.force || 'false' }}
+          DHAN_CLIENT_ID:   ${{ secrets.DHAN_CLIENT_ID }}
+          DHAN_PIN:         ${{ secrets.DHAN_PIN }}
+          DHAN_TOTP_SECRET: ${{ secrets.DHAN_TOTP_SECRET }}
+          DATABASE_URL:     ${{ secrets.DATABASE_URL }}
+          FORCE_UPDATE:     ${{ github.event.inputs.force || 'false' }}
         run: bash scripts/update_strategies.sh
 
       - name: Commit and push updated web data
@@ -69,9 +70,10 @@ jobs:
 #      ./svc.sh start
 #
 # 4. Add these repository secrets (Settings → Secrets → Actions):
-#      DHAN_CLIENT_ID      ← from your .env
-#      DHAN_ACCESS_TOKEN   ← from your .env
-#      DATABASE_URL        ← from your .env  (Postgres RDS, for web app)
+#      DHAN_CLIENT_ID    ← your Dhan client ID
+#      DHAN_PIN          ← your Dhan login PIN (same value as in data-syncer secrets)
+#      DHAN_TOTP_SECRET  ← TOTP seed from Dhan 2FA (same value as in data-syncer secrets)
+#      DATABASE_URL      ← Postgres RDS connection string (for the web app)
 #
 # 5. The runner needs Python + dependencies available in PATH.
 #    If you use a virtualenv, place it at <repo>/.venv — the script activates it.

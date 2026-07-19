@@ -21,8 +21,47 @@ else:
     load_dotenv()
 
 # API Configuration
-DHAN_CLIENT_ID = os.getenv("DHAN_CLIENT_ID", "your_client_id_here")
-DHAN_ACCESS_TOKEN = os.getenv("DHAN_ACCESS_TOKEN", "your_access_token_here")
+DHAN_CLIENT_ID    = os.getenv("DHAN_CLIENT_ID", "your_client_id_here")
+DHAN_ACCESS_TOKEN = os.getenv("DHAN_ACCESS_TOKEN", "")   # optional: used only when TOTP vars absent
+DHAN_PIN          = os.getenv("DHAN_PIN", "")
+DHAN_TOTP_SECRET  = os.getenv("DHAN_TOTP_SECRET", "")
+
+DHAN_TOKEN_URL = "https://auth.dhan.co/app/generateAccessToken"
+
+
+def get_access_token() -> str:
+    """
+    Return a valid Dhan access token.
+
+    Preferred path (CI-safe): mint a fresh 24h token via TOTP login.
+      Requires DHAN_PIN + DHAN_TOTP_SECRET in env.
+
+    Fallback: use the static DHAN_ACCESS_TOKEN from .env.
+      This expires after ~24h so it will break unattended runs.
+    """
+    if DHAN_PIN and DHAN_TOTP_SECRET:
+        import pyotp, requests as _req
+        totp_code = pyotp.TOTP(DHAN_TOTP_SECRET).now()
+        resp = _req.post(
+            DHAN_TOKEN_URL,
+            params={"dhanClientId": DHAN_CLIENT_ID, "pin": DHAN_PIN, "totp": totp_code},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if "accessToken" not in data:
+            raise RuntimeError(f"Dhan TOTP login failed: {data.get('message', data)}")
+        logger.info("Minted fresh Dhan access token via TOTP.")
+        return data["accessToken"]
+
+    if DHAN_ACCESS_TOKEN:
+        logger.warning(
+            "Using static DHAN_ACCESS_TOKEN — expires ~24h after issue. "
+            "Set DHAN_PIN + DHAN_TOTP_SECRET for unattended/CI use."
+        )
+        return DHAN_ACCESS_TOKEN
+
+    raise RuntimeError("No Dhan credentials found. Set DHAN_PIN+DHAN_TOTP_SECRET or DHAN_ACCESS_TOKEN in .env")
 
 # DB Configuration
 DB_PATH = DATA_DIR / "options_backtest.duckdb"
@@ -47,7 +86,12 @@ def check_config():
     """Verify that credentials are set up."""
     errors = []
     if not DHAN_CLIENT_ID or DHAN_CLIENT_ID == "your_client_id_here":
-        errors.append("DHAN_CLIENT_ID is not configured or has default placeholder value.")
-    if not DHAN_ACCESS_TOKEN or DHAN_ACCESS_TOKEN == "your_access_token_here":
-        errors.append("DHAN_ACCESS_TOKEN is not configured or has default placeholder value.")
+        errors.append("DHAN_CLIENT_ID is not configured.")
+    has_totp   = bool(DHAN_PIN and DHAN_TOTP_SECRET)
+    has_static = bool(DHAN_ACCESS_TOKEN)
+    if not has_totp and not has_static:
+        errors.append(
+            "No Dhan auth credentials found. "
+            "Set DHAN_PIN + DHAN_TOTP_SECRET (preferred) or DHAN_ACCESS_TOKEN."
+        )
     return errors
