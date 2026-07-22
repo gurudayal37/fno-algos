@@ -63,12 +63,15 @@ def get_access_token() -> str:
 
     raise RuntimeError("No Dhan credentials found. Set DHAN_PIN+DHAN_TOTP_SECRET or DHAN_ACCESS_TOKEN in .env")
 
-# DB Configuration
-DB_PATH = DATA_DIR / "options_backtest.duckdb"
+# DB Configuration — DUCKDB_PATH env var lets the CI runner point to the file
+# on the host machine (checked-out workspace won't have the 588MB DuckDB file).
+_duckdb_env = os.getenv("DUCKDB_PATH", "")
+DB_PATH = Path(_duckdb_env) if _duckdb_env else DATA_DIR / "options_backtest.duckdb"
 
 # Scrip Master URLs & Path
 SCRIP_MASTER_URL = "https://images.dhan.co/api-data/api-scrip-master-detailed.csv"
-SCRIP_MASTER_PATH = DATA_DIR / "api-scrip-master-detailed.csv"
+_scrip_env = os.getenv("SCRIP_MASTER_PATH", "")
+SCRIP_MASTER_PATH = Path(_scrip_env) if _scrip_env else DATA_DIR / "api-scrip-master-detailed.csv"
 
 # Logger settings
 LOG_LEVEL = logging.INFO

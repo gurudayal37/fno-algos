@@ -31,6 +31,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Python environment
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install -q -r requirements.txt
+
       - name: Run strategy update script
         env:
           DHAN_CLIENT_ID:   ${{ secrets.DHAN_CLIENT_ID }}
@@ -38,6 +44,8 @@ jobs:
           DHAN_TOTP_SECRET: ${{ secrets.DHAN_TOTP_SECRET }}
           DATABASE_URL:     ${{ secrets.DATABASE_URL }}
           FORCE_UPDATE:     ${{ github.event.inputs.force || 'false' }}
+          DUCKDB_PATH:      ${{ secrets.DUCKDB_PATH }}
+          SCRIP_MASTER_PATH: ${{ secrets.SCRIP_MASTER_PATH }}
         run: bash scripts/update_strategies.sh
 
       - name: Commit and push updated web data
