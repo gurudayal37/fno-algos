@@ -110,13 +110,20 @@ def _compute_stats(returns_list, bin_start, bin_end, bin_step, thresholds):
     }
 
 
+def _period_returns(period_df):
+    """Given a df with open/close per period (sorted), return (cc_returns, oc_returns)."""
+    cc = (period_df["close"] / period_df["close"].shift(1) - 1) * 100
+    oc = (period_df["close"] / period_df["open"] - 1) * 100
+    return cc.dropna().tolist(), oc.dropna().tolist()
+
+
 def main():
     conn = duckdb.connect("data/options_backtest.duckdb")
     result = {}
 
     for underlying, sid in SECURITY_IDS.items():
         df = conn.execute(f"""
-            SELECT timestamp, close
+            SELECT timestamp, open, high, low, close
             FROM spot_candles
             WHERE security_id = '{sid}'
             ORDER BY timestamp
@@ -125,38 +132,65 @@ def main():
         df["ist"]  = df["timestamp"] + IST_OFFSET
         df["date"] = df["ist"].dt.date
 
-        # Daily close (last 1-min candle per trading day)
-        daily = (df.groupby("date")["close"].last()
-                   .reset_index()
-                   .rename(columns={"close": "close"}))
+        # Daily OHLC (first open / max high / min low / last close per trading day)
+        daily = (df.groupby("date")
+                   .agg(open=("open", "first"), high=("high", "max"),
+                        low=("low", "min"), close=("close", "last"))
+                   .reset_index())
         daily["date"] = pd.to_datetime(daily["date"])
         daily = daily.sort_values("date").reset_index(drop=True)
-        daily["ret"] = (daily["close"] / daily["close"].shift(1) - 1) * 100
-        daily_ret = daily["ret"].dropna().tolist()
+        daily_cc, daily_oc = _period_returns(daily)
 
-        # Weekly (last trading day of each ISO week)
+        # Weekly (open = first trading day's open, close = last trading day's close of ISO week)
         daily["iso_week"] = daily["date"].dt.to_period("W")
-        weekly = daily.groupby("iso_week")["close"].last().reset_index()
-        weekly["ret"] = (weekly["close"] / weekly["close"].shift(1) - 1) * 100
-        weekly_ret = weekly["ret"].dropna().tolist()
+        weekly = (daily.groupby("iso_week")
+                        .agg(open=("open", "first"), close=("close", "last"))
+                        .reset_index())
+        weekly_cc, weekly_oc = _period_returns(weekly)
 
-        # Monthly (last trading day of each calendar month)
+        # Monthly (open = first trading day's open, close = last trading day's close of month)
         daily["month"] = daily["date"].dt.to_period("M")
-        monthly = daily.groupby("month")["close"].last().reset_index()
-        monthly["ret"] = (monthly["close"] / monthly["close"].shift(1) - 1) * 100
-        monthly_ret = monthly["ret"].dropna().tolist()
+        monthly = (daily.groupby("month")
+                         .agg(open=("open", "first"), close=("close", "last"))
+                         .reset_index())
+        monthly_cc, monthly_oc = _period_returns(monthly)
 
         # Date range label for display
         date_from = daily["date"].min().strftime("%b %Y")
         date_to   = daily["date"].max().strftime("%b %Y")
 
+        # Latest trading day snapshot
+        last = daily.iloc[-1]
+        prev_close = float(daily.iloc[-2]["close"]) if len(daily) > 1 else None
+        latest = {
+            "date":        last["date"].strftime("%Y-%m-%d"),
+            "open":        round(float(last["open"]), 2),
+            "high":        round(float(last["high"]), 2),
+            "low":         round(float(last["low"]), 2),
+            "close":       round(float(last["close"]), 2),
+            "prev_close":  round(prev_close, 2) if prev_close is not None else None,
+            "cc_return":   round((last["close"] / prev_close - 1) * 100, 3) if prev_close else None,
+            "oc_return":   round((last["close"] / last["open"] - 1) * 100, 3),
+        }
+
         result[underlying] = {
             "date_range": f"{date_from} – {date_to}",
-            "daily":   _compute_stats(daily_ret,   -4.0, 4.0,   0.25, DAILY_THRESHOLDS),
-            "weekly":  _compute_stats(weekly_ret,  -8.0, 8.0,   0.5,  WEEKLY_THRESHOLDS),
-            "monthly": _compute_stats(monthly_ret, -15.0, 15.0, 2.0,  MONTHLY_THRESHOLDS),
+            "latest": latest,
+            "daily": {
+                "cc": _compute_stats(daily_cc,   -4.0, 4.0,   0.25, DAILY_THRESHOLDS),
+                "oc": _compute_stats(daily_oc,   -4.0, 4.0,   0.25, DAILY_THRESHOLDS),
+            },
+            "weekly": {
+                "cc": _compute_stats(weekly_cc,  -8.0, 8.0,   0.5,  WEEKLY_THRESHOLDS),
+                "oc": _compute_stats(weekly_oc,  -8.0, 8.0,   0.5,  WEEKLY_THRESHOLDS),
+            },
+            "monthly": {
+                "cc": _compute_stats(monthly_cc, -15.0, 15.0, 2.0,  MONTHLY_THRESHOLDS),
+                "oc": _compute_stats(monthly_oc, -15.0, 15.0, 2.0,  MONTHLY_THRESHOLDS),
+            },
         }
-        print(f"{underlying}: daily n={len(daily_ret)}, weekly n={len(weekly_ret)}, monthly n={len(monthly_ret)}")
+        print(f"{underlying}: daily n={len(daily_cc)}, weekly n={len(weekly_cc)}, monthly n={len(monthly_cc)}, "
+              f"latest={latest['date']} oc={latest['oc_return']}%")
 
     conn.close()
 

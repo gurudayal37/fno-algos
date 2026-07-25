@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import ReturnHistogram from "@/components/ReturnHistogram";
-import type { MarketStats, PeriodStats } from "@/lib/marketStats";
+import type { MarketStats, PeriodStats, LatestSession } from "@/lib/marketStats";
 
 type Period = "daily" | "weekly" | "monthly";
+type ReturnType = "cc" | "oc";
 
 const PERIOD_LABELS: Record<Period, string> = {
   daily: "Daily",
@@ -12,10 +13,24 @@ const PERIOD_LABELS: Record<Period, string> = {
   monthly: "Monthly",
 };
 
-const PERIOD_CONTEXT: Record<Period, string> = {
-  daily: "Each bar = one trading day's close-to-close move",
-  weekly: "Each bar = one week's close-to-close move",
-  monthly: "Each bar = one month's close-to-close move",
+const RETURN_TYPE_LABELS: Record<ReturnType, string> = {
+  cc: "Close → Close",
+  oc: "Open → Close",
+};
+
+const PERIOD_CONTEXT: Record<Period, Record<ReturnType, string>> = {
+  daily: {
+    cc: "Each bar = one trading day's close-to-close move (includes the overnight gap)",
+    oc: "Each bar = one trading day's open-to-close move — pure intraday, excludes the overnight gap. Closest proxy for an intraday short-straddle/strangle P&L.",
+  },
+  weekly: {
+    cc: "Each bar = one week's close-to-close move (includes weekend + overnight gaps)",
+    oc: "Each bar = the move from the week's first open to the week's last close (excludes the weekend gap)",
+  },
+  monthly: {
+    cc: "Each bar = one month's close-to-close move (includes all overnight/weekend gaps)",
+    oc: "Each bar = the move from the month's first open to the month's last close (excludes overnight/weekend gaps)",
+  },
 };
 
 function fmt(n: number, decimals = 2) {
@@ -175,13 +190,72 @@ function ProbTable({ nifty, sensex, period }: ProbTableProps) {
   );
 }
 
+interface LatestTileProps {
+  underlying: "NIFTY" | "SENSEX";
+  latest: LatestSession;
+  color: string;
+}
+
+function LatestTile({ underlying, latest, color }: LatestTileProps) {
+  const ccUp = (latest.cc_return ?? 0) >= 0;
+  const ocUp = latest.oc_return >= 0;
+  return (
+    <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="text-base font-semibold" style={{ color }}>{underlying}</span>
+        <span className="text-xs text-gray-500">{latest.date}</span>
+      </div>
+      <div className="grid grid-cols-4 gap-2 text-center mb-3">
+        <div>
+          <div className="text-xs text-gray-500">Open</div>
+          <div className="text-sm font-medium text-gray-200">{latest.open.toFixed(2)}</div>
+        </div>
+        <div>
+          <div className="text-xs text-gray-500">High</div>
+          <div className="text-sm font-medium text-gray-200">{latest.high.toFixed(2)}</div>
+        </div>
+        <div>
+          <div className="text-xs text-gray-500">Low</div>
+          <div className="text-sm font-medium text-gray-200">{latest.low.toFixed(2)}</div>
+        </div>
+        <div>
+          <div className="text-xs text-gray-500">Close</div>
+          <div className="text-sm font-medium text-gray-200">{latest.close.toFixed(2)}</div>
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <div className="flex-1 rounded border border-gray-800 bg-gray-900/60 px-2 py-1.5 text-center">
+          <div className="text-xs text-gray-500">Close→Close</div>
+          <div className={`text-sm font-semibold ${latest.cc_return === null ? "text-gray-500" : ccUp ? "text-emerald-400" : "text-red-400"}`}>
+            {latest.cc_return === null ? "—" : fmtPct(latest.cc_return)}
+          </div>
+        </div>
+        <div className="flex-1 rounded border border-gray-800 bg-gray-900/60 px-2 py-1.5 text-center">
+          <div className="text-xs text-gray-500">Open→Close</div>
+          <div className={`text-sm font-semibold ${ocUp ? "text-emerald-400" : "text-red-400"}`}>
+            {fmtPct(latest.oc_return)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function StatsClient({ data }: { data: MarketStats }) {
   const [period, setPeriod] = useState<Period>("daily");
+  const [returnType, setReturnType] = useState<ReturnType>("oc");
 
   return (
     <div>
+      {/* Latest session snapshot */}
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <LatestTile underlying="NIFTY" latest={data.NIFTY.latest} color="#3987e5" />
+        <LatestTile underlying="SENSEX" latest={data.SENSEX.latest} color="#008300" />
+      </div>
+
       {/* Period toggle */}
-      <div className="mb-6 flex gap-2">
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <span className="text-xs text-gray-500 mr-1">Period</span>
         {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
           <button
             key={p}
@@ -195,23 +269,38 @@ export default function StatsClient({ data }: { data: MarketStats }) {
             {PERIOD_LABELS[p]}
           </button>
         ))}
-        <span className="ml-2 self-center text-xs text-gray-600">
-          {PERIOD_CONTEXT[period]}
-        </span>
+
+        <span className="ml-4 text-xs text-gray-500 mr-1">Move type</span>
+        {(["oc", "cc"] as ReturnType[]).map((rt) => (
+          <button
+            key={rt}
+            onClick={() => setReturnType(rt)}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
+              returnType === rt
+                ? "bg-blue-600 text-white"
+                : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-200"
+            }`}
+          >
+            {RETURN_TYPE_LABELS[rt]}
+          </button>
+        ))}
+      </div>
+      <div className="mb-6 text-xs text-gray-600">
+        {PERIOD_CONTEXT[period][returnType]}
       </div>
 
       {/* Two histograms side by side */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <HistogramPanel
           underlying="NIFTY"
-          stats={data.NIFTY[period]}
+          stats={data.NIFTY[period][returnType]}
           dateRange={data.NIFTY.date_range}
           color="#3987e5"
           period={period}
         />
         <HistogramPanel
           underlying="SENSEX"
-          stats={data.SENSEX[period]}
+          stats={data.SENSEX[period][returnType]}
           dateRange={data.SENSEX.date_range}
           color="#008300"
           period={period}
@@ -219,7 +308,7 @@ export default function StatsClient({ data }: { data: MarketStats }) {
       </div>
 
       {/* Probability table */}
-      <ProbTable nifty={data.NIFTY[period]} sensex={data.SENSEX[period]} period={period} />
+      <ProbTable nifty={data.NIFTY[period][returnType]} sensex={data.SENSEX[period][returnType]} period={period} />
 
       {/* Quant interpretation */}
       <div className="mt-6 rounded-lg border border-gray-800 bg-gray-900/50 p-4 text-xs text-gray-500 space-y-1">

@@ -1,1588 +1,3200 @@
 {
   "NIFTY": {
     "date_range": "Jan 2020 \u2013 Jul 2026",
+    "latest": {
+      "date": "2026-07-24",
+      "open": 23666.35,
+      "high": 23823.6,
+      "low": 23606.3,
+      "close": 23767.45,
+      "prev_close": 23869.6,
+      "cc_return": -0.428,
+      "oc_return": 0.427
+    },
     "daily": {
-      "count": 1628,
-      "mean": 0.0492,
-      "std": 1.181,
-      "skew": -1.078,
-      "kurt": 16.285,
-      "positive_pct": 53.4,
-      "p5": -1.575,
-      "p25": -0.442,
-      "p50": 0.064,
-      "p75": 0.624,
-      "p95": 1.565,
-      "histogram": [
-        {
-          "bin_label": "<-4.0%",
-          "center": -4.25,
-          "count": 12,
-          "pct": 0.74
-        },
-        {
-          "bin_label": "-4.00%",
-          "center": -3.875,
-          "count": 2,
-          "pct": 0.12
-        },
-        {
-          "bin_label": "-3.75%",
-          "center": -3.625,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.50%",
-          "center": -3.375,
-          "count": 4,
-          "pct": 0.25
-        },
-        {
-          "bin_label": "-3.25%",
-          "center": -3.125,
-          "count": 5,
-          "pct": 0.31
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.875,
-          "count": 5,
-          "pct": 0.31
-        },
-        {
-          "bin_label": "-2.75%",
-          "center": -2.625,
-          "count": 7,
-          "pct": 0.43
-        },
-        {
-          "bin_label": "-2.50%",
-          "center": -2.375,
-          "count": 8,
-          "pct": 0.49
-        },
-        {
-          "bin_label": "-2.25%",
-          "center": -2.125,
-          "count": 9,
-          "pct": 0.55
-        },
-        {
-          "bin_label": "-2.00%",
-          "center": -1.875,
-          "count": 15,
-          "pct": 0.92
-        },
-        {
-          "bin_label": "-1.75%",
-          "center": -1.625,
-          "count": 25,
-          "pct": 1.54
-        },
-        {
-          "bin_label": "-1.50%",
-          "center": -1.375,
-          "count": 39,
-          "pct": 2.4
-        },
-        {
-          "bin_label": "-1.25%",
-          "center": -1.125,
-          "count": 51,
-          "pct": 3.13
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": -0.875,
-          "count": 79,
-          "pct": 4.85
-        },
-        {
-          "bin_label": "-0.75%",
-          "center": -0.625,
-          "count": 102,
-          "pct": 6.27
-        },
-        {
-          "bin_label": "-0.50%",
-          "center": -0.375,
-          "count": 177,
-          "pct": 10.87
-        },
-        {
-          "bin_label": "-0.25%",
-          "center": -0.125,
-          "count": 215,
-          "pct": 13.21
-        },
-        {
-          "bin_label": "+0.00%",
-          "center": 0.125,
-          "count": 198,
-          "pct": 12.16
-        },
-        {
-          "bin_label": "+0.25%",
-          "center": 0.375,
-          "count": 182,
-          "pct": 11.18
-        },
-        {
-          "bin_label": "+0.50%",
-          "center": 0.625,
-          "count": 169,
-          "pct": 10.38
-        },
-        {
-          "bin_label": "+0.75%",
-          "center": 0.875,
-          "count": 118,
-          "pct": 7.25
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 1.125,
-          "count": 71,
-          "pct": 4.36
-        },
-        {
-          "bin_label": "+1.25%",
-          "center": 1.375,
-          "count": 47,
-          "pct": 2.89
-        },
-        {
-          "bin_label": "+1.50%",
-          "center": 1.625,
-          "count": 26,
-          "pct": 1.6
-        },
-        {
-          "bin_label": "+1.75%",
-          "center": 1.875,
-          "count": 19,
-          "pct": 1.17
-        },
-        {
-          "bin_label": "+2.00%",
-          "center": 2.125,
-          "count": 10,
-          "pct": 0.61
-        },
-        {
-          "bin_label": "+2.25%",
-          "center": 2.375,
-          "count": 6,
-          "pct": 0.37
-        },
-        {
-          "bin_label": "+2.50%",
-          "center": 2.625,
-          "count": 5,
-          "pct": 0.31
-        },
-        {
-          "bin_label": "+2.75%",
-          "center": 2.875,
-          "count": 3,
-          "pct": 0.18
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 3.125,
-          "count": 3,
-          "pct": 0.18
-        },
-        {
-          "bin_label": "+3.25%",
-          "center": 3.375,
-          "count": 3,
-          "pct": 0.18
-        },
-        {
-          "bin_label": "+3.50%",
-          "center": 3.625,
-          "count": 1,
-          "pct": 0.06
-        },
-        {
-          "bin_label": "+3.75%",
-          "center": 3.875,
-          "count": 2,
-          "pct": 0.12
-        },
-        {
-          "bin_label": ">+4.0%",
-          "center": 4.25,
-          "count": 10,
-          "pct": 0.61
-        }
-      ],
-      "normal_curve": [
-        0.18,
-        0.55,
-        1.09,
-        2.06,
-        3.71,
-        6.41,
-        10.59,
-        16.72,
-        25.25,
-        36.46,
-        50.34,
-        66.45,
-        83.87,
-        101.22,
-        116.81,
-        128.89,
-        135.99,
-        137.2,
-        132.35,
-        122.08,
-        107.67,
-        90.8,
-        73.22,
-        56.45,
-        41.62,
-        29.34,
-        19.78,
-        12.75,
-        7.85,
-        4.63,
-        2.61,
-        1.4,
-        0.72,
-        0.25
-      ],
-      "prob_table": [
-        {
-          "threshold": 0.25,
-          "p_abs": 74.6,
-          "p_up": 41.5,
-          "p_down": 33.2
-        },
-        {
-          "threshold": 0.5,
-          "p_abs": 52.6,
-          "p_up": 30.3,
-          "p_down": 22.3
-        },
-        {
-          "threshold": 0.75,
-          "p_abs": 35.9,
-          "p_up": 19.9,
-          "p_down": 16.0
-        },
-        {
-          "threshold": 1.0,
-          "p_abs": 23.8,
-          "p_up": 12.7,
-          "p_down": 11.2
-        },
-        {
-          "threshold": 1.25,
-          "p_abs": 16.3,
-          "p_up": 8.3,
-          "p_down": 8.0
-        },
-        {
-          "threshold": 1.5,
-          "p_abs": 11.1,
-          "p_up": 5.4,
-          "p_down": 5.7
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 5.8,
-          "p_up": 2.6,
-          "p_down": 3.2
-        },
-        {
-          "threshold": 2.5,
-          "p_abs": 3.8,
-          "p_up": 1.7,
-          "p_down": 2.1
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 2.6,
-          "p_up": 1.2,
-          "p_down": 1.4
-        }
-      ]
+      "cc": {
+        "count": 1638,
+        "mean": 0.0478,
+        "std": 1.1783,
+        "skew": -1.075,
+        "kurt": 16.342,
+        "positive_pct": 53.2,
+        "p5": -1.564,
+        "p25": -0.443,
+        "p50": 0.061,
+        "p75": 0.62,
+        "p95": 1.564,
+        "histogram": [
+          {
+            "bin_label": "<-4.0%",
+            "center": -4.25,
+            "count": 12,
+            "pct": 0.73
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.875,
+            "count": 2,
+            "pct": 0.12
+          },
+          {
+            "bin_label": "-3.75%",
+            "center": -3.625,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.375,
+            "count": 4,
+            "pct": 0.24
+          },
+          {
+            "bin_label": "-3.25%",
+            "center": -3.125,
+            "count": 5,
+            "pct": 0.31
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.875,
+            "count": 5,
+            "pct": 0.31
+          },
+          {
+            "bin_label": "-2.75%",
+            "center": -2.625,
+            "count": 7,
+            "pct": 0.43
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.375,
+            "count": 8,
+            "pct": 0.49
+          },
+          {
+            "bin_label": "-2.25%",
+            "center": -2.125,
+            "count": 9,
+            "pct": 0.55
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.875,
+            "count": 15,
+            "pct": 0.92
+          },
+          {
+            "bin_label": "-1.75%",
+            "center": -1.625,
+            "count": 25,
+            "pct": 1.53
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.375,
+            "count": 39,
+            "pct": 2.38
+          },
+          {
+            "bin_label": "-1.25%",
+            "center": -1.125,
+            "count": 51,
+            "pct": 3.11
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.875,
+            "count": 80,
+            "pct": 4.88
+          },
+          {
+            "bin_label": "-0.75%",
+            "center": -0.625,
+            "count": 104,
+            "pct": 6.35
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.375,
+            "count": 179,
+            "pct": 10.93
+          },
+          {
+            "bin_label": "-0.25%",
+            "center": -0.125,
+            "count": 217,
+            "pct": 13.25
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.125,
+            "count": 200,
+            "pct": 12.21
+          },
+          {
+            "bin_label": "+0.25%",
+            "center": 0.375,
+            "count": 182,
+            "pct": 11.11
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.625,
+            "count": 169,
+            "pct": 10.32
+          },
+          {
+            "bin_label": "+0.75%",
+            "center": 0.875,
+            "count": 118,
+            "pct": 7.2
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.125,
+            "count": 72,
+            "pct": 4.4
+          },
+          {
+            "bin_label": "+1.25%",
+            "center": 1.375,
+            "count": 47,
+            "pct": 2.87
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.625,
+            "count": 26,
+            "pct": 1.59
+          },
+          {
+            "bin_label": "+1.75%",
+            "center": 1.875,
+            "count": 19,
+            "pct": 1.16
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.125,
+            "count": 10,
+            "pct": 0.61
+          },
+          {
+            "bin_label": "+2.25%",
+            "center": 2.375,
+            "count": 6,
+            "pct": 0.37
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.625,
+            "count": 5,
+            "pct": 0.31
+          },
+          {
+            "bin_label": "+2.75%",
+            "center": 2.875,
+            "count": 3,
+            "pct": 0.18
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.125,
+            "count": 3,
+            "pct": 0.18
+          },
+          {
+            "bin_label": "+3.25%",
+            "center": 3.375,
+            "count": 3,
+            "pct": 0.18
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.625,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": "+3.75%",
+            "center": 3.875,
+            "count": 2,
+            "pct": 0.12
+          },
+          {
+            "bin_label": ">+4.0%",
+            "center": 4.25,
+            "count": 10,
+            "pct": 0.61
+          }
+        ],
+        "normal_curve": [
+          0.18,
+          0.54,
+          1.08,
+          2.04,
+          3.69,
+          6.39,
+          10.58,
+          16.74,
+          25.32,
+          36.62,
+          50.61,
+          66.88,
+          84.49,
+          102.03,
+          117.79,
+          130.0,
+          137.17,
+          138.35,
+          133.4,
+          122.97,
+          108.36,
+          91.29,
+          73.52,
+          56.6,
+          41.66,
+          29.31,
+          19.72,
+          12.68,
+          7.79,
+          4.58,
+          2.57,
+          1.38,
+          0.71,
+          0.24
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.25,
+            "p_abs": 74.5,
+            "p_up": 41.3,
+            "p_down": 33.3
+          },
+          {
+            "threshold": 0.5,
+            "p_abs": 52.5,
+            "p_up": 30.2,
+            "p_down": 22.3
+          },
+          {
+            "threshold": 0.75,
+            "p_abs": 35.8,
+            "p_up": 19.8,
+            "p_down": 16.0
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 23.7,
+            "p_up": 12.6,
+            "p_down": 11.1
+          },
+          {
+            "threshold": 1.25,
+            "p_abs": 16.2,
+            "p_up": 8.2,
+            "p_down": 8.0
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 11.0,
+            "p_up": 5.4,
+            "p_down": 5.6
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 5.8,
+            "p_up": 2.6,
+            "p_down": 3.2
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 3.8,
+            "p_up": 1.6,
+            "p_down": 2.1
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 2.6,
+            "p_up": 1.2,
+            "p_down": 1.4
+          }
+        ]
+      },
+      "oc": {
+        "count": 1639,
+        "mean": -0.0276,
+        "std": 0.9645,
+        "skew": 1.001,
+        "kurt": 16.571,
+        "positive_pct": 48.7,
+        "p5": -1.437,
+        "p25": -0.447,
+        "p50": -0.014,
+        "p75": 0.432,
+        "p95": 1.18,
+        "histogram": [
+          {
+            "bin_label": "<-4.0%",
+            "center": -4.25,
+            "count": 5,
+            "pct": 0.31
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.875,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": "-3.75%",
+            "center": -3.625,
+            "count": 3,
+            "pct": 0.18
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.375,
+            "count": 2,
+            "pct": 0.12
+          },
+          {
+            "bin_label": "-3.25%",
+            "center": -3.125,
+            "count": 4,
+            "pct": 0.24
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.875,
+            "count": 2,
+            "pct": 0.12
+          },
+          {
+            "bin_label": "-2.75%",
+            "center": -2.625,
+            "count": 5,
+            "pct": 0.31
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.375,
+            "count": 9,
+            "pct": 0.55
+          },
+          {
+            "bin_label": "-2.25%",
+            "center": -2.125,
+            "count": 10,
+            "pct": 0.61
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.875,
+            "count": 8,
+            "pct": 0.49
+          },
+          {
+            "bin_label": "-1.75%",
+            "center": -1.625,
+            "count": 23,
+            "pct": 1.4
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.375,
+            "count": 33,
+            "pct": 2.01
+          },
+          {
+            "bin_label": "-1.25%",
+            "center": -1.125,
+            "count": 59,
+            "pct": 3.6
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.875,
+            "count": 83,
+            "pct": 5.06
+          },
+          {
+            "bin_label": "-0.75%",
+            "center": -0.625,
+            "count": 121,
+            "pct": 7.38
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.375,
+            "count": 211,
+            "pct": 12.87
+          },
+          {
+            "bin_label": "-0.25%",
+            "center": -0.125,
+            "count": 256,
+            "pct": 15.62
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.125,
+            "count": 229,
+            "pct": 13.97
+          },
+          {
+            "bin_label": "+0.25%",
+            "center": 0.375,
+            "count": 221,
+            "pct": 13.48
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.625,
+            "count": 136,
+            "pct": 8.3
+          },
+          {
+            "bin_label": "+0.75%",
+            "center": 0.875,
+            "count": 91,
+            "pct": 5.55
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.125,
+            "count": 50,
+            "pct": 3.05
+          },
+          {
+            "bin_label": "+1.25%",
+            "center": 1.375,
+            "count": 32,
+            "pct": 1.95
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.625,
+            "count": 10,
+            "pct": 0.61
+          },
+          {
+            "bin_label": "+1.75%",
+            "center": 1.875,
+            "count": 11,
+            "pct": 0.67
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.125,
+            "count": 6,
+            "pct": 0.37
+          },
+          {
+            "bin_label": "+2.25%",
+            "center": 2.375,
+            "count": 2,
+            "pct": 0.12
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.625,
+            "count": 4,
+            "pct": 0.24
+          },
+          {
+            "bin_label": "+2.75%",
+            "center": 2.875,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.125,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": "+3.25%",
+            "center": 3.375,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.625,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.75%",
+            "center": 3.875,
+            "count": 1,
+            "pct": 0.06
+          },
+          {
+            "bin_label": ">+4.0%",
+            "center": 4.25,
+            "count": 8,
+            "pct": 0.49
+          }
+        ],
+        "normal_curve": [
+          0.01,
+          0.06,
+          0.16,
+          0.41,
+          0.98,
+          2.17,
+          4.51,
+          8.77,
+          15.93,
+          27.07,
+          43.0,
+          63.88,
+          88.72,
+          115.22,
+          139.9,
+          158.84,
+          168.62,
+          167.38,
+          155.34,
+          134.81,
+          109.38,
+          82.99,
+          58.87,
+          39.05,
+          24.22,
+          14.04,
+          7.61,
+          3.86,
+          1.83,
+          0.81,
+          0.34,
+          0.13,
+          0.05,
+          0.01
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.25,
+            "p_abs": 70.4,
+            "p_up": 35.1,
+            "p_down": 35.3
+          },
+          {
+            "threshold": 0.5,
+            "p_abs": 44.1,
+            "p_up": 21.6,
+            "p_down": 22.5
+          },
+          {
+            "threshold": 0.75,
+            "p_abs": 28.4,
+            "p_up": 13.3,
+            "p_down": 15.1
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 17.8,
+            "p_up": 7.7,
+            "p_down": 10.0
+          },
+          {
+            "threshold": 1.25,
+            "p_abs": 11.1,
+            "p_up": 4.7,
+            "p_down": 6.4
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 7.1,
+            "p_up": 2.7,
+            "p_down": 4.4
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 4.0,
+            "p_up": 1.5,
+            "p_down": 2.5
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 2.3,
+            "p_up": 1.0,
+            "p_down": 1.3
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 1.6,
+            "p_up": 0.7,
+            "p_down": 0.9
+          }
+        ]
+      }
     },
     "weekly": {
-      "count": 340,
-      "mean": 0.2346,
-      "std": 2.5825,
-      "skew": -0.234,
-      "kurt": 4.353,
-      "positive_pct": 56.5,
-      "p5": -3.849,
-      "p25": -0.99,
-      "p50": 0.41,
-      "p75": 1.51,
-      "p95": 3.805,
-      "histogram": [
-        {
-          "bin_label": "<-8.0%",
-          "center": -8.5,
-          "count": 3,
-          "pct": 0.88
-        },
-        {
-          "bin_label": "-8.00%",
-          "center": -7.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-7.50%",
-          "center": -7.25,
-          "count": 2,
-          "pct": 0.59
-        },
-        {
-          "bin_label": "-7.00%",
-          "center": -6.75,
-          "count": 1,
-          "pct": 0.29
-        },
-        {
-          "bin_label": "-6.50%",
-          "center": -6.25,
-          "count": 3,
-          "pct": 0.88
-        },
-        {
-          "bin_label": "-6.00%",
-          "center": -5.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-5.50%",
-          "center": -5.25,
-          "count": 2,
-          "pct": 0.59
-        },
-        {
-          "bin_label": "-5.00%",
-          "center": -4.75,
-          "count": 3,
-          "pct": 0.88
-        },
-        {
-          "bin_label": "-4.50%",
-          "center": -4.25,
-          "count": 3,
-          "pct": 0.88
-        },
-        {
-          "bin_label": "-4.00%",
-          "center": -3.75,
-          "count": 2,
-          "pct": 0.59
-        },
-        {
-          "bin_label": "-3.50%",
-          "center": -3.25,
-          "count": 3,
-          "pct": 0.88
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.75,
-          "count": 9,
-          "pct": 2.65
-        },
-        {
-          "bin_label": "-2.50%",
-          "center": -2.25,
-          "count": 17,
-          "pct": 5.0
-        },
-        {
-          "bin_label": "-2.00%",
-          "center": -1.75,
-          "count": 12,
-          "pct": 3.53
-        },
-        {
-          "bin_label": "-1.50%",
-          "center": -1.25,
-          "count": 24,
-          "pct": 7.06
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": -0.75,
-          "count": 35,
-          "pct": 10.29
-        },
-        {
-          "bin_label": "-0.50%",
-          "center": -0.25,
-          "count": 29,
-          "pct": 8.53
-        },
-        {
-          "bin_label": "+0.00%",
-          "center": 0.25,
-          "count": 29,
-          "pct": 8.53
-        },
-        {
-          "bin_label": "+0.50%",
-          "center": 0.75,
-          "count": 35,
-          "pct": 10.29
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 1.25,
-          "count": 43,
-          "pct": 12.65
-        },
-        {
-          "bin_label": "+1.50%",
-          "center": 1.75,
-          "count": 27,
-          "pct": 7.94
-        },
-        {
-          "bin_label": "+2.00%",
-          "center": 2.25,
-          "count": 22,
-          "pct": 6.47
-        },
-        {
-          "bin_label": "+2.50%",
-          "center": 2.75,
-          "count": 8,
-          "pct": 2.35
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 3.25,
-          "count": 5,
-          "pct": 1.47
-        },
-        {
-          "bin_label": "+3.50%",
-          "center": 3.75,
-          "count": 7,
-          "pct": 2.06
-        },
-        {
-          "bin_label": "+4.00%",
-          "center": 4.25,
-          "count": 5,
-          "pct": 1.47
-        },
-        {
-          "bin_label": "+4.50%",
-          "center": 4.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+5.00%",
-          "center": 5.25,
-          "count": 1,
-          "pct": 0.29
-        },
-        {
-          "bin_label": "+5.50%",
-          "center": 5.75,
-          "count": 4,
-          "pct": 1.18
-        },
-        {
-          "bin_label": "+6.00%",
-          "center": 6.25,
-          "count": 1,
-          "pct": 0.29
-        },
-        {
-          "bin_label": "+6.50%",
-          "center": 6.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+7.00%",
-          "center": 7.25,
-          "count": 2,
-          "pct": 0.59
-        },
-        {
-          "bin_label": "+7.50%",
-          "center": 7.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": ">+8.0%",
-          "center": 8.5,
-          "count": 3,
-          "pct": 0.88
-        }
-      ],
-      "normal_curve": [
-        0.09,
-        0.22,
-        0.39,
-        0.68,
-        1.12,
-        1.79,
-        2.75,
-        4.08,
-        5.81,
-        7.99,
-        10.57,
-        13.47,
-        16.53,
-        19.55,
-        22.26,
-        24.42,
-        25.8,
-        26.26,
-        25.74,
-        24.31,
-        22.11,
-        19.37,
-        16.34,
-        13.28,
-        10.4,
-        7.84,
-        5.69,
-        3.98,
-        2.68,
-        1.74,
-        1.09,
-        0.66,
-        0.38,
-        0.16
-      ],
-      "prob_table": [
-        {
-          "threshold": 0.5,
-          "p_abs": 82.9,
-          "p_up": 47.9,
-          "p_down": 35.0
-        },
-        {
-          "threshold": 1.0,
-          "p_abs": 62.4,
-          "p_up": 37.6,
-          "p_down": 24.7
-        },
-        {
-          "threshold": 1.5,
-          "p_abs": 42.6,
-          "p_up": 25.0,
-          "p_down": 17.6
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 31.2,
-          "p_up": 17.1,
-          "p_down": 14.1
-        },
-        {
-          "threshold": 2.5,
-          "p_abs": 19.7,
-          "p_up": 10.6,
-          "p_down": 9.1
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 14.7,
-          "p_up": 8.2,
-          "p_down": 6.5
-        },
-        {
-          "threshold": 4.0,
-          "p_abs": 9.7,
-          "p_up": 4.7,
-          "p_down": 5.0
-        },
-        {
-          "threshold": 5.0,
-          "p_abs": 6.5,
-          "p_up": 3.2,
-          "p_down": 3.2
-        }
-      ]
+      "cc": {
+        "count": 342,
+        "mean": 0.2279,
+        "std": 2.5789,
+        "skew": -0.229,
+        "kurt": 4.351,
+        "positive_pct": 56.4,
+        "p5": -3.821,
+        "p25": -0.996,
+        "p50": 0.41,
+        "p75": 1.499,
+        "p95": 3.795,
+        "histogram": [
+          {
+            "bin_label": "<-8.0%",
+            "center": -8.5,
+            "count": 3,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-8.00%",
+            "center": -7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.50%",
+            "center": -7.25,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.75,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "-6.50%",
+            "center": -6.25,
+            "count": 3,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-6.00%",
+            "center": -5.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-5.50%",
+            "center": -5.25,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.75,
+            "count": 3,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-4.50%",
+            "center": -4.25,
+            "count": 3,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.75,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.25,
+            "count": 3,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.75,
+            "count": 9,
+            "pct": 2.63
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.25,
+            "count": 18,
+            "pct": 5.26
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.75,
+            "count": 12,
+            "pct": 3.51
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.25,
+            "count": 24,
+            "pct": 7.02
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.75,
+            "count": 35,
+            "pct": 10.23
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.25,
+            "count": 29,
+            "pct": 8.48
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.25,
+            "count": 29,
+            "pct": 8.48
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.75,
+            "count": 36,
+            "pct": 10.53
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.25,
+            "count": 43,
+            "pct": 12.57
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.75,
+            "count": 27,
+            "pct": 7.89
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.25,
+            "count": 22,
+            "pct": 6.43
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.75,
+            "count": 8,
+            "pct": 2.34
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.25,
+            "count": 5,
+            "pct": 1.46
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.75,
+            "count": 7,
+            "pct": 2.05
+          },
+          {
+            "bin_label": "+4.00%",
+            "center": 4.25,
+            "count": 5,
+            "pct": 1.46
+          },
+          {
+            "bin_label": "+4.50%",
+            "center": 4.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 5.25,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "+5.50%",
+            "center": 5.75,
+            "count": 4,
+            "pct": 1.17
+          },
+          {
+            "bin_label": "+6.00%",
+            "center": 6.25,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "+6.50%",
+            "center": 6.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 7.25,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "+7.50%",
+            "center": 7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+8.0%",
+            "center": 8.5,
+            "count": 3,
+            "pct": 0.88
+          }
+        ],
+        "normal_curve": [
+          0.09,
+          0.22,
+          0.4,
+          0.68,
+          1.13,
+          1.8,
+          2.77,
+          4.11,
+          5.86,
+          8.05,
+          10.65,
+          13.58,
+          16.67,
+          19.71,
+          22.45,
+          24.62,
+          26.0,
+          26.45,
+          25.92,
+          24.46,
+          22.22,
+          19.45,
+          16.4,
+          13.31,
+          10.41,
+          7.84,
+          5.69,
+          3.97,
+          2.67,
+          1.73,
+          1.08,
+          0.65,
+          0.38,
+          0.15
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.5,
+            "p_abs": 83.0,
+            "p_up": 48.0,
+            "p_down": 35.1
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 62.3,
+            "p_up": 37.4,
+            "p_down": 24.9
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 42.7,
+            "p_up": 24.9,
+            "p_down": 17.8
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 31.3,
+            "p_up": 17.0,
+            "p_down": 14.3
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 19.6,
+            "p_up": 10.5,
+            "p_down": 9.1
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 14.6,
+            "p_up": 8.2,
+            "p_down": 6.4
+          },
+          {
+            "threshold": 4.0,
+            "p_abs": 9.6,
+            "p_up": 4.7,
+            "p_down": 5.0
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 6.4,
+            "p_up": 3.2,
+            "p_down": 3.2
+          }
+        ]
+      },
+      "oc": {
+        "count": 343,
+        "mean": 0.2393,
+        "std": 2.274,
+        "skew": 0.346,
+        "kurt": 2.705,
+        "positive_pct": 54.5,
+        "p5": -3.284,
+        "p25": -0.985,
+        "p50": 0.253,
+        "p75": 1.444,
+        "p95": 3.532,
+        "histogram": [
+          {
+            "bin_label": "<-8.0%",
+            "center": -8.5,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "-8.00%",
+            "center": -7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.50%",
+            "center": -7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.75,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "-6.50%",
+            "center": -6.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-6.00%",
+            "center": -5.75,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "-5.50%",
+            "center": -5.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.75,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "-4.50%",
+            "center": -4.25,
+            "count": 3,
+            "pct": 0.87
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.75,
+            "count": 6,
+            "pct": 1.75
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.25,
+            "count": 5,
+            "pct": 1.46
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.75,
+            "count": 9,
+            "pct": 2.62
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.25,
+            "count": 19,
+            "pct": 5.54
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.75,
+            "count": 19,
+            "pct": 5.54
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.25,
+            "count": 17,
+            "pct": 4.96
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.75,
+            "count": 37,
+            "pct": 10.79
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.25,
+            "count": 35,
+            "pct": 10.2
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.25,
+            "count": 34,
+            "pct": 9.91
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.75,
+            "count": 36,
+            "pct": 10.5
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.25,
+            "count": 33,
+            "pct": 9.62
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.75,
+            "count": 27,
+            "pct": 7.87
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.25,
+            "count": 21,
+            "pct": 6.12
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.75,
+            "count": 11,
+            "pct": 3.21
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.25,
+            "count": 7,
+            "pct": 2.04
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.75,
+            "count": 4,
+            "pct": 1.17
+          },
+          {
+            "bin_label": "+4.00%",
+            "center": 4.25,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "+4.50%",
+            "center": 4.75,
+            "count": 2,
+            "pct": 0.58
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 5.25,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "+5.50%",
+            "center": 5.75,
+            "count": 3,
+            "pct": 0.87
+          },
+          {
+            "bin_label": "+6.00%",
+            "center": 6.25,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "+6.50%",
+            "center": 6.75,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.50%",
+            "center": 7.75,
+            "count": 1,
+            "pct": 0.29
+          },
+          {
+            "bin_label": ">+8.0%",
+            "center": 8.5,
+            "count": 3,
+            "pct": 0.87
+          }
+        ],
+        "normal_curve": [
+          0.02,
+          0.06,
+          0.13,
+          0.27,
+          0.51,
+          0.94,
+          1.63,
+          2.71,
+          4.29,
+          6.46,
+          9.27,
+          12.68,
+          16.53,
+          20.52,
+          24.28,
+          27.37,
+          29.4,
+          30.09,
+          29.34,
+          27.26,
+          24.13,
+          20.35,
+          16.36,
+          12.52,
+          9.14,
+          6.35,
+          4.21,
+          2.66,
+          1.6,
+          0.91,
+          0.5,
+          0.26,
+          0.13,
+          0.04
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.5,
+            "p_abs": 79.9,
+            "p_up": 44.6,
+            "p_down": 35.3
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 58.6,
+            "p_up": 34.1,
+            "p_down": 24.5
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 44.0,
+            "p_up": 24.5,
+            "p_down": 19.5
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 30.6,
+            "p_up": 16.6,
+            "p_down": 14.0
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 19.0,
+            "p_up": 10.5,
+            "p_down": 8.5
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 13.1,
+            "p_up": 7.3,
+            "p_down": 5.8
+          },
+          {
+            "threshold": 4.0,
+            "p_abs": 6.7,
+            "p_up": 4.1,
+            "p_down": 2.6
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 4.1,
+            "p_up": 2.9,
+            "p_down": 1.2
+          }
+        ]
+      }
     },
     "monthly": {
-      "count": 78,
-      "mean": 1.0495,
-      "std": 5.2611,
-      "skew": -1.13,
-      "kurt": 5.795,
-      "positive_pct": 60.3,
-      "p5": -6.14,
-      "p25": -1.868,
-      "p50": 1.156,
-      "p75": 3.928,
-      "p95": 8.023,
-      "histogram": [
-        {
-          "bin_label": "<-15.0%",
-          "center": -17.0,
-          "count": 1,
-          "pct": 1.28
-        },
-        {
-          "bin_label": "-15.00%",
-          "center": -14.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-13.00%",
-          "center": -12.0,
-          "count": 1,
-          "pct": 1.28
-        },
-        {
-          "bin_label": "-11.00%",
-          "center": -10.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-9.00%",
-          "center": -8.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-7.00%",
-          "center": -6.0,
-          "count": 5,
-          "pct": 6.41
-        },
-        {
-          "bin_label": "-5.00%",
-          "center": -4.0,
-          "count": 5,
-          "pct": 6.41
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.0,
-          "count": 11,
-          "pct": 14.1
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": 0.0,
-          "count": 13,
-          "pct": 16.67
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 2.0,
-          "count": 17,
-          "pct": 21.79
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 4.0,
-          "count": 10,
-          "pct": 12.82
-        },
-        {
-          "bin_label": "+5.00%",
-          "center": 6.0,
-          "count": 6,
-          "pct": 7.69
-        },
-        {
-          "bin_label": "+7.00%",
-          "center": 8.0,
-          "count": 6,
-          "pct": 7.69
-        },
-        {
-          "bin_label": "+9.00%",
-          "center": 10.0,
-          "count": 1,
-          "pct": 1.28
-        },
-        {
-          "bin_label": "+11.00%",
-          "center": 12.0,
-          "count": 1,
-          "pct": 1.28
-        },
-        {
-          "bin_label": "+13.00%",
-          "center": 14.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": ">+15.0%",
-          "center": 17.0,
-          "count": 1,
-          "pct": 1.28
-        }
-      ],
-      "normal_curve": [
-        0.03,
-        0.2,
-        0.55,
-        1.3,
-        2.69,
-        4.82,
-        7.46,
-        10.0,
-        11.6,
-        11.64,
-        10.11,
-        7.6,
-        4.94,
-        2.78,
-        1.36,
-        0.57,
-        0.12
-      ],
-      "prob_table": [
-        {
-          "threshold": 1.0,
-          "p_abs": 83.3,
-          "p_up": 53.8,
-          "p_down": 29.5
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 65.4,
-          "p_up": 41.0,
-          "p_down": 24.4
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 47.4,
-          "p_up": 32.1,
-          "p_down": 15.4
-        },
-        {
-          "threshold": 5.0,
-          "p_abs": 28.2,
-          "p_up": 19.2,
-          "p_down": 9.0
-        },
-        {
-          "threshold": 7.0,
-          "p_abs": 14.1,
-          "p_up": 11.5,
-          "p_down": 2.6
-        },
-        {
-          "threshold": 10.0,
-          "p_abs": 5.1,
-          "p_up": 2.6,
-          "p_down": 2.6
-        }
-      ]
+      "cc": {
+        "count": 78,
+        "mean": 1.0257,
+        "std": 5.2644,
+        "skew": -1.115,
+        "kurt": 5.751,
+        "positive_pct": 59.0,
+        "p5": -6.14,
+        "p25": -1.868,
+        "p50": 1.121,
+        "p75": 3.928,
+        "p95": 8.023,
+        "histogram": [
+          {
+            "bin_label": "<-15.0%",
+            "center": -17.0,
+            "count": 1,
+            "pct": 1.28
+          },
+          {
+            "bin_label": "-15.00%",
+            "center": -14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-13.00%",
+            "center": -12.0,
+            "count": 1,
+            "pct": 1.28
+          },
+          {
+            "bin_label": "-11.00%",
+            "center": -10.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-9.00%",
+            "center": -8.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.0,
+            "count": 5,
+            "pct": 6.41
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.0,
+            "count": 5,
+            "pct": 6.41
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.0,
+            "count": 11,
+            "pct": 14.1
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": 0.0,
+            "count": 14,
+            "pct": 17.95
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 2.0,
+            "count": 16,
+            "pct": 20.51
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 4.0,
+            "count": 10,
+            "pct": 12.82
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 6.0,
+            "count": 6,
+            "pct": 7.69
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 8.0,
+            "count": 6,
+            "pct": 7.69
+          },
+          {
+            "bin_label": "+9.00%",
+            "center": 10.0,
+            "count": 1,
+            "pct": 1.28
+          },
+          {
+            "bin_label": "+11.00%",
+            "center": 12.0,
+            "count": 1,
+            "pct": 1.28
+          },
+          {
+            "bin_label": "+13.00%",
+            "center": 14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+15.0%",
+            "center": 17.0,
+            "count": 1,
+            "pct": 1.28
+          }
+        ],
+        "normal_curve": [
+          0.03,
+          0.2,
+          0.55,
+          1.32,
+          2.72,
+          4.85,
+          7.5,
+          10.02,
+          11.6,
+          11.62,
+          10.08,
+          7.57,
+          4.92,
+          2.76,
+          1.35,
+          0.57,
+          0.12
+        ],
+        "prob_table": [
+          {
+            "threshold": 1.0,
+            "p_abs": 82.1,
+            "p_up": 52.6,
+            "p_down": 29.5
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 65.4,
+            "p_up": 41.0,
+            "p_down": 24.4
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 47.4,
+            "p_up": 32.1,
+            "p_down": 15.4
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 28.2,
+            "p_up": 19.2,
+            "p_down": 9.0
+          },
+          {
+            "threshold": 7.0,
+            "p_abs": 14.1,
+            "p_up": 11.5,
+            "p_down": 2.6
+          },
+          {
+            "threshold": 10.0,
+            "p_abs": 5.1,
+            "p_up": 2.6,
+            "p_down": 2.6
+          }
+        ]
+      },
+      "oc": {
+        "count": 79,
+        "mean": 0.8278,
+        "std": 5.047,
+        "skew": -1.362,
+        "kurt": 8.028,
+        "positive_pct": 57.0,
+        "p5": -5.961,
+        "p25": -1.951,
+        "p50": 0.822,
+        "p75": 3.48,
+        "p95": 7.623,
+        "histogram": [
+          {
+            "bin_label": "<-15.0%",
+            "center": -17.0,
+            "count": 1,
+            "pct": 1.27
+          },
+          {
+            "bin_label": "-15.00%",
+            "center": -14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-13.00%",
+            "center": -12.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-11.00%",
+            "center": -10.0,
+            "count": 1,
+            "pct": 1.27
+          },
+          {
+            "bin_label": "-9.00%",
+            "center": -8.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.0,
+            "count": 4,
+            "pct": 5.06
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.0,
+            "count": 6,
+            "pct": 7.59
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.0,
+            "count": 12,
+            "pct": 15.19
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": 0.0,
+            "count": 17,
+            "pct": 21.52
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 2.0,
+            "count": 16,
+            "pct": 20.25
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 4.0,
+            "count": 9,
+            "pct": 11.39
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 6.0,
+            "count": 6,
+            "pct": 7.59
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 8.0,
+            "count": 4,
+            "pct": 5.06
+          },
+          {
+            "bin_label": "+9.00%",
+            "center": 10.0,
+            "count": 2,
+            "pct": 2.53
+          },
+          {
+            "bin_label": "+11.00%",
+            "center": 12.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+13.00%",
+            "center": 14.0,
+            "count": 1,
+            "pct": 1.27
+          },
+          {
+            "bin_label": ">+15.0%",
+            "center": 17.0,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.02,
+          0.17,
+          0.49,
+          1.25,
+          2.71,
+          5.0,
+          7.9,
+          10.67,
+          12.32,
+          12.16,
+          10.25,
+          7.39,
+          4.55,
+          2.4,
+          1.08,
+          0.41,
+          0.07
+        ],
+        "prob_table": [
+          {
+            "threshold": 1.0,
+            "p_abs": 78.5,
+            "p_up": 48.1,
+            "p_down": 30.4
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 62.0,
+            "p_up": 38.0,
+            "p_down": 24.1
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 43.0,
+            "p_up": 27.8,
+            "p_down": 15.2
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 24.1,
+            "p_up": 16.5,
+            "p_down": 7.6
+          },
+          {
+            "threshold": 7.0,
+            "p_abs": 11.4,
+            "p_up": 8.9,
+            "p_down": 2.5
+          },
+          {
+            "threshold": 10.0,
+            "p_abs": 3.8,
+            "p_up": 2.5,
+            "p_down": 1.3
+          }
+        ]
+      }
     }
   },
   "SENSEX": {
     "date_range": "May 2023 \u2013 Jul 2026",
+    "latest": {
+      "date": "2026-07-24",
+      "open": 75708.19,
+      "high": 76210.95,
+      "low": 75474.43,
+      "close": 76141.27,
+      "prev_close": 76377.94,
+      "cc_return": -0.31,
+      "oc_return": 0.572
+    },
     "daily": {
-      "count": 784,
-      "mean": 0.0312,
-      "std": 0.7961,
-      "skew": -0.201,
-      "kurt": 4.325,
-      "positive_pct": 52.8,
-      "p5": -1.22,
-      "p25": -0.403,
-      "p50": 0.053,
-      "p75": 0.488,
-      "p95": 1.203,
-      "histogram": [
-        {
-          "bin_label": "<-4.0%",
-          "center": -4.25,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": "-4.00%",
-          "center": -3.875,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.75%",
-          "center": -3.625,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.50%",
-          "center": -3.375,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.25%",
-          "center": -3.125,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.875,
-          "count": 2,
-          "pct": 0.26
-        },
-        {
-          "bin_label": "-2.75%",
-          "center": -2.625,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": "-2.50%",
-          "center": -2.375,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-2.25%",
-          "center": -2.125,
-          "count": 7,
-          "pct": 0.89
-        },
-        {
-          "bin_label": "-2.00%",
-          "center": -1.875,
-          "count": 4,
-          "pct": 0.51
-        },
-        {
-          "bin_label": "-1.75%",
-          "center": -1.625,
-          "count": 5,
-          "pct": 0.64
-        },
-        {
-          "bin_label": "-1.50%",
-          "center": -1.375,
-          "count": 16,
-          "pct": 2.04
-        },
-        {
-          "bin_label": "-1.25%",
-          "center": -1.125,
-          "count": 31,
-          "pct": 3.95
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": -0.875,
-          "count": 36,
-          "pct": 4.59
-        },
-        {
-          "bin_label": "-0.75%",
-          "center": -0.625,
-          "count": 60,
-          "pct": 7.65
-        },
-        {
-          "bin_label": "-0.50%",
-          "center": -0.375,
-          "count": 90,
-          "pct": 11.48
-        },
-        {
-          "bin_label": "-0.25%",
-          "center": -0.125,
-          "count": 117,
-          "pct": 14.92
-        },
-        {
-          "bin_label": "+0.00%",
-          "center": 0.125,
-          "count": 119,
-          "pct": 15.18
-        },
-        {
-          "bin_label": "+0.25%",
-          "center": 0.375,
-          "count": 102,
-          "pct": 13.01
-        },
-        {
-          "bin_label": "+0.50%",
-          "center": 0.625,
-          "count": 89,
-          "pct": 11.35
-        },
-        {
-          "bin_label": "+0.75%",
-          "center": 0.875,
-          "count": 45,
-          "pct": 5.74
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 1.125,
-          "count": 22,
-          "pct": 2.81
-        },
-        {
-          "bin_label": "+1.25%",
-          "center": 1.375,
-          "count": 14,
-          "pct": 1.79
-        },
-        {
-          "bin_label": "+1.50%",
-          "center": 1.625,
-          "count": 10,
-          "pct": 1.28
-        },
-        {
-          "bin_label": "+1.75%",
-          "center": 1.875,
-          "count": 3,
-          "pct": 0.38
-        },
-        {
-          "bin_label": "+2.00%",
-          "center": 2.125,
-          "count": 4,
-          "pct": 0.51
-        },
-        {
-          "bin_label": "+2.25%",
-          "center": 2.375,
-          "count": 2,
-          "pct": 0.26
-        },
-        {
-          "bin_label": "+2.50%",
-          "center": 2.625,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": "+2.75%",
-          "center": 2.875,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 3.125,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+3.25%",
-          "center": 3.375,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": "+3.50%",
-          "center": 3.625,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": "+3.75%",
-          "center": 3.875,
-          "count": 1,
-          "pct": 0.13
-        },
-        {
-          "bin_label": ">+4.0%",
-          "center": 4.25,
-          "count": 0,
-          "pct": 0.0
-        }
-      ],
-      "normal_curve": [
-        0.0,
-        0.0,
-        0.0,
-        0.01,
-        0.04,
-        0.13,
-        0.38,
-        1.02,
-        2.51,
-        5.59,
-        11.28,
-        20.64,
-        34.21,
-        51.39,
-        69.93,
-        86.23,
-        96.35,
-        97.54,
-        89.47,
-        74.37,
-        56.0,
-        38.22,
-        23.63,
-        13.24,
-        6.72,
-        3.09,
-        1.29,
-        0.49,
-        0.17,
-        0.05,
-        0.01,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "prob_table": [
-        {
-          "threshold": 0.25,
-          "p_abs": 69.9,
-          "p_up": 37.6,
-          "p_down": 32.3
-        },
-        {
-          "threshold": 0.5,
-          "p_abs": 45.4,
-          "p_up": 24.6,
-          "p_down": 20.8
-        },
-        {
-          "threshold": 0.75,
-          "p_abs": 26.4,
-          "p_up": 13.3,
-          "p_down": 13.1
-        },
-        {
-          "threshold": 1.0,
-          "p_abs": 16.1,
-          "p_up": 7.5,
-          "p_down": 8.5
-        },
-        {
-          "threshold": 1.25,
-          "p_abs": 9.3,
-          "p_up": 4.7,
-          "p_down": 4.6
-        },
-        {
-          "threshold": 1.5,
-          "p_abs": 5.5,
-          "p_up": 2.9,
-          "p_down": 2.6
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 2.7,
-          "p_up": 1.3,
-          "p_down": 1.4
-        },
-        {
-          "threshold": 2.5,
-          "p_abs": 1.0,
-          "p_up": 0.5,
-          "p_down": 0.5
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 0.5,
-          "p_up": 0.4,
-          "p_down": 0.1
-        }
-      ]
+      "cc": {
+        "count": 794,
+        "mean": 0.0284,
+        "std": 0.7943,
+        "skew": -0.189,
+        "kurt": 4.307,
+        "positive_pct": 52.5,
+        "p5": -1.213,
+        "p25": -0.409,
+        "p50": 0.052,
+        "p75": 0.484,
+        "p95": 1.208,
+        "histogram": [
+          {
+            "bin_label": "<-4.0%",
+            "center": -4.25,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.75%",
+            "center": -3.625,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.375,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.25%",
+            "center": -3.125,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.875,
+            "count": 2,
+            "pct": 0.25
+          },
+          {
+            "bin_label": "-2.75%",
+            "center": -2.625,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.375,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-2.25%",
+            "center": -2.125,
+            "count": 7,
+            "pct": 0.88
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.875,
+            "count": 4,
+            "pct": 0.5
+          },
+          {
+            "bin_label": "-1.75%",
+            "center": -1.625,
+            "count": 5,
+            "pct": 0.63
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.375,
+            "count": 16,
+            "pct": 2.02
+          },
+          {
+            "bin_label": "-1.25%",
+            "center": -1.125,
+            "count": 31,
+            "pct": 3.9
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.875,
+            "count": 37,
+            "pct": 4.66
+          },
+          {
+            "bin_label": "-0.75%",
+            "center": -0.625,
+            "count": 62,
+            "pct": 7.81
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.375,
+            "count": 93,
+            "pct": 11.71
+          },
+          {
+            "bin_label": "-0.25%",
+            "center": -0.125,
+            "count": 118,
+            "pct": 14.86
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.125,
+            "count": 121,
+            "pct": 15.24
+          },
+          {
+            "bin_label": "+0.25%",
+            "center": 0.375,
+            "count": 102,
+            "pct": 12.85
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.625,
+            "count": 89,
+            "pct": 11.21
+          },
+          {
+            "bin_label": "+0.75%",
+            "center": 0.875,
+            "count": 45,
+            "pct": 5.67
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.125,
+            "count": 22,
+            "pct": 2.77
+          },
+          {
+            "bin_label": "+1.25%",
+            "center": 1.375,
+            "count": 15,
+            "pct": 1.89
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.625,
+            "count": 10,
+            "pct": 1.26
+          },
+          {
+            "bin_label": "+1.75%",
+            "center": 1.875,
+            "count": 3,
+            "pct": 0.38
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.125,
+            "count": 4,
+            "pct": 0.5
+          },
+          {
+            "bin_label": "+2.25%",
+            "center": 2.375,
+            "count": 2,
+            "pct": 0.25
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.625,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "+2.75%",
+            "center": 2.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.125,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.25%",
+            "center": 3.375,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.625,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "+3.75%",
+            "center": 3.875,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": ">+4.0%",
+            "center": 4.25,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.0,
+          0.0,
+          0.01,
+          0.04,
+          0.13,
+          0.38,
+          1.02,
+          2.53,
+          5.65,
+          11.42,
+          20.93,
+          34.74,
+          52.21,
+          71.08,
+          87.63,
+          97.85,
+          98.96,
+          90.64,
+          75.19,
+          56.49,
+          38.44,
+          23.69,
+          13.22,
+          6.69,
+          3.06,
+          1.27,
+          0.48,
+          0.16,
+          0.05,
+          0.01,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.25,
+            "p_abs": 69.9,
+            "p_up": 37.3,
+            "p_down": 32.6
+          },
+          {
+            "threshold": 0.5,
+            "p_abs": 45.3,
+            "p_up": 24.4,
+            "p_down": 20.9
+          },
+          {
+            "threshold": 0.75,
+            "p_abs": 26.3,
+            "p_up": 13.2,
+            "p_down": 13.1
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 16.0,
+            "p_up": 7.6,
+            "p_down": 8.4
+          },
+          {
+            "threshold": 1.25,
+            "p_abs": 9.3,
+            "p_up": 4.8,
+            "p_down": 4.5
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 5.4,
+            "p_up": 2.9,
+            "p_down": 2.5
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 2.6,
+            "p_up": 1.3,
+            "p_down": 1.4
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 1.0,
+            "p_up": 0.5,
+            "p_down": 0.5
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 0.5,
+            "p_up": 0.4,
+            "p_down": 0.1
+          }
+        ]
+      },
+      "oc": {
+        "count": 795,
+        "mean": -0.0277,
+        "std": 0.6552,
+        "skew": -0.51,
+        "kurt": 4.568,
+        "positive_pct": 47.4,
+        "p5": -1.071,
+        "p25": -0.382,
+        "p50": -0.033,
+        "p75": 0.379,
+        "p95": 0.992,
+        "histogram": [
+          {
+            "bin_label": "<-4.0%",
+            "center": -4.25,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.75%",
+            "center": -3.625,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.375,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.25%",
+            "center": -3.125,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-2.75%",
+            "center": -2.625,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.375,
+            "count": 2,
+            "pct": 0.25
+          },
+          {
+            "bin_label": "-2.25%",
+            "center": -2.125,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.875,
+            "count": 5,
+            "pct": 0.63
+          },
+          {
+            "bin_label": "-1.75%",
+            "center": -1.625,
+            "count": 5,
+            "pct": 0.63
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.375,
+            "count": 13,
+            "pct": 1.64
+          },
+          {
+            "bin_label": "-1.25%",
+            "center": -1.125,
+            "count": 19,
+            "pct": 2.39
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.875,
+            "count": 39,
+            "pct": 4.91
+          },
+          {
+            "bin_label": "-0.75%",
+            "center": -0.625,
+            "count": 67,
+            "pct": 8.43
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.375,
+            "count": 123,
+            "pct": 15.47
+          },
+          {
+            "bin_label": "-0.25%",
+            "center": -0.125,
+            "count": 143,
+            "pct": 17.99
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.125,
+            "count": 125,
+            "pct": 15.72
+          },
+          {
+            "bin_label": "+0.25%",
+            "center": 0.375,
+            "count": 107,
+            "pct": 13.46
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.625,
+            "count": 79,
+            "pct": 9.94
+          },
+          {
+            "bin_label": "+0.75%",
+            "center": 0.875,
+            "count": 28,
+            "pct": 3.52
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.125,
+            "count": 19,
+            "pct": 2.39
+          },
+          {
+            "bin_label": "+1.25%",
+            "center": 1.375,
+            "count": 9,
+            "pct": 1.13
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.625,
+            "count": 4,
+            "pct": 0.5
+          },
+          {
+            "bin_label": "+1.75%",
+            "center": 1.875,
+            "count": 2,
+            "pct": 0.25
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.125,
+            "count": 3,
+            "pct": 0.38
+          },
+          {
+            "bin_label": "+2.25%",
+            "center": 2.375,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.625,
+            "count": 1,
+            "pct": 0.13
+          },
+          {
+            "bin_label": "+2.75%",
+            "center": 2.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.125,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.25%",
+            "center": 3.375,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.625,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+3.75%",
+            "center": 3.875,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+4.0%",
+            "center": 4.25,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01,
+          0.05,
+          0.2,
+          0.72,
+          2.27,
+          6.2,
+          14.61,
+          29.78,
+          52.45,
+          79.87,
+          105.16,
+          119.69,
+          117.77,
+          100.18,
+          73.67,
+          46.84,
+          25.75,
+          12.23,
+          5.03,
+          1.78,
+          0.55,
+          0.15,
+          0.03,
+          0.01,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.25,
+            "p_abs": 66.3,
+            "p_up": 31.7,
+            "p_down": 34.6
+          },
+          {
+            "threshold": 0.5,
+            "p_abs": 37.4,
+            "p_up": 18.2,
+            "p_down": 19.1
+          },
+          {
+            "threshold": 0.75,
+            "p_abs": 19.0,
+            "p_up": 8.3,
+            "p_down": 10.7
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 10.6,
+            "p_up": 4.8,
+            "p_down": 5.8
+          },
+          {
+            "threshold": 1.25,
+            "p_abs": 5.8,
+            "p_up": 2.4,
+            "p_down": 3.4
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 3.0,
+            "p_up": 1.3,
+            "p_down": 1.8
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 1.0,
+            "p_up": 0.5,
+            "p_down": 0.5
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 0.4,
+            "p_up": 0.1,
+            "p_down": 0.3
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 0.1,
+            "p_up": 0.0,
+            "p_down": 0.1
+          }
+        ]
+      }
     },
     "weekly": {
-      "count": 164,
-      "mean": 0.1536,
-      "std": 1.6807,
-      "skew": -0.132,
-      "kurt": 1.24,
-      "positive_pct": 55.5,
-      "p5": -2.545,
-      "p25": -0.753,
-      "p50": 0.276,
-      "p75": 1.127,
-      "p95": 2.516,
-      "histogram": [
-        {
-          "bin_label": "<-8.0%",
-          "center": -8.5,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-8.00%",
-          "center": -7.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-7.50%",
-          "center": -7.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-7.00%",
-          "center": -6.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-6.50%",
-          "center": -6.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-6.00%",
-          "center": -5.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-5.50%",
-          "center": -5.25,
-          "count": 1,
-          "pct": 0.61
-        },
-        {
-          "bin_label": "-5.00%",
-          "center": -4.75,
-          "count": 1,
-          "pct": 0.61
-        },
-        {
-          "bin_label": "-4.50%",
-          "center": -4.25,
-          "count": 1,
-          "pct": 0.61
-        },
-        {
-          "bin_label": "-4.00%",
-          "center": -3.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.50%",
-          "center": -3.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.75,
-          "count": 8,
-          "pct": 4.88
-        },
-        {
-          "bin_label": "-2.50%",
-          "center": -2.25,
-          "count": 7,
-          "pct": 4.27
-        },
-        {
-          "bin_label": "-2.00%",
-          "center": -1.75,
-          "count": 7,
-          "pct": 4.27
-        },
-        {
-          "bin_label": "-1.50%",
-          "center": -1.25,
-          "count": 11,
-          "pct": 6.71
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": -0.75,
-          "count": 20,
-          "pct": 12.2
-        },
-        {
-          "bin_label": "-0.50%",
-          "center": -0.25,
-          "count": 17,
-          "pct": 10.37
-        },
-        {
-          "bin_label": "+0.00%",
-          "center": 0.25,
-          "count": 18,
-          "pct": 10.98
-        },
-        {
-          "bin_label": "+0.50%",
-          "center": 0.75,
-          "count": 26,
-          "pct": 15.85
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 1.25,
-          "count": 16,
-          "pct": 9.76
-        },
-        {
-          "bin_label": "+1.50%",
-          "center": 1.75,
-          "count": 17,
-          "pct": 10.37
-        },
-        {
-          "bin_label": "+2.00%",
-          "center": 2.25,
-          "count": 5,
-          "pct": 3.05
-        },
-        {
-          "bin_label": "+2.50%",
-          "center": 2.75,
-          "count": 2,
-          "pct": 1.22
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 3.25,
-          "count": 2,
-          "pct": 1.22
-        },
-        {
-          "bin_label": "+3.50%",
-          "center": 3.75,
-          "count": 2,
-          "pct": 1.22
-        },
-        {
-          "bin_label": "+4.00%",
-          "center": 4.25,
-          "count": 2,
-          "pct": 1.22
-        },
-        {
-          "bin_label": "+4.50%",
-          "center": 4.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+5.00%",
-          "center": 5.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+5.50%",
-          "center": 5.75,
-          "count": 1,
-          "pct": 0.61
-        },
-        {
-          "bin_label": "+6.00%",
-          "center": 6.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+6.50%",
-          "center": 6.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+7.00%",
-          "center": 7.25,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+7.50%",
-          "center": 7.75,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": ">+8.0%",
-          "center": 8.5,
-          "count": 0,
-          "pct": 0.0
-        }
-      ],
-      "normal_curve": [
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.01,
-        0.04,
-        0.11,
-        0.28,
-        0.63,
-        1.31,
-        2.5,
-        4.38,
-        7.0,
-        10.25,
-        13.73,
-        16.85,
-        18.91,
-        19.43,
-        18.28,
-        15.73,
-        12.4,
-        8.94,
-        5.9,
-        3.57,
-        1.97,
-        1.0,
-        0.46,
-        0.2,
-        0.08,
-        0.03,
-        0.01,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "prob_table": [
-        {
-          "threshold": 0.5,
-          "p_abs": 78.7,
-          "p_up": 44.5,
-          "p_down": 34.1
-        },
-        {
-          "threshold": 1.0,
-          "p_abs": 50.6,
-          "p_up": 28.7,
-          "p_down": 22.0
-        },
-        {
-          "threshold": 1.5,
-          "p_abs": 34.1,
-          "p_up": 18.9,
-          "p_down": 15.2
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 19.5,
-          "p_up": 8.5,
-          "p_down": 11.0
-        },
-        {
-          "threshold": 2.5,
-          "p_abs": 12.2,
-          "p_up": 5.5,
-          "p_down": 6.7
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 6.1,
-          "p_up": 4.3,
-          "p_down": 1.8
-        },
-        {
-          "threshold": 4.0,
-          "p_abs": 3.7,
-          "p_up": 1.8,
-          "p_down": 1.8
-        },
-        {
-          "threshold": 5.0,
-          "p_abs": 1.2,
-          "p_up": 0.6,
-          "p_down": 0.6
-        }
-      ]
+      "cc": {
+        "count": 166,
+        "mean": 0.1406,
+        "std": 1.686,
+        "skew": -0.135,
+        "kurt": 1.18,
+        "positive_pct": 55.4,
+        "p5": -2.61,
+        "p25": -0.791,
+        "p50": 0.276,
+        "p75": 1.108,
+        "p95": 2.504,
+        "histogram": [
+          {
+            "bin_label": "<-8.0%",
+            "center": -8.5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-8.00%",
+            "center": -7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.50%",
+            "center": -7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-6.50%",
+            "center": -6.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-6.00%",
+            "center": -5.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-5.50%",
+            "center": -5.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.75,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-4.50%",
+            "center": -4.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.75,
+            "count": 9,
+            "pct": 5.42
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.25,
+            "count": 7,
+            "pct": 4.22
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.75,
+            "count": 7,
+            "pct": 4.22
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.25,
+            "count": 11,
+            "pct": 6.63
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.75,
+            "count": 20,
+            "pct": 12.05
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.25,
+            "count": 17,
+            "pct": 10.24
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.25,
+            "count": 18,
+            "pct": 10.84
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.75,
+            "count": 27,
+            "pct": 16.27
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.25,
+            "count": 16,
+            "pct": 9.64
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.75,
+            "count": 17,
+            "pct": 10.24
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.25,
+            "count": 5,
+            "pct": 3.01
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.75,
+            "count": 2,
+            "pct": 1.2
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.25,
+            "count": 2,
+            "pct": 1.2
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.75,
+            "count": 2,
+            "pct": 1.2
+          },
+          {
+            "bin_label": "+4.00%",
+            "center": 4.25,
+            "count": 2,
+            "pct": 1.2
+          },
+          {
+            "bin_label": "+4.50%",
+            "center": 4.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 5.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+5.50%",
+            "center": 5.75,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+6.00%",
+            "center": 6.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+6.50%",
+            "center": 6.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.50%",
+            "center": 7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+8.0%",
+            "center": 8.5,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01,
+          0.04,
+          0.12,
+          0.29,
+          0.66,
+          1.37,
+          2.6,
+          4.52,
+          7.19,
+          10.47,
+          13.98,
+          17.08,
+          19.12,
+          19.6,
+          18.4,
+          15.82,
+          12.45,
+          8.98,
+          5.93,
+          3.59,
+          1.99,
+          1.01,
+          0.47,
+          0.2,
+          0.08,
+          0.03,
+          0.01,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.5,
+            "p_abs": 78.9,
+            "p_up": 44.6,
+            "p_down": 34.3
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 50.6,
+            "p_up": 28.3,
+            "p_down": 22.3
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 34.3,
+            "p_up": 18.7,
+            "p_down": 15.7
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 19.9,
+            "p_up": 8.4,
+            "p_down": 11.4
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 12.7,
+            "p_up": 5.4,
+            "p_down": 7.2
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 6.0,
+            "p_up": 4.2,
+            "p_down": 1.8
+          },
+          {
+            "threshold": 4.0,
+            "p_abs": 3.6,
+            "p_up": 1.8,
+            "p_down": 1.8
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 1.2,
+            "p_up": 0.6,
+            "p_down": 0.6
+          }
+        ]
+      },
+      "oc": {
+        "count": 167,
+        "mean": 0.1373,
+        "std": 1.6236,
+        "skew": 0.184,
+        "kurt": 0.788,
+        "positive_pct": 53.3,
+        "p5": -2.37,
+        "p25": -0.77,
+        "p50": 0.115,
+        "p75": 1.148,
+        "p95": 2.692,
+        "histogram": [
+          {
+            "bin_label": "<-8.0%",
+            "center": -8.5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-8.00%",
+            "center": -7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.50%",
+            "center": -7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-6.50%",
+            "center": -6.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-6.00%",
+            "center": -5.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-5.50%",
+            "center": -5.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.75,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-4.50%",
+            "center": -4.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-4.00%",
+            "center": -3.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-3.50%",
+            "center": -3.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.75,
+            "count": 2,
+            "pct": 1.2
+          },
+          {
+            "bin_label": "-2.50%",
+            "center": -2.25,
+            "count": 14,
+            "pct": 8.38
+          },
+          {
+            "bin_label": "-2.00%",
+            "center": -1.75,
+            "count": 9,
+            "pct": 5.39
+          },
+          {
+            "bin_label": "-1.50%",
+            "center": -1.25,
+            "count": 7,
+            "pct": 4.19
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": -0.75,
+            "count": 20,
+            "pct": 11.98
+          },
+          {
+            "bin_label": "-0.50%",
+            "center": -0.25,
+            "count": 23,
+            "pct": 13.77
+          },
+          {
+            "bin_label": "+0.00%",
+            "center": 0.25,
+            "count": 19,
+            "pct": 11.38
+          },
+          {
+            "bin_label": "+0.50%",
+            "center": 0.75,
+            "count": 21,
+            "pct": 12.57
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 1.25,
+            "count": 20,
+            "pct": 11.98
+          },
+          {
+            "bin_label": "+1.50%",
+            "center": 1.75,
+            "count": 10,
+            "pct": 5.99
+          },
+          {
+            "bin_label": "+2.00%",
+            "center": 2.25,
+            "count": 10,
+            "pct": 5.99
+          },
+          {
+            "bin_label": "+2.50%",
+            "center": 2.75,
+            "count": 4,
+            "pct": 2.4
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 3.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+3.50%",
+            "center": 3.75,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+4.00%",
+            "center": 4.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+4.50%",
+            "center": 4.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 5.25,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+5.50%",
+            "center": 5.75,
+            "count": 1,
+            "pct": 0.6
+          },
+          {
+            "bin_label": "+6.00%",
+            "center": 6.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+6.50%",
+            "center": 6.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 7.25,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+7.50%",
+            "center": 7.75,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+8.0%",
+            "center": 8.5,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01,
+          0.03,
+          0.08,
+          0.22,
+          0.53,
+          1.17,
+          2.33,
+          4.22,
+          6.96,
+          10.44,
+          14.24,
+          17.67,
+          19.94,
+          20.47,
+          19.11,
+          16.22,
+          12.53,
+          8.8,
+          5.62,
+          3.27,
+          1.73,
+          0.83,
+          0.36,
+          0.14,
+          0.05,
+          0.02,
+          0.01,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 0.5,
+            "p_abs": 74.9,
+            "p_up": 41.9,
+            "p_down": 32.9
+          },
+          {
+            "threshold": 1.0,
+            "p_abs": 50.3,
+            "p_up": 29.3,
+            "p_down": 21.0
+          },
+          {
+            "threshold": 1.5,
+            "p_abs": 34.1,
+            "p_up": 17.4,
+            "p_down": 16.8
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 22.8,
+            "p_up": 11.4,
+            "p_down": 11.4
+          },
+          {
+            "threshold": 2.5,
+            "p_abs": 8.4,
+            "p_up": 5.4,
+            "p_down": 3.0
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 4.8,
+            "p_up": 3.0,
+            "p_down": 1.8
+          },
+          {
+            "threshold": 4.0,
+            "p_abs": 3.0,
+            "p_up": 1.8,
+            "p_down": 1.2
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 1.2,
+            "p_up": 1.2,
+            "p_down": 0.0
+          }
+        ]
+      }
     },
     "monthly": {
-      "count": 38,
-      "mean": 0.6399,
-      "std": 3.814,
-      "skew": -0.656,
-      "kurt": 1.511,
-      "positive_pct": 60.5,
-      "p5": -5.65,
-      "p25": -1.512,
-      "p50": 1.17,
-      "p75": 2.767,
-      "p95": 6.795,
-      "histogram": [
-        {
-          "bin_label": "<-15.0%",
-          "center": -17.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-15.00%",
-          "center": -14.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-13.00%",
-          "center": -12.0,
-          "count": 1,
-          "pct": 2.63
-        },
-        {
-          "bin_label": "-11.00%",
-          "center": -10.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-9.00%",
-          "center": -8.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "-7.00%",
-          "center": -6.0,
-          "count": 2,
-          "pct": 5.26
-        },
-        {
-          "bin_label": "-5.00%",
-          "center": -4.0,
-          "count": 1,
-          "pct": 2.63
-        },
-        {
-          "bin_label": "-3.00%",
-          "center": -2.0,
-          "count": 7,
-          "pct": 18.42
-        },
-        {
-          "bin_label": "-1.00%",
-          "center": 0.0,
-          "count": 7,
-          "pct": 18.42
-        },
-        {
-          "bin_label": "+1.00%",
-          "center": 2.0,
-          "count": 11,
-          "pct": 28.95
-        },
-        {
-          "bin_label": "+3.00%",
-          "center": 4.0,
-          "count": 5,
-          "pct": 13.16
-        },
-        {
-          "bin_label": "+5.00%",
-          "center": 6.0,
-          "count": 3,
-          "pct": 7.89
-        },
-        {
-          "bin_label": "+7.00%",
-          "center": 8.0,
-          "count": 1,
-          "pct": 2.63
-        },
-        {
-          "bin_label": "+9.00%",
-          "center": 10.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+11.00%",
-          "center": 12.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": "+13.00%",
-          "center": 14.0,
-          "count": 0,
-          "pct": 0.0
-        },
-        {
-          "bin_label": ">+15.0%",
-          "center": 17.0,
-          "count": 0,
-          "pct": 0.0
-        }
-      ],
-      "normal_curve": [
-        0.0,
-        0.01,
-        0.03,
-        0.16,
-        0.61,
-        1.75,
-        3.79,
-        6.26,
-        7.84,
-        7.46,
-        5.39,
-        2.96,
-        1.24,
-        0.39,
-        0.09,
-        0.02,
-        0.0
-      ],
-      "prob_table": [
-        {
-          "threshold": 1.0,
-          "p_abs": 81.6,
-          "p_up": 52.6,
-          "p_down": 28.9
-        },
-        {
-          "threshold": 2.0,
-          "p_abs": 57.9,
-          "p_up": 36.8,
-          "p_down": 21.1
-        },
-        {
-          "threshold": 3.0,
-          "p_abs": 34.2,
-          "p_up": 23.7,
-          "p_down": 10.5
-        },
-        {
-          "threshold": 5.0,
-          "p_abs": 18.4,
-          "p_up": 10.5,
-          "p_down": 7.9
-        },
-        {
-          "threshold": 7.0,
-          "p_abs": 5.3,
-          "p_up": 2.6,
-          "p_down": 2.6
-        },
-        {
-          "threshold": 10.0,
-          "p_abs": 2.6,
-          "p_up": 0.0,
-          "p_down": 2.6
-        }
-      ]
+      "cc": {
+        "count": 38,
+        "mean": 0.59,
+        "std": 3.8183,
+        "skew": -0.614,
+        "kurt": 1.453,
+        "positive_pct": 57.9,
+        "p5": -5.65,
+        "p25": -1.512,
+        "p50": 0.906,
+        "p75": 2.767,
+        "p95": 6.795,
+        "histogram": [
+          {
+            "bin_label": "<-15.0%",
+            "center": -17.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-15.00%",
+            "center": -14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-13.00%",
+            "center": -12.0,
+            "count": 1,
+            "pct": 2.63
+          },
+          {
+            "bin_label": "-11.00%",
+            "center": -10.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-9.00%",
+            "center": -8.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.0,
+            "count": 2,
+            "pct": 5.26
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.0,
+            "count": 1,
+            "pct": 2.63
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.0,
+            "count": 7,
+            "pct": 18.42
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": 0.0,
+            "count": 8,
+            "pct": 21.05
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 2.0,
+            "count": 10,
+            "pct": 26.32
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 4.0,
+            "count": 5,
+            "pct": 13.16
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 6.0,
+            "count": 3,
+            "pct": 7.89
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 8.0,
+            "count": 1,
+            "pct": 2.63
+          },
+          {
+            "bin_label": "+9.00%",
+            "center": 10.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+11.00%",
+            "center": 12.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+13.00%",
+            "center": 14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+15.0%",
+            "center": 17.0,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.01,
+          0.03,
+          0.17,
+          0.63,
+          1.79,
+          3.86,
+          6.31,
+          7.85,
+          7.42,
+          5.33,
+          2.91,
+          1.21,
+          0.38,
+          0.09,
+          0.02,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 1.0,
+            "p_abs": 78.9,
+            "p_up": 50.0,
+            "p_down": 28.9
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 57.9,
+            "p_up": 36.8,
+            "p_down": 21.1
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 34.2,
+            "p_up": 23.7,
+            "p_down": 10.5
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 18.4,
+            "p_up": 10.5,
+            "p_down": 7.9
+          },
+          {
+            "threshold": 7.0,
+            "p_abs": 5.3,
+            "p_up": 2.6,
+            "p_down": 2.6
+          },
+          {
+            "threshold": 10.0,
+            "p_abs": 2.6,
+            "p_up": 0.0,
+            "p_down": 2.6
+          }
+        ]
+      },
+      "oc": {
+        "count": 39,
+        "mean": 0.44,
+        "std": 3.3051,
+        "skew": -0.364,
+        "kurt": 0.272,
+        "positive_pct": 56.4,
+        "p5": -5.621,
+        "p25": -1.392,
+        "p50": 0.653,
+        "p75": 2.757,
+        "p95": 4.96,
+        "histogram": [
+          {
+            "bin_label": "<-15.0%",
+            "center": -17.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-15.00%",
+            "center": -14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-13.00%",
+            "center": -12.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-11.00%",
+            "center": -10.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "-9.00%",
+            "center": -8.0,
+            "count": 1,
+            "pct": 2.56
+          },
+          {
+            "bin_label": "-7.00%",
+            "center": -6.0,
+            "count": 2,
+            "pct": 5.13
+          },
+          {
+            "bin_label": "-5.00%",
+            "center": -4.0,
+            "count": 1,
+            "pct": 2.56
+          },
+          {
+            "bin_label": "-3.00%",
+            "center": -2.0,
+            "count": 7,
+            "pct": 17.95
+          },
+          {
+            "bin_label": "-1.00%",
+            "center": 0.0,
+            "count": 11,
+            "pct": 28.21
+          },
+          {
+            "bin_label": "+1.00%",
+            "center": 2.0,
+            "count": 8,
+            "pct": 20.51
+          },
+          {
+            "bin_label": "+3.00%",
+            "center": 4.0,
+            "count": 7,
+            "pct": 17.95
+          },
+          {
+            "bin_label": "+5.00%",
+            "center": 6.0,
+            "count": 1,
+            "pct": 2.56
+          },
+          {
+            "bin_label": "+7.00%",
+            "center": 8.0,
+            "count": 1,
+            "pct": 2.56
+          },
+          {
+            "bin_label": "+9.00%",
+            "center": 10.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+11.00%",
+            "center": 12.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": "+13.00%",
+            "center": 14.0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "bin_label": ">+15.0%",
+            "center": 17.0,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "normal_curve": [
+          0.0,
+          0.0,
+          0.01,
+          0.06,
+          0.36,
+          1.41,
+          3.82,
+          7.17,
+          9.33,
+          8.42,
+          5.27,
+          2.29,
+          0.69,
+          0.14,
+          0.02,
+          0.0,
+          0.0
+        ],
+        "prob_table": [
+          {
+            "threshold": 1.0,
+            "p_abs": 71.8,
+            "p_up": 43.6,
+            "p_down": 28.2
+          },
+          {
+            "threshold": 2.0,
+            "p_abs": 51.3,
+            "p_up": 30.8,
+            "p_down": 20.5
+          },
+          {
+            "threshold": 3.0,
+            "p_abs": 33.3,
+            "p_up": 23.1,
+            "p_down": 10.3
+          },
+          {
+            "threshold": 5.0,
+            "p_abs": 12.8,
+            "p_up": 5.1,
+            "p_down": 7.7
+          },
+          {
+            "threshold": 7.0,
+            "p_abs": 5.1,
+            "p_up": 2.6,
+            "p_down": 2.6
+          },
+          {
+            "threshold": 10.0,
+            "p_abs": 0.0,
+            "p_up": 0.0,
+            "p_down": 0.0
+          }
+        ]
+      }
     }
   }
 }
