@@ -6,7 +6,7 @@
   "params": {
     "underlying": "NIFTY",
     "from_date": "2020-08-01",
-    "to_date": "2026-07-19",
+    "to_date": "2026-07-25",
     "entry_time": "09:20",
     "exit_time": "15:15",
     "strategy_type": "iron_condor",
@@ -18,13 +18,13 @@
   },
   "summary": {
     "underlying": "NIFTY",
-    "total_expiry_days": 302,
-    "winning_expiry_days": 214,
-    "win_rate_pct": 70.9,
-    "total_net_pnl": 92262.84,
+    "total_expiry_days": 303,
+    "winning_expiry_days": 215,
+    "win_rate_pct": 71.0,
+    "total_net_pnl": 92321.43,
     "max_drawdown": -10290.54,
     "sharpe_ratio": 1.39,
-    "avg_net_pnl_per_expiry": 305.51
+    "avg_net_pnl_per_expiry": 304.69
   },
   "trades": [
     {
@@ -8784,6 +8784,35 @@
       "cum_pnl": 92262.84,
       "peak": 98230.17,
       "drawdown": -5967.33
+    },
+    {
+      "date": "2026-07-21",
+      "underlying": "NIFTY",
+      "strike": 24500,
+      "ce_strike": 24500,
+      "pe_strike": 24000,
+      "long_ce": 24600,
+      "long_pe": 23900,
+      "lot_size": 65,
+      "spot_entry": 24247.85,
+      "ce_entry": 1.94,
+      "ce_exit": 1.31,
+      "ce_exit_time": "15:15",
+      "ce_exit_reason": "SQUARE_OFF",
+      "ce_net_pnl": 40.95,
+      "ce_costs": 94.77,
+      "pe_entry": 2.98,
+      "pe_exit": -0.2,
+      "pe_exit_time": "15:15",
+      "pe_exit_reason": "SQUARE_OFF",
+      "pe_net_pnl": 206.7,
+      "pe_costs": 94.77,
+      "net_credit": 4.93,
+      "wing_pts": 100,
+      "total_net_pnl": 58.59,
+      "cum_pnl": 92321.43,
+      "peak": 98230.17,
+      "drawdown": -5908.74
     }
   ]
 }
