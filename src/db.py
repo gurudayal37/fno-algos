@@ -56,9 +56,15 @@ class DBManager:
                 close DOUBLE,
                 volume BIGINT,
                 open_interest BIGINT,
+                iv DOUBLE,
                 PRIMARY KEY (security_id, timestamp)
             )
         """)
+        # Migrate existing tables that were created without the iv column
+        try:
+            self.conn.execute("ALTER TABLE option_candles ADD COLUMN IF NOT EXISTS iv DOUBLE")
+        except Exception:
+            pass
         logger.info("DuckDB schemas initialized.")
 
     def save_spot_candles(self, df):
@@ -89,28 +95,30 @@ class DBManager:
     def save_option_candles(self, df):
         """
         Save/Upsert option candles dataframe.
-        df should have columns: ['security_id', 'trading_symbol', 'underlying', 'expiry_date', 'strike', 
-                                 'option_type', 'timestamp', 'open', 'high', 'low', 'close', 'volume', 'open_interest']
+        Required columns: security_id, trading_symbol, underlying, expiry_date, strike,
+                          option_type, timestamp, open, high, low, close, volume, open_interest
+        Optional column:  iv (implied volatility %)
         """
         if df.empty:
             return
-            
+
         conn = self.connect()
-        
-        # Ensure data types are consistent
+
         df = df.copy()
-        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        df['timestamp']   = pd.to_datetime(df['timestamp'])
         df['expiry_date'] = pd.to_datetime(df['expiry_date']).dt.date
         df['security_id'] = df['security_id'].astype(str)
-        df['strike'] = df['strike'].astype(float)
-        
+        df['strike']      = df['strike'].astype(float)
+        if 'iv' not in df.columns:
+            df['iv'] = 0.0
+
         logger.info(f"Saving {len(df)} option candles to database...")
         conn.register("df_temp", df)
         conn.execute("""
-            INSERT OR REPLACE INTO option_candles 
-            SELECT 
-                security_id, trading_symbol, underlying, expiry_date, strike, option_type, 
-                timestamp, open, high, low, close, volume, open_interest 
+            INSERT OR REPLACE INTO option_candles
+            SELECT
+                security_id, trading_symbol, underlying, expiry_date, strike, option_type,
+                timestamp, open, high, low, close, volume, open_interest, iv
             FROM df_temp
         """)
         conn.unregister("df_temp")

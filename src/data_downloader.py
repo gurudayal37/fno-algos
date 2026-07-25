@@ -87,10 +87,13 @@ class DataDownloader:
             return df_to_save
         return pd.DataFrame()
 
-    def download_rolling_option_data(self, underlying, expiry_date, strike_offset="ATM", option_type="CALL", from_date="2026-01-01", to_date="2026-06-01", interval="1"):
+    def download_rolling_option_data(self, underlying, expiry_date, strike_offset="ATM", option_type="CALL", from_date="2026-01-01", to_date="2026-06-01", interval="1", expiry_flag="WEEK", expiry_code=1):
         """
         Downloads expired/rolling options candle data using the v2 rollingoption endpoint
         and saves each candle mapped to its actual contract strike price.
+
+        expiry_flag: "WEEK" for weekly options, "MONTH" for monthly options
+        expiry_code: 1 = nearest expiry, 2 = 2nd expiry, etc.
         """
         if underlying.upper() == "NIFTY":
             security_id = "13"
@@ -106,15 +109,15 @@ class DataDownloader:
 
         logger.debug(
             f"Downloading rolling option: Underlying={underlying}, Expiry={expiry_date}, "
-            f"Offset={strike_offset}, OptionType={option_type}, Range={from_date} to {to_date}"
+            f"Offset={strike_offset}, Type={option_type}, {expiry_flag}/code={expiry_code}, Range={from_date}→{to_date}"
         )
-        
+
         response = self.client.get_rolling_option(
             security_id=security_id,
             exchange_segment=exchange_segment,
             instrument_type=instrument_type,
-            expiry_flag="WEEK",
-            expiry_code=1,
+            expiry_flag=expiry_flag,
+            expiry_code=expiry_code,
             strike=strike_offset,
             option_type=option_type.upper(),
             from_date=from_date,
@@ -218,12 +221,12 @@ class DataDownloader:
                 group_to_save['expiry_date'] = pd.to_datetime(expiry_date)
                 group_to_save['strike'] = float(strike_val)
                 group_to_save['option_type'] = type_code
-                
+
                 df_to_db = group_to_save[[
-                    'security_id', 'trading_symbol', 'underlying', 'expiry_date', 'strike', 
-                    'option_type', 'timestamp', 'open', 'high', 'low', 'close', 'volume', 'open_interest'
+                    'security_id', 'trading_symbol', 'underlying', 'expiry_date', 'strike',
+                    'option_type', 'timestamp', 'open', 'high', 'low', 'close', 'volume', 'open_interest', 'iv'
                 ]]
-                
+
                 self.db.save_option_candles(df_to_db)
                 
             return df
@@ -232,4 +235,22 @@ class DataDownloader:
             logger.error(f"Error parsing rolling option candles: {e}", exc_info=True)
             return pd.DataFrame()
 
+    def download_monthly_option(self, underlying, expiry_date, expiry_code=2, strike_offset="ATM",
+                                option_type="CALL", from_date="2026-01-01", to_date="2026-01-02", interval="1"):
+        """
+        Convenience wrapper for downloading a monthly (MONTH flag) option contract.
+        expiry_code=2 → 2nd upcoming monthly expiry from from_date (= next calendar month).
+        Returns the raw candle DataFrame (also saves to DuckDB).
+        """
+        return self.download_rolling_option_data(
+            underlying=underlying,
+            expiry_date=expiry_date,
+            strike_offset=strike_offset,
+            option_type=option_type,
+            from_date=from_date,
+            to_date=to_date,
+            interval=interval,
+            expiry_flag="MONTH",
+            expiry_code=expiry_code,
+        )
 
