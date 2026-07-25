@@ -88,6 +88,31 @@
     }
   },
   {
+    "id": "nifty_positional_strangle",
+    "name": "NIFTY Positional Strangle",
+    "description": "Sell 10-delta 2nd-month NIFTY strangle every Friday at 3pm; rebalance weekly. BS pricing used where real data is unavailable.",
+    "underlying": "NIFTY",
+    "params": {
+      "strategy_type": "positional_strangle",
+      "underlying": "NIFTY",
+      "delta": 10,
+      "expiry": "2nd_month_monthly",
+      "rebalance": "weekly_friday_3pm",
+      "from_date": "2024-01-01",
+      "to_date": "2026-07-25"
+    },
+    "summary": {
+      "underlying": "NIFTY",
+      "total_expiry_days": 113,
+      "winning_expiry_days": 64,
+      "win_rate_pct": 56.64,
+      "total_net_pnl": -49886.65,
+      "max_drawdown": -63893.95,
+      "sharpe_ratio": -1.1551890424609923,
+      "avg_net_pnl_per_expiry": -441.47477876106194
+    }
+  },
+  {
     "id": "sensex_20delta_strangle",
     "name": "20-Delta Short Strangle",
     "description": "Sells OTM call and put with ~20-delta at entry time on expiry day, with optional stop-losses.",

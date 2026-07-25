@@ -24,7 +24,7 @@ from datetime import date, timedelta
 import pandas as pd
 from tabulate import tabulate
 
-from config import logger
+from config import logger, WEB_DATA_DIR
 from src.db import DBManager
 from src.web_export import export_strategy_result, export_intraday_data
 
@@ -307,54 +307,67 @@ def run_positional_backtest(db: DBManager, from_date: str, to_date: str):
 
 # ── web export ────────────────────────────────────────────────────────────────
 
-def _export_web(args, summary, df_raw, intraday_data):
+def _export_web(args, df_raw: pd.DataFrame, intraday_data: dict):
+    df = df_raw.copy()
+
+    # Fields required by the standard Trade interface / stats functions
+    df["underlying"]     = "NIFTY"
+    df["strike"]         = 0          # strangle has no single strike
+    df["ce_exit_time"]   = "15:00"
+    df["pe_exit_time"]   = "15:00"
+    df["ce_exit_reason"] = df["exit_reason"]
+    df["pe_exit_reason"] = df["exit_reason"]
+    df["ce_costs"]       = COSTS_PER_LOT
+    df["pe_costs"]       = COSTS_PER_LOT
+    df["ce_net_pnl"]     = (df["ce_entry"] - df["ce_exit"]) * df["lot_size"] - COSTS_PER_LOT
+    df["pe_net_pnl"]     = (df["pe_entry"] - df["pe_exit"]) * df["lot_size"] - COSTS_PER_LOT
+    df["cum_pnl"]        = df["total_net_pnl"].cumsum()
+    df["peak"]           = df["cum_pnl"].cummax()
+    df["drawdown"]       = df["cum_pnl"] - df["peak"]
+
+    wins       = int((df["total_net_pnl"] > 0).sum())
+    total      = len(df)
+    weekly_ret = df["total_net_pnl"] / (df["net_credit"] * df["lot_size"])
+    sharpe     = float(weekly_ret.mean() / weekly_ret.std() * (52 ** 0.5)) if weekly_ret.std() > 0 else 0.0
+    max_dd     = float((df["cum_pnl"] - df["cum_pnl"].cummax()).min())
+
+    export_summary = {
+        "underlying":             "NIFTY",
+        "total_expiry_days":      total,
+        "winning_expiry_days":    wins,
+        "win_rate_pct":           round(wins / total * 100, 2) if total else 0.0,
+        "total_net_pnl":          float(df["total_net_pnl"].sum()),
+        "max_drawdown":           max_dd,
+        "sharpe_ratio":           sharpe,
+        "avg_net_pnl_per_expiry": float(df["total_net_pnl"].mean()),
+    }
+
     params = {
         "strategy_type": "positional_strangle",
         "underlying":    "NIFTY",
         "delta":         10,
         "expiry":        "2nd_month_monthly",
         "rebalance":     "weekly_friday_3pm",
-        "lot_size":      LOT_SIZE,
         "from_date":     args.from_date,
         "to_date":       args.to_date,
     }
 
-    trades_out = []
-    for _, r in df_raw.iterrows():
-        trades_out.append({
-            "date":           r["date"],
-            "exit_date":      r["exit_date"],
-            "expiry_date":    r["expiry_date"],
-            "spot_entry":     r["spot_entry"],
-            "ce_strike":      r["ce_strike"],
-            "pe_strike":      r["pe_strike"],
-            "ce_entry":       r["ce_entry"],
-            "ce_exit":        r["ce_exit"],
-            "ce_exit_time":   "15:00",
-            "ce_exit_reason": r["exit_reason"],
-            "ce_costs":       COSTS_PER_LOT,
-            "pe_entry":       r["pe_entry"],
-            "pe_exit":        r["pe_exit"],
-            "pe_exit_time":   "15:00",
-            "pe_exit_reason": r["exit_reason"],
-            "pe_costs":       COSTS_PER_LOT,
-            "lot_size":       r["lot_size"],
-            "net_credit":     r["net_credit"],
-            "total_net_pnl":  r["total_net_pnl"],
-        })
-
     export_strategy_result(
-        strategy_id   = args.strategy_id,
-        strategy_name = args.strategy_name,
-        params        = params,
-        summary       = summary,
-        trades        = trades_out,
+        strategy_id  = args.strategy_id,
+        name         = args.strategy_name,
+        description  = "Sell 10-delta 2nd-month NIFTY strangle every Friday at 3pm; rebalance weekly. BS pricing used where real data is unavailable.",
+        underlying   = "NIFTY",
+        params       = params,
+        summary      = export_summary,
+        df_trades    = df,
+        web_data_dir = WEB_DATA_DIR,
     )
 
     export_intraday_data(
-        strategy_id   = args.strategy_id,
-        trades        = trades_out,
+        strategy_id  = args.strategy_id,
+        df_trades    = df,
         intraday_data = intraday_data,
+        web_data_dir = WEB_DATA_DIR,
     )
 
 
@@ -377,7 +390,7 @@ def main():
         return
 
     if args.export_web:
-        _export_web(args, summary, df, intraday_data)
+        _export_web(args, df, intraday_data)
         logger.info("Web export complete.")
 
 

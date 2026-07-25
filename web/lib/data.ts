@@ -51,7 +51,7 @@ export interface Trade {
   pe_exit_reason: string;
   pe_net_pnl: number;
   pe_costs: number;
-  /** Iron Condor only: net credit collected per share */
+  /** Iron Condor / positional strangle: net credit collected per share */
   net_credit?: number;
   /** Iron Condor only: wing width in points */
   wing_pts?: number;
@@ -59,6 +59,14 @@ export interface Trade {
   cum_pnl: number;
   peak: number;
   drawdown: number;
+  /** Positional strangle only: trade exit date (next rebalance Friday) */
+  exit_date?: string;
+  /** Positional strangle only: options expiry month */
+  expiry_date?: string;
+  /** Positional strangle only: price source (CE:REAL/PE:BS etc.) */
+  entry_src?: string;
+  exit_src?: string;
+  iv_entry?: number;
 }
 
 export interface StrategyDetail extends StrategyIndexEntry {

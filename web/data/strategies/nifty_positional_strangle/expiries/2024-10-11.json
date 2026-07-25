@@ -1,0 +1,36 @@
+{
+  "date": "2024-10-11",
+  "strike": 0,
+  "ce_strike": 26400.0,
+  "pe_strike": 23650.0,
+  "lot_size": 25,
+  "spot_entry": 24975.05,
+  "ce_entry": 78.39,
+  "ce_exit": 52.21,
+  "ce_exit_time": "15:00",
+  "ce_exit_reason": "REBALANCE",
+  "ce_costs": 40.0,
+  "pe_entry": 33.89,
+  "pe_exit": 39.0,
+  "pe_exit_time": "15:00",
+  "pe_exit_reason": "REBALANCE",
+  "pe_costs": 40.0,
+  "total_net_pnl": 446.75,
+  "net_credit": 112.28,
+  "candles": [
+    {
+      "time": "15:00",
+      "spot": 24975.05,
+      "ce": 78.39,
+      "pe": 33.89,
+      "pnl": 0.0
+    },
+    {
+      "time": "15:00*",
+      "spot": 24975.05,
+      "ce": 52.21,
+      "pe": 39.0,
+      "pnl": 17.87
+    }
+  ]
+}

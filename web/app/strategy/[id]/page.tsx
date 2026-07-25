@@ -37,20 +37,31 @@ export default function StrategyPage({ params }: { params: { id: string } }) {
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400">
         <span>From: {String(runParams.from_date)}</span>
         <span>To: {String(runParams.to_date)}</span>
-        <span>Entry: {String(runParams.entry_time)}</span>
-        <span>Exit: {String(runParams.exit_time)}</span>
-        {runParams.sl_pct != null && <span>Leg SL: {String(runParams.sl_pct)}</span>}
-        {runParams.combined_sl_pct != null && <span>Combined SL: {String(runParams.combined_sl_pct)}</span>}
-        {runParams.c2c ? <span>C2C: on</span> : null}
-        <span>Slippage: {String(runParams.slippage_pct)}</span>
-        {runParams.strategy_type === "strangle" && (
-          <span>Target Delta: {String(runParams.target_delta)}</span>
-        )}
-        {runParams.strategy_type === "iron_condor" && (
+        {runParams.strategy_type === "positional_strangle" ? (
           <>
-            <span>Short strikes: ±{String(runParams.short_pct)}% OTM</span>
-            <span>Wing: {String(runParams.wing_points)} pts</span>
-            <span>SL: {String(runParams.sl_type)}</span>
+            <span>Delta: {String(runParams.delta)}Δ</span>
+            <span>Expiry: {String(runParams.expiry)}</span>
+            <span>Rebalance: {String(runParams.rebalance)}</span>
+            <span className="rounded bg-yellow-900/40 px-1.5 py-0.5 text-yellow-400 text-xs">BS fallback where real data absent</span>
+          </>
+        ) : (
+          <>
+            <span>Entry: {String(runParams.entry_time)}</span>
+            <span>Exit: {String(runParams.exit_time)}</span>
+            {runParams.sl_pct != null && <span>Leg SL: {String(runParams.sl_pct)}</span>}
+            {runParams.combined_sl_pct != null && <span>Combined SL: {String(runParams.combined_sl_pct)}</span>}
+            {runParams.c2c ? <span>C2C: on</span> : null}
+            <span>Slippage: {String(runParams.slippage_pct)}</span>
+            {runParams.strategy_type === "strangle" && (
+              <span>Target Delta: {String(runParams.target_delta)}</span>
+            )}
+            {runParams.strategy_type === "iron_condor" && (
+              <>
+                <span>Short strikes: ±{String(runParams.short_pct)}% OTM</span>
+                <span>Wing: {String(runParams.wing_points)} pts</span>
+                <span>SL: {String(runParams.sl_type)}</span>
+              </>
+            )}
           </>
         )}
       </div>
