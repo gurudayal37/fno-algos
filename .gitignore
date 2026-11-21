@@ -18,3 +18,6 @@ data/*.duckdb
 # Logs and Results
 data/*.log
 data/backtest_trades_*.csv
+
+# Local options store (sync_options.py)
+data/options/
